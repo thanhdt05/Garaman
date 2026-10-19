@@ -99,7 +99,7 @@ Các bảng tblManager4, tblWarehouseStaff4 và tblSalesStaff4 không còn thu�
 
 | Vị trí | Sửa cụ thể |
 |---|---|
-| Hình CSDL, bảng tblSparePart4 | tonKho dùng DECIMAL(12,3), NOT NULL, mặc định 0, CHECK >= 0; không dùng integer khi lượng giao dịch cho phép lẻ |
+| Hình CSDL, bảng tblSparePart4 | Đã kiểm tra Hình 2.2: tonKho hiện là decimal(12,3), không cần sửa lại kiểu. SQL bổ sung NOT NULL, DEFAULT 0, CHECK >= 0 theo hợp đồng; còn sửa lời văn loại tồn ở mục D |
 | Phân tích module nhập | tangTonSauNhap() thuộc SparePart4; câu hiện tại đã sửa đúng, giữ nguyên hình giao tiếp |
 | Các hình nhân viên–hóa đơn | Giữ một quan hệ người lập; không thêm đường/FK thanh toán |
 | Biểu đồ lớp thiết kế dùng làm đầu vào code | Ghi ánh xạ kiểu tiền/lượng float → BigDecimal; Date giao dịch → LocalDateTime; ngày sinh → LocalDate; mảng dòng → List. Cập nhật chữ ký thiết kế theo code, không thay nghiệp vụ hoặc nối lại quan hệ vì đổi kiểu triển khai |
@@ -111,6 +111,8 @@ Các thuộc tính biểu diễn thời điểm trên mô hình được triển
 ```
 
 Không buộc chuyển công cụ, không ép vẽ UNIQUE ghép nếu Paradigm không tiện; SQL phải có UNIQUE cặp FK và giữ id PK.
+
+Ở phần trích phương thức ghiNhanThanhToan (P0836–P0837 theo công cụ trích nguồn 08), bổ sung kiểm tra nhân viên hiện tại là người lập vào điều kiện và input; không bổ sung thuộc tính người trả tiền. ERD dùng VARCHAR(255) còn SQL hợp đồng chọn TEXT/độ dài riêng ở một số trường: ghi từng khác biệt và cập nhật bản sao hình hoặc chú thích/từ điển theo 10, không khẳng định các kiểu đã khớp nguyên trạng.
 
 ## 4. Cách sửa báo cáo khi Gemini thực hiện
 

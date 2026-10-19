@@ -1,5 +1,7 @@
 # Hợp đồng dữ liệu và luồng web — phương án cuối
 
+Đọc bổ sung 09 về nguồn/tên file giao diện và 10 về helper, cấu hình, lỗi, version nháp và đồng thời. Các POST sửa draft có thêm `draftVersion`, GET draft/parts/new trả version; các trường kỹ thuật này không thêm vào bảng hoặc thực thể. Không dùng trạng thái/mã/tiền trong sessionStorage của prototype làm dữ liệu app.
+
 Áp dụng cùng `02_KE_HOACH.md` và `07_DOI_CHIEU_BAO_CAO.md`. Giữ mô hình trong DOCX mới nhất cùng quyết định cuối của người dùng: **lưu tồn trực tiếp; một người lập và thực hiện thu/chi trên mỗi hóa đơn; người tiếp nhận lưu riêng**. Không thêm quan hệ nhân viên thanh toán riêng. Danh mục 14 trường đã thống nhất ở file 05 là phần lớn đã có trong DOCX mới, không phải 14 trường phải thêm lần nữa.
 
 ## 1. Quy ước dữ liệu
@@ -322,6 +324,8 @@ Search hiển thị hai list trong cùng một bảng, có loại tương ứng;
 | `csrfToken4` | Token ngẫu nhiên chống request giả, khác mã lần nhập |
 | `purchaseDrafts4` | Map<String,PurchaseInvoice4>, khóa là UUID maYeuCau |
 | `draftFormValues4` | Map<String,Map<String,String>> giữ input dòng chưa hợp lệ theo draft |
+| `draftVersions4` | Map<String,Long>, phiên bản từng draft để phát hiện form cũ |
+| `draftConfirming4` | Set<String>, UUID đang xác nhận; sửa/hủy đồng thời bị409 theo 10 |
 | `flashMessage4` | String, đọc một lần sau redirect |
 
 Không cần lưu kết quả tìm kiếm chung trong session: giữ từ khóa ở URL GET để tìm lại khi quay về. Logout invalidate toàn session, các draft chưa xác nhận mất; hóa đơn đã lưu mở lại được từ DB. Không cam kết phục hồi draft sau đóng trình duyệt/timeout.

@@ -1,5 +1,7 @@
 # Kế hoạch chi tiết cho Gemini — GaraMan đề 26
 
+**Bổ sung sau kiểm tra nguồn:** đọc 08 về điểm còn lệch; nhập giao diện đã sửa trong `giao-dien-tham-chieu/` theo ánh xạ từng file ở 09; thực hiện hợp đồng helper/exception/filter/version nháp/409/format ngày ở 10. Các chữ ký dưới đây là yêu cầu triển khai, chưa có backend tại thời điểm rà soát. Không chép sessionStorage/web.xml/WAR Tomcat10 của prototype sang app.
+
 **Phương án cuối:** giữ DOCX mới và hai module đề 26; lưu `tonKho` trực tiếp; mỗi hóa đơn có đúng một người lập và người đó thực hiện thu/chi; người tiếp nhận lưu riêng trên phiếu. Không thêm quan hệ nhân viên thanh toán riêng. File này là kế hoạch thực hiện chính; file 03 khóa schema/route/dữ liệu; file 07 khóa cách viết và đối chiếu báo cáo.
 
 ## 1. Đầu ra và giới hạn công việc
@@ -63,6 +65,7 @@ Tạo project trong `app/`, không di chuyển bốn tài liệu gốc. Tên pac
 Garaman/
 ├── [4 tài liệu gốc, giữ nguyên]
 ├── ke-hoach/                         # Bộ chỉ dẫn hiện tại
+├── giao-dien-tham-chieu/              # Prototype đã sửa, nhập theo file 09
 └── app/
     ├── pom.xml
     ├── README.md
@@ -80,6 +83,7 @@ Garaman/
     │   ├── 4.3.1_THIET_KE_TINH.md
     │   ├── DOI_CHIEU_PHAN_SAU.md
     │   ├── MODEL_FIELD_MAP.md
+    │   ├── METHOD_MAP.md
     │   ├── diagrams/
     │   │   ├── catalog-ui-flow.puml
     │   │   ├── catalog-design.puml
@@ -159,14 +163,16 @@ Garaman/
         │   ├── resources/db.properties.example
         │   └── webapp/
         │       ├── assets/
-        │       │   ├── css/app.css
+        │       │   ├── css/styles.css
+        │       │   ├── css/forms.css
         │       │   ├── css/print.css
         │       │   ├── js/purchase.js
         │       │   ├── js/print.js
         │       │   └── images/
         │       │       ├── placeholder.svg
-        │       │       ├── dich-vu-loc-dau.svg
-        │       │       └── phu-tung-loc-dau.svg
+        │       │       ├── part.svg
+        │       │       ├── brake.svg
+        │       │       └── garage.svg
         │       └── WEB-INF/
         │           ├── web.xml
         │           └── view/
@@ -174,6 +180,7 @@ Garaman/
         │               │   ├── header.jspf
         │               │   ├── footer.jspf
         │               │   ├── messages.jspf
+        │               │   ├── steps.jspf
         │               │   └── error.jsp
         │               ├── member/gdDangNhap.jsp
         │               ├── customer/
@@ -181,6 +188,8 @@ Garaman/
         │               │   ├── gdTimThongTin.jsp
         │               │   └── gdChiTietThongTin.jsp
         │               └── warehouse/
+        │                   ├── parts-picker.jspf
+        │                   ├── invoice-lines.jspf
         │                   ├── gdChinhKho.jsp
         │                   ├── gdChonNhaCungCap.jsp
         │                   ├── gdThemNhaCungCap.jsp
@@ -269,7 +278,7 @@ private List<PurchaseInvoiceDetail4> layChiTiet(Connection con, int idHoaDon)
 private PurchaseInvoice4 mapInvoice(ResultSet rs) throws SQLException;
 ```
 
-`ghiNhanThanhToan()` trả true nếu request này chuyển trạng thái, false nếu hóa đơn đã thanh toán bởi chính người lập. Trường hợp không tồn tại hoặc số tiền không bằng tổng phải báo lỗi rõ. Quyền kho được Filter kiểm tra; khóa request chống lặp của lần nhập phải kiểm tra nhân viên sở hữu. Nhân viên kho có thể mở/in hóa đơn đã xác nhận theo id; chỉ chính người lập được ghi nhận trả tiền. Danh sách chưa trả lọc theo id người đang đăng nhập. DAO lấy/kiểm tra id người thực hiện từ tham số do Servlet lấy từ session, phải bằng người lập, không lưu thêm FK. Không dùng WarehouseStaffDAO4 chỉ lọc nhân viên còn hoạt động để làm mất người lập cũ trên chứng từ lịch sử.
+`ghiNhanThanhToan()` trả true khi chuyển trạng thái, false khi chính người lập retry hóa đơn đã trả, giữ nguyên thời điểm. Không có hóa đơn→404; sai người→403 kể cả đã trả; số tiền parse sai hoặc chưa trả nhưng khác tổng→400. Thứ tự xử lý chính xác ở 10. Kho có thể mở/in hóa đơn đã xác nhận, nhưng chỉ người lập được pay; danh sách chưa trả lọc theo người hiện tại. DAO nhận id từ Servlet/session, không lưu FK người trả tiền riêng. Không lọc mất người lập cũ trên chứng từ lịch sử chỉ vì đã ngừng làm việc.
 
 Không cần `PurchaseInvoiceDetailDAO4` riêng: chi tiết thuộc aggregate hóa đơn, chỉ được ghi trong transaction của hóa đơn. Không tự dùng DAO con mở connection mới trong transaction.
 
@@ -328,9 +337,9 @@ Quy tắc quan trọng của `PurchaseInvoiceServlet4`:
 | `WebUtil4` | `void forward(req,res,String view)`; `void redirect(req,res,String path)`; `SessionUser4 requireUser(req)`; `String taoCsrfToken(HttpSession session)`; `boolean hopLeCsrf(req)`; `void flash(req,String message)`; `String layFlash(req)`; URL nội bộ gắn contextPath và encode query đúng, không redirect sang giá trị URL tùy ý từ input |
 | `DraftStore4` | `PurchaseInvoice4 taoBanNhap(HttpSession session, Supplier4 supplier, WarehouseStaff4 staff)`; `PurchaseInvoice4 layBanNhap(HttpSession session, String maYeuCau)`; `void luuBanNhap(HttpSession session, PurchaseInvoice4 draft)`; `void xoaBanNhap(HttpSession session, String maYeuCau)`; `PurchaseInvoice4 saoChep(PurchaseInvoice4 draft)`; `void kiemTraGioiHan(HttpSession session)`. Map theo UUID, mỗi session tối đa 10 draft, đầy thì báo người dùng hủy draft cũ, không tự xóa draft đang làm |
 
-Thao tác đọc–sửa–ghi draft phải nằm trong cùng `synchronized(session)` ngắn ở Servlet, vì chỉ đồng bộ từng hàm get/put vẫn có thể mất cập nhật. Sao chép draft trước khi đưa ra ngoài vùng khóa; không giữ khóa session trong lúc chờ in hoặc gọi DB lâu. Hai tab với hai UUID không được trộn hóa đơn. Không lưu draft vào field static hay field của Servlet.
+Thao tác đọc–kiểm tra version–sửa–ghi draft phải nằm trong cùng `synchronized(session)` ngắn ở Servlet. Dùng draftVersions4/draftConfirming4 và helper ở 10 để chặn form cũ hoặc sửa/hủy khi confirm; trả409. Lấy deep-copy trước ra ngoài khóa; không giữ khóa session khi gọi DB. Hai UUID không trộn; hai form cùng UUID/version không âm thầm ghi đè. Không lưu draft vào field static/Servlet.
 
-`DraftStore4` quản lí thêm input thô khi dòng nhập có lỗi: `Map<String,String> layGiaTriForm(HttpSession session, String maYeuCau)` và `void luuGiaTriForm(HttpSession session, String maYeuCau, Map<String,String> values)`. Dùng `draftFormValues4` theo hợp đồng; xóa draft phải xóa cả input thô tương ứng. Các public method tiện ích có thể ném `ValidationException4` nếu đầu vào/session không hợp lệ; `requireUser` xử lí thiếu phiên bằng lỗi quyền rõ ràng, không trả object giả.
+`DraftStore4` quản lí input thô: `Map<String,String> layGiaTriForm(HttpSession session,String maYeuCau)` và `void luuGiaTriForm(HttpSession session,String maYeuCau,Map<String,String> values)`, public static, throws ValidationException4. Xóa draft phải xóa raw/version/cờ tương ứng. Các util/throws chưa ghi đầy đủ ở bảng trên phải theo chữ ký chính xác ở 10; requireUser thiếu phiên báo quyền, không trả user giả.
 
 ### 4.5. File cấu hình, SQL và tài liệu
 
@@ -348,6 +357,7 @@ Thao tác đọc–sửa–ghi draft phải nằm trong cùng `synchronized(sess
 | `TU_DIEN_DU_LIEU.md` | Schema thực tế, kiểu, NULL/default/PK/FK/UNIQUE/CHECK; đánh dấu dữ liệu lịch sử và dẫn xuất |
 | `MA_TRAN_TRUY_VET.md` | Quy tắc/kịch bản → UI → endpoint → Servlet method → DAO method → bảng/cột → test → hình trong 4.3.1; mẫu và mã theo file 07 |
 | `MODEL_FIELD_MAP.md` | Mỗi dòng là một thuộc tính: lớp/field/kiểu trong DOCX → kiểu Java → cột SQL hoặc thuộc tính dẫn xuất/đối tượng; không tự thêm field |
+| `METHOD_MAP.md` | Package/file/class, phạm vi, static/instance, chữ ký đầy đủ (param/return/throws), nơi gọi, route/nhánh, nguồn hợp đồng, vị trí code. Liệt kê hàm nghiệp vụ và helper private thực sự có trong code; getter/setter có thể nhóm theo quy tắc JavaBean. Không đưa method dự kiến chưa triển khai lên sơ đồ |
 | `DOI_CHIEU_PHAN_SAU.md` | Bàn giao tên/hàm và dữ liệu cho 4.3.2, 4.3.3, Chương 5–6 theo file 07; không ghi những mục này đã hoàn thành |
 | `KIEM_THU.md` | Các ca ở phần 8, môi trường, lệnh, kết quả, ảnh/log; chưa chạy thì ghi chưa chạy |
 | `README.md` | Yêu cầu môi trường, import schema/seed, cấu hình DB, build WAR, deploy Tomcat9, URL, tài khoản demo, chạy test và giới hạn module |

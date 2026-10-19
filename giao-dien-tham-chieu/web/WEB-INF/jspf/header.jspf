@@ -1,0 +1,30 @@
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>GaraMan · Quản lý gara ô tô</title>
+  <link rel="stylesheet" href="assets/styles.css">
+  <link rel="stylesheet" href="assets/forms.css">
+  <script src="assets/app.js" defer></script>
+</head>
+<body>
+<a class="skip-link" href="#main">Đến nội dung chính</a>
+<aside class="sidebar">
+  <a class="brand" href="index.jsp" aria-label="GaraMan — chọn không gian làm việc"><span class="brand-mark">G<span>.</span></span><span>GaraMan<small>QUẢN LÝ GARA Ô TÔ</small></span></a>
+  <div class="nav-label" data-role-section="customer">KHÁCH HÀNG</div>
+  <nav aria-label="Khách hàng" data-role-section="customer">
+    <a data-nav="customer-home" href="gdChinhKH4.jsp"><span class="nav-icon">⌂</span>Trang chính</a>
+    <a data-nav="search" href="gdTimDichVuPhuTung4.jsp"><span class="nav-icon">⌕</span>Dịch vụ &amp; phụ tùng</a>
+  </nav>
+  <div class="nav-label" data-role-section="warehouse">NHÂN VIÊN KHO</div>
+  <nav aria-label="Nhân viên kho" data-role-section="warehouse">
+    <a data-nav="warehouse-home" href="gdChinhNVKho4.jsp"><span class="nav-icon">▦</span>Trang chính</a>
+    <a data-nav="purchase" href="gdChonNhaCungCap4.jsp"><span class="nav-icon">↙</span>Nhập phụ tùng</a>
+  </nav>
+  <div class="sidebar-bottom"><span class="mini-label">GARAMAN / WEB</span><p>Mọi thông tin.<br>Một nơi quản lý.</p><a href="index.jsp">Đổi không gian làm việc <span aria-hidden="true">↗</span></a></div>
+</aside>
+<div class="workspace">
+  <header class="topbar"><div class="breadcrumb">GaraMan <span>/</span> <span id="workspace-name">Không gian làm việc</span></div><div class="profile"><span class="avatar" id="profile-initials">GM</span><div><strong id="profile-name">GaraMan</strong><small id="profile-role">Giao diện mẫu</small></div></div></header>
+  <main id="main" tabindex="-1">

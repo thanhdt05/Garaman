@@ -1,0 +1,7 @@
+<%@ page pageEncoding="UTF-8" %>
+  </main>
+  <footer class="footer"><span>GaraMan · Hệ thống quản lý gara ô tô</span><span>Thiết kế giao diện · Đề 26</span></footer>
+</div>
+<div class="toast" id="toast" role="status" hidden></div>
+</body>
+</html>

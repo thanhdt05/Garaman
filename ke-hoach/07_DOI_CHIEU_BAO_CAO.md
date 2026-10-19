@@ -8,7 +8,7 @@
 |---|---|---|
 | DOCX mới của người dùng | Kịch bản hai module; hình lớp phân tích đang là 1.5/1.6; giao tiếp; lớp thực thể và CSDL | Đầu vào nghiệp vụ và mô hình, giữ hậu tố 4 và luồng người dùng đã làm |
 | Ngân hàng đề, ĐỀ SỐ 26, trang PDF 27 | Tra cứu và nhập phụ tùng; yêu cầu giao tiếp/lớp thiết kế/CSDL/code/gói/triển khai | Chốt hai module, đề GaraMan khác chỉ cung cấp ngữ cảnh |
-| Bài giảng, 4.3.1, trang in 96–102 (PDF 97–103) | Bốn bước thiết kế tĩnh; Hình 4.3–4.8 | Trình bày từng module với thiết kế giao diện và biểu đồ lớp thiết kế, không chỉ chụp web hoặc chỉ dán code |
+| Bài giảng, 4.3.1, trang in 96–103 (PDF 97–104) | Bốn bước ở trang in 96–97; Hình 4.3–4.8, riêng Hình 4.8 ở trang in 103 | Trình bày mỗi module với thiết kế giao diện và biểu đồ lớp thiết kế, không chỉ chụp web/dán code |
 | Bài giảng, 4.3.2, trang in 103–112 | Hoạt động, kịch bản phiên bản 3, tuần tự thiết kế | Dùng đúng các hàm đã chốt trong biểu đồ lớp và code |
 | Bài giảng, 4.3.3, trang in 113–114 | Gói và triển khai | Vẽ package thực và các node chạy hệ thống |
 | Lab1 | JSP + Servlet + JDBC + MySQL + DAO; JavaBean/UserDAO/UserServlet và các JSP | JSP giao diện, Servlet nhận request, DAO truy cập DB, model chứa dữ liệu |

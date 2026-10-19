@@ -1,0 +1,32 @@
+.inline-search {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 15px;
+  align-items: end;
+}
+.picker-result { margin: 22px 0 0; }
+.payment-form {
+  display: grid;
+  grid-template-columns: minmax(200px, 360px) auto;
+  gap: 18px;
+  align-items: center;
+  justify-content: start;
+}
+.payment-form .btn { margin-top: 9px; }
+.resume-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+.resume-actions:has(a:not([hidden])) { margin-bottom: 25px; }
+#cart-table tr:focus-within { background: #edf3f9; }
+#cart-table th, #cart-table td { padding-left: 13px; padding-right: 13px; }
+#cart-table td:nth-child(2) { min-width: 155px; }
+#cart-table .table-input { width: 75px; }
+#cart-table .price { width: 105px; }
+[aria-invalid="true"] { border-color: #a45348 !important; }
+#payment-time-row { margin: 18px 0 0; }
+@media (max-width: 760px) {
+  .inline-search, .payment-form { grid-template-columns: 1fr; }
+  .payment-form .btn { margin-top: 0; }
+  .invoice th, .invoice td { white-space: nowrap; }
+}
+@media print {
+  .invoice .table-wrap { overflow: visible; }
+}

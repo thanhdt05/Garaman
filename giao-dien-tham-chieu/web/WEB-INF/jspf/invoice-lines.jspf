@@ -1,0 +1,12 @@
+<%@ page pageEncoding="UTF-8" %>
+<div class="table-wrap">
+  <table>
+    <thead><tr><th>STT</th><th>Tên phụ tùng</th><th>ĐVT</th><th class="number">Số lượng</th><th class="number">Đơn giá nhập (₫)</th><th class="number">Thành tiền (₫)</th></tr></thead>
+    <tbody data-invoice-lines>
+      <tr data-id="PT1" data-name="Lọc dầu động cơ AF-01" data-brand="AutoFilter" data-unit="Cái" data-quantity="10" data-price="80000">
+        <td class="code">01</td><td><strong>Lọc dầu động cơ AF-01</strong><small>PT1</small></td><td>Cái</td><td class="number">10</td><td class="number">80.000</td><td class="number">800.000</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<div class="total-row"><span>Tổng tiền hóa đơn</span><strong data-invoice-total>800.000 ₫</strong></div>

@@ -1,0 +1,24 @@
+<%@ page pageEncoding="UTF-8" %>
+<section class="panel" id="parts-picker">
+  <div class="panel-head"><h2>Tìm và chọn phụ tùng</h2><a class="text-link" href="gdThemPhuTung4.jsp">+ Thêm phụ tùng mới</a></div>
+  <div class="panel-body">
+    <form id="part-search" class="inline-search" novalidate>
+      <div class="field"><label for="tenPhuTung">Tên phụ tùng</label><input id="tenPhuTung" name="ten" maxlength="150" placeholder="Nhập tên hoặc một phần tên, ví dụ: Lọc" required aria-describedby="part-search-error"></div>
+      <button class="btn btn-primary" type="submit">Tìm kiếm</button>
+    </form>
+    <p class="error" id="part-search-error" role="alert" hidden></p>
+    <div class="field picker-result" id="part-results" hidden>
+      <label for="phuTung">Phụ tùng tìm thấy <span class="result-count" id="part-result-count"></span></label>
+      <select id="phuTung" name="phuTung"><option value="">— Chọn phụ tùng để thêm vào hóa đơn —</option></select>
+      <small>Chọn một kết quả để thêm dòng nhập. Phụ tùng đã có sẽ được đưa về dòng tương ứng.</small>
+    </div>
+    <p class="page-subtitle picker-result" id="part-search-initial">Nhập tên và chọn Tìm kiếm để xem các phụ tùng phù hợp.</p>
+    <div class="empty" id="part-search-empty" hidden><strong>Không tìm thấy phụ tùng</strong>Thử tên khác hoặc chọn “Thêm phụ tùng mới”.</div>
+  </div>
+</section>
+<!-- Nội dung HTML minh họa để tạo lựa chọn; không có API hoặc lớp mock data. -->
+<template id="part-options">
+  <option value="PT1" data-name="Lọc dầu động cơ AF-01" data-unit="Cái" data-brand="AutoFilter">PT1 · Lọc dầu động cơ AF-01 · Cái · AutoFilter</option>
+  <option value="PT3" data-name="Má phanh trước Bosch" data-unit="Bộ" data-brand="Bosch">PT3 · Má phanh trước Bosch · Bộ · Bosch</option>
+  <option value="PT4" data-name="Dầu động cơ Castrol 5W-30" data-unit="Lít" data-brand="Castrol">PT4 · Dầu động cơ Castrol 5W-30 · Lít · Castrol</option>
+</template>

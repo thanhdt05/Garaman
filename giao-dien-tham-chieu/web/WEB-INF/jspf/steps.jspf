@@ -1,0 +1,2 @@
+<%@ page pageEncoding="UTF-8" %>
+<ol class="stepper" aria-label="Quy trình nhập phụ tùng"><li><span class="step-number">1</span>Chọn nhà cung cấp</li><li><span class="step-number">2</span>Lập hóa đơn</li><li><span class="step-number">3</span>Hóa đơn xác nhận</li><li><span class="step-number">4</span>Bản in hóa đơn</li></ol>

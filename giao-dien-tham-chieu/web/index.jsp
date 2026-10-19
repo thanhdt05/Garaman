@@ -1,0 +1,7 @@
+<%@ page pageEncoding="UTF-8" %>
+<%@ include file="WEB-INF/jspf/header.jspf" %>
+<div class="page-heading"><div><div class="eyebrow">GARAMAN / KHÔNG GIAN LÀM VIỆC</div><h1>Chào mừng đến GaraMan</h1><p>Chọn vai trò để mở giao diện tương ứng.</p></div><span class="badge neutral">Đề số 26</span></div>
+<section class="hero"><div><span class="mini-label">HỆ THỐNG QUẢN LÝ GARA Ô TÔ</span><h2>Chăm sóc chiếc xe.<br>Kết nối mọi công việc.</h2><p>Tra cứu dịch vụ, tìm thông tin phụ tùng và thực hiện quy trình nhập phụ tùng tại gara.</p></div><img src="assets/garage.svg" alt="Minh họa ô tô tại gara"></section>
+<div class="feature-row"><section class="feature"><span class="feature-number">01 / KHÁCH HÀNG</span><h2>Tìm đúng dịch vụ, đúng phụ tùng</h2><p>Tra cứu theo tên và xem thông tin chi tiết, giá bán cùng chính sách bảo hành.</p><a class="btn btn-primary" href="gdChinhKH4.jsp">Vào trang khách hàng <span aria-hidden="true">→</span></a></section><section class="feature"><span class="feature-number">02 / NHÂN VIÊN KHO</span><h2>Nhập phụ tùng từ nhà cung cấp</h2><p>Chọn nhà cung cấp, lập danh sách phụ tùng và kiểm tra hóa đơn nhập.</p><a class="btn" href="gdChinhNVKho4.jsp">Vào trang nhân viên kho <span aria-hidden="true">→</span></a></section></div>
+<p class="welcome-note">Bản giao diện mẫu phục vụ thiết kế tĩnh. Các thao tác chưa lưu vào hệ thống.</p>
+<%@ include file="WEB-INF/jspf/footer.jspf" %>

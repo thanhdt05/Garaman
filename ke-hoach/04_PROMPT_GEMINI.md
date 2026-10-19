@@ -1,6 +1,6 @@
 # Prompt giao việc cho Gemini — bản cuối
 
-Copy toàn bộ khối bên dưới, cung cấp thư mục `ke-hoach/` và bốn tài liệu gốc. File 02 là kế hoạch thực hiện chính; 03 là hợp đồng dữ liệu/route; 07 là mẫu viết và đối chiếu báo cáo. Đây là một phương án đã chốt, không yêu cầu Gemini lập lại phương án để chọn.
+Copy toàn bộ khối bên dưới, cung cấp `ke-hoach/`, `giao-dien-tham-chieu/` và bốn tài liệu gốc. File 02 là kế hoạch chính; 03 khóa dữ liệu/route; 07 khóa báo cáo; 08 ghi kết quả rà soát nguồn; 09 ánh xạ từng file giao diện; 10 đóng các hợp đồng kỹ thuật còn thiếu. Đây là một phương án thực hiện, không yêu cầu lập lại phương án để chọn.
 
 ---
 
@@ -14,6 +14,10 @@ Thực hiện GaraMan đề 26 cho Đàm Tiến Thành, B23DCCN764. Mục tiêu 
 4. `LAB1-JavaProgrammingBasic.docx`: cách tổ chức JSP/Servlet/JDBC/MySQL/DAO.
 
 Đọc toàn bộ các file hiện tại trong `ke-hoach/`, bắt đầu README. Tuân thủ 01 về những sửa cuối trong báo cáo; 02 về cấu trúc/file/hàm/trình tự/test; 03 về schema và giao tiếp; 05 về thuộc tính; 07 về bố cục và ma trận báo cáo. Không sử dụng những yêu cầu đã bị thay thế trong lịch sử trò chuyện.
+
+Đọc bắt buộc 08/09/10. Báo cáo nguồn chính ở Garaman có hash trong 08; không lấy DOCX khác trong Garaman1 thay thế. Tái sử dụng bố cục HTML/CSS/SVG của `giao-dien-tham-chieu/web` theo từng hàng 09, không tự thiết kế lại hoặc nhập JS sessionStorage/HTML hóa đơn fallback sang app thật. Các sửa UI đã có không chứng minh backend đã hoạt động. Chữ ký/throws, filter/config, draftVersion/409, giới hạn số, retry/pay và render LocalDateTime theo 10.
+
+Tạo app/docs/METHOD_MAP.md cùng MODEL_FIELD_MAP.md; mọi hàm xuất hiện ở class/sequence diagram phải tìm được đúng chữ ký và nơi gọi trong code. Helper private được phép thêm để phân rã nhưng phải liệt kê nếu xuất hiện trên hình; không tự đặt tên một method trên sơ đồ rồi bỏ trống code. Mọi mục ngoài phạm vi chỉ ghi chuẩn bị/chưa thực hiện.
 
 Các quyết định cố định:
 

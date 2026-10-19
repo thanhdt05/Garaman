@@ -1,0 +1,96 @@
+# ==============================================================================
+# Hình ảnh & Thư mục ảnh chụp kiểm thử (Screenshots & Media)
+# ==============================================================================
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.bmp
+*.ico
+*.webp
+*.psd
+*.ai
+
+# Thư mục ảnh và kết quả kiểm thử tự động
+docs/anh-giao-dien/
+**/anh-giao-dien/
+test-results/
+playwright-report/
+blob-report/
+
+# Ngoại lệ: Giữ lại icon/ảnh tài nguyên UI của web nếu có
+!**/web/assets/*.svg
+!**/web/assets/*.png
+!**/web/assets/*.jpg
+!**/web/assets/*.ico
+
+# ==============================================================================
+# Review & Công cụ nội bộ tạm thời
+# ==============================================================================
+.review/
+.review-tools/
+scratch/
+
+# ==============================================================================
+# Java & Web / Runtime Server (Tomcat, Build tools)
+# ==============================================================================
+*.class
+*.jar
+*.war
+*.ear
+*.nar
+target/
+bin/
+build/
+out/
+.runtime/
+**/work/
+**/temp/
+*.log
+catalina.out
+
+# ==============================================================================
+# Node & JavaScript dependencies
+# ==============================================================================
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# ==============================================================================
+# Python cache
+# ==============================================================================
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+
+# ==============================================================================
+# IDE & Code Editors
+# ==============================================================================
+.idea/
+*.iml
+*.ipr
+*.iws
+.vscode/
+.settings/
+.project
+.classpath
+.nb-cache/
+nbproject/private/
+*.sublime-project
+*.sublime-workspace
+
+# ==============================================================================
+# Hệ điều hành & File tạm
+# ==============================================================================
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+.DS_Store
+*.tmp
+*.temp
+*.bak
+*~
