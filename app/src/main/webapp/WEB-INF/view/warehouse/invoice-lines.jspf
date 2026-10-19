@@ -1,0 +1,51 @@
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<fmt:setLocale value="vi_VN" />
+
+<div class="table-wrap">
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th style="width: 50px;">STT</th>
+        <th>Tên phụ tùng</th>
+        <th style="width: 90px;">ĐVT</th>
+        <th style="width: 120px; text-align: right;">Số lượng</th>
+        <th style="width: 150px; text-align: right;">Đơn giá nhập</th>
+        <th style="width: 160px; text-align: right;">Thành tiền</th>
+      </tr>
+    </thead>
+    <tbody>
+      <c:forEach var="ct" items="${hoaDon.dsChiTietNhap}" varStatus="status">
+        <tr>
+          <td class="code" style="text-align: center;">
+            <fmt:formatNumber value="${status.index + 1}" pattern="00" />
+          </td>
+          <td>
+            <strong><c:out value="${ct.tenPhuTungApDung}" /></strong>
+            <c:if test="${ct.phuTung != null}">
+              <br><small style="color: var(--muted);">Mã: PT<c:out value="${ct.phuTung.id}" /></small>
+            </c:if>
+          </td>
+          <td><c:out value="${ct.donViApDung}" /></td>
+          <td style="text-align: right; font-weight: 500;">
+            <fmt:formatNumber value="${ct.soLuong}" maxFractionDigits="3" />
+          </td>
+          <td style="text-align: right;">
+            <fmt:formatNumber value="${ct.donGiaNhap}" type="currency" currencySymbol="₫" maxFractionDigits="0" />
+          </td>
+          <td style="text-align: right; font-weight: 600;">
+            <fmt:formatNumber value="${ct.thanhTien}" type="currency" currencySymbol="₫" maxFractionDigits="0" />
+          </td>
+        </tr>
+      </c:forEach>
+    </tbody>
+  </table>
+</div>
+
+<div class="total-row" style="display: flex; justify-content: space-between; align-items: center; padding: 16px 20px; background: var(--bg-alt); border-radius: 8px; margin-top: 16px; border: 1px solid var(--border);">
+  <span style="font-weight: 600; font-size: 15px;">Tổng tiền hóa đơn:</span>
+  <strong style="font-size: 20px; color: var(--primary);" id="invoice-total">
+    <fmt:formatNumber value="${hoaDon.tongTien}" type="currency" currencySymbol="₫" maxFractionDigits="0" />
+  </strong>
+</div>

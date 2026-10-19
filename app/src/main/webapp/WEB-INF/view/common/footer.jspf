@@ -1,0 +1,9 @@
+<%@ page pageEncoding="UTF-8" %>
+  </main>
+  <footer class="footer">
+    <span>GaraMan · Hệ thống quản lý gara ô tô (Đề 26 - PTIT)</span>
+    <span>Phiên bản 1.0.0 (JSP/Servlet/JDBC/MySQL)</span>
+  </footer>
+</div>
+</body>
+</html>

@@ -1,0 +1,119 @@
+@startuml
+skinparam style strictuml
+skinparam classAttributeIconSize 0
+skinparam packageStyle rectangle
+skinparam shadowing false
+skinparam roundcorner 5
+
+title Biểu đồ lớp thiết kế tĩnh - Modul Khách hàng tìm kiếm dịch vụ / phụ tùng (Đề 26)
+
+package "Tầng Giao diện (Presentation / JSP)" {
+    class "gdChinhKH.jsp" as gdChinhKH <<boundary>> {
+        + hienThiTrangChinh()
+    }
+    class "gdTimThongTin.jsp" as gdTimThongTin <<boundary>> {
+        + formTimKiem(tuKhoa: String)
+        + hienThiKetQua(dsDichVu, dsPhuTung)
+        + thongBaoLoi(thongBao: String)
+    }
+    class "gdChiTietThongTin.jsp" as gdChiTietThongTin <<boundary>> {
+        + hienThiChiTiet(dichVu | phuTung)
+        + quayLai(tuKhoa: String)
+    }
+}
+
+package "Tầng Điều khiển (Controller / Servlet)" {
+    class CatalogServlet4 <<control>> {
+        # doGet(req: HttpServletRequest, resp: HttpServletResponse): void
+        # doPost(req: HttpServletRequest, resp: HttpServletResponse): void
+        - hienThiTimKiem(req: HttpServletRequest, resp: HttpServletResponse): void
+        - timKiem(req: HttpServletRequest, resp: HttpServletResponse): void
+        - xemChiTiet(req: HttpServletRequest, resp: HttpServletResponse): void
+    }
+}
+
+package "Tầng Truy xuất Dữ liệu (Data Access Object)" {
+    abstract class DAO {
+        # getConnection(): Connection
+        # closeQuietly(closeables: AutoCloseable...): void
+    }
+
+    class ServiceDAO4 {
+        + timDichVuTheoTen(tuKhoa: String): List<Service4>
+        + layChiTietDichVu(id: int): Service4
+        - mapService(rs: ResultSet): Service4
+    }
+
+    class SparePartDAO4 {
+        + timPhuTungTheoTen(tuKhoa: String, chiCongBo: boolean): List<SparePart4>
+        + layChiTietPhuTung(id: int, chiCongBo: boolean): SparePart4
+        + themPhuTung(phuTung: SparePart4): int
+        ~ tangTonSauNhap(conn: Connection, phuTungId: int, soLuongTang: BigDecimal): void
+        - mapSparePart(rs: ResultSet): SparePart4
+    }
+
+    DAO <|-- ServiceDAO4
+    DAO <|-- SparePartDAO4
+}
+
+package "Tầng Thực thể (Entity Model)" {
+    class Service4 <<entity>> {
+        - id: int
+        - maDichVu: String
+        - ten: String
+        - moTa: String
+        - giaTienCong: BigDecimal
+        - thoiGianUocTinhPhut: Integer
+        - baoHanhThang: Integer
+        - dieuKienBaoHanh: String
+        - trangThai: String
+    }
+
+    class SparePart4 <<entity>> {
+        - id: int
+        - maPhuTung: String
+        - ten: String
+        - moTa: String
+        - hangSanXuat: String
+        - thongSoKyThuat: String
+        - donViTinh: String
+        - giaBan: BigDecimal
+        - tonKho: BigDecimal
+        - baoHanhThang: Integer
+        - dieuKienBaoHanh: String
+        - trangThai: String
+        - nhomPhuTung: SparePartCategory4
+    }
+
+    class SparePartCategory4 <<entity>> {
+        - id: int
+        - maNhom: String
+        - ten: String
+        - moTa: String
+        - trangThai: String
+    }
+
+    SparePart4 " * " o-- " 1 " SparePartCategory4 : thuộc nhóm >
+}
+
+' Các mối quan hệ phụ thuộc (Dependencies)
+gdChinhKH ..> CatalogServlet4 : <<GET /customer/catalog>>
+gdTimThongTin ..> CatalogServlet4 : <<GET /customer/catalog?tuKhoa=...>>
+gdChiTietThongTin ..> CatalogServlet4 : <<GET /customer/catalog/detail?id=...&loai=...>>
+
+CatalogServlet4 ..> gdTimThongTin : <<forwards>>
+CatalogServlet4 ..> gdChiTietThongTin : <<forwards>>
+
+CatalogServlet4 ..> ServiceDAO4 : <<calls>>
+CatalogServlet4 ..> SparePartDAO4 : <<calls>>
+
+ServiceDAO4 ..> Service4 : <<instantiates / reads>>
+SparePartDAO4 ..> SparePart4 : <<instantiates / reads>>
+SparePartDAO4 ..> SparePartCategory4 : <<reads>>
+
+gdTimThongTin ..> Service4 : <<renders>>
+gdTimThongTin ..> SparePart4 : <<renders>>
+gdChiTietThongTin ..> Service4 : <<renders>>
+gdChiTietThongTin ..> SparePart4 : <<renders>>
+
+@enduml

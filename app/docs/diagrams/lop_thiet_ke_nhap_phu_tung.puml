@@ -1,0 +1,223 @@
+@startuml
+skinparam style strictuml
+skinparam classAttributeIconSize 0
+skinparam packageStyle rectangle
+skinparam shadowing false
+skinparam roundcorner 5
+
+title Biểu đồ lớp thiết kế tĩnh - Modul Nhân viên kho nhập phụ tùng (Đề 26)
+
+package "Tầng Giao diện (Presentation / JSP)" {
+    class "gdChinhKho.jsp" as gdChinhKho <<boundary>>
+    class "gdChonNhaCungCap.jsp" as gdChonNhaCungCap <<boundary>>
+    class "gdThemNhaCungCap.jsp" as gdThemNhaCungCap <<boundary>>
+    class "gdLapHoaDonNhap.jsp" as gdLapHoaDonNhap <<boundary>>
+    class "gdThemPhuTung.jsp" as gdThemPhuTung <<boundary>>
+    class "gdHoaDonNhapDaXacNhan.jsp" as gdHoaDonNhapDaXacNhan <<boundary>>
+    class "gdInHoaDonNhap.jsp" as gdInHoaDonNhap <<boundary>>
+}
+
+package "Tầng Điều khiển (Controller / Servlet)" {
+    class SupplierServlet4 <<control>> {
+        # doGet(req: HttpServletRequest, resp: HttpServletResponse): void
+        # doPost(req: HttpServletRequest, resp: HttpServletResponse): void
+        - danhSachNhaCungCap(req: HttpServletRequest, resp: HttpServletResponse): void
+        - hienThiThemNhaCungCap(req: HttpServletRequest, resp: HttpServletResponse): void
+        - xuLyThemNhaCungCap(req: HttpServletRequest, resp: HttpServletResponse): void
+    }
+
+    class SparePartServlet4 <<control>> {
+        # doGet(req: HttpServletRequest, resp: HttpServletResponse): void
+        # doPost(req: HttpServletRequest, resp: HttpServletResponse): void
+        - hienThiThemPhuTung(req: HttpServletRequest, resp: HttpServletResponse): void
+        - xuLyThemPhuTung(req: HttpServletRequest, resp: HttpServletResponse): void
+    }
+
+    class PurchaseInvoiceServlet4 <<control>> {
+        # doGet(req: HttpServletRequest, resp: HttpServletResponse): void
+        # doPost(req: HttpServletRequest, resp: HttpServletResponse): void
+        - khoiTaoHoaDon(req: HttpServletRequest, resp: HttpServletResponse): void
+        - hienThiLapHoaDon(req: HttpServletRequest, resp: HttpServletResponse): void
+        - timPhuTung(req: HttpServletRequest, resp: HttpServletResponse): void
+        - themDongPhuTung(req: HttpServletRequest, resp: HttpServletResponse): void
+        - capNhatDong(req: HttpServletRequest, resp: HttpServletResponse): void
+        - xoaDong(req: HttpServletRequest, resp: HttpServletResponse): void
+        - huyHoaDon(req: HttpServletRequest, resp: HttpServletResponse): void
+        - xacNhanHoaDon(req: HttpServletRequest, resp: HttpServletResponse): void
+        - xemHoaDon(req: HttpServletRequest, resp: HttpServletResponse): void
+        - inHoaDon(req: HttpServletRequest, resp: HttpServletResponse): void
+        - thanhToanHoaDon(req: HttpServletRequest, resp: HttpServletResponse): void
+        - danhSachChuaThanhToan(req: HttpServletRequest, resp: HttpServletResponse): void
+    }
+}
+
+package "Tầng Hỗ trợ Kỹ thuật & Nháp (DTO / Util)" {
+    class DraftStore4 <<utility>> {
+        + {static} getDraft(session: HttpSession, draftId: String): PurchaseInvoiceDraftDTO4
+        + {static} saveDraft(session: HttpSession, draft: PurchaseInvoiceDraftDTO4): void
+        + {static} removeDraft(session: HttpSession, draftId: String): void
+    }
+
+    class ValidationUtil4 <<utility>> {
+        + {static} validateSoLuong(sl: BigDecimal, donVi: String): String
+        + {static} validateDonGiaNhap(gia: BigDecimal): String
+    }
+}
+
+package "Tầng Truy xuất Dữ liệu (Data Access Object)" {
+    abstract class DAO {
+        # getConnection(): Connection
+        # closeQuietly(closeables: AutoCloseable...): void
+    }
+
+    class SupplierDAO4 {
+        + timNhaCungCapTheoTen(tuKhoa: String): List<Supplier4>
+        + layThongTinNhaCungCap(id: int): Supplier4
+        + themNhaCungCap(ncc: Supplier4): int
+        - mapSupplier(rs: ResultSet): Supplier4
+    }
+
+    class WarehouseStaffDAO4 {
+        + layThongTinNhanVienKho(memberId: int): WarehouseStaff4
+    }
+
+    class SparePartCategoryDAO4 {
+        + layDanhSachNhom(): List<SparePartCategory4>
+        + layNhomTheoId(id: int): SparePartCategory4
+    }
+
+    class SparePartDAO4 {
+        + timPhuTungTheoTen(tuKhoa: String, chiCongBo: boolean): List<SparePart4>
+        + layChiTietPhuTung(id: int, chiCongBo: boolean): SparePart4
+        + themPhuTung(phuTung: SparePart4): int
+        ~ tangTonSauNhap(conn: Connection, phuTungId: int, soLuongTang: BigDecimal): void
+        - mapSparePart(rs: ResultSet): SparePart4
+    }
+
+    class PurchaseInvoiceDAO4 {
+        + luuHoaDonNhap(hoaDon: PurchaseInvoice4): int
+        + layThongTinHoaDonNhap(id: int): PurchaseInvoice4
+        + ghiNhanThanhToan(hoaDonId: int, soTienThanhToan: BigDecimal, nhanVienHienTaiId: int): boolean
+        + layDanhSachChuaThanhToanTheoNguoiLap(nguoiLapId: int): List<PurchaseInvoice4>
+        - kiemTraMaYeuCauDaLuu(maYeuCau: String): Integer
+        - chenHoaDon(conn: Connection, hoaDon: PurchaseInvoice4): int
+        - chenChiTiet(conn: Connection, hoaDonId: int, ct: PurchaseInvoiceDetail4): void
+        - khoaDuLieu(conn: Connection, nccId: int, nvId: int, partIds: List<Integer>): void
+    }
+
+    DAO <|-- SupplierDAO4
+    DAO <|-- WarehouseStaffDAO4
+    DAO <|-- SparePartCategoryDAO4
+    DAO <|-- SparePartDAO4
+    DAO <|-- PurchaseInvoiceDAO4
+
+    PurchaseInvoiceDAO4 ..> SparePartDAO4 : <<~ tangTonSauNhap() in transaction>>
+}
+
+package "Tầng Thực thể (Entity Model)" {
+    class Member4 <<entity>> {
+        - id: int
+        - tenDangNhap: String
+        - hoTen: String
+        - soDienThoai: String
+        - email: String
+        - vaiTro: String
+    }
+
+    class Employee4 <<entity>> {
+        - maNhanVien: String
+        - chucVu: String
+        - phongBan: String
+        - ngayTuyenDung: LocalDate
+        - trangThaiLamViec: String
+    }
+
+    class WarehouseStaff4 <<entity>> {
+        - khuVucQuanLy: String
+        - chungChiKho: String
+    }
+
+    Member4 <|-- Employee4
+    Employee4 <|-- WarehouseStaff4
+
+    class Supplier4 <<entity>> {
+        - id: int
+        - maNhaCungCap: String
+        - ten: String
+        - diaChi: String
+        - soDienThoai: String
+        - email: String
+        - trangThai: String
+    }
+
+    class SparePartCategory4 <<entity>> {
+        - id: int
+        - maNhom: String
+        - ten: String
+        - trangThai: String
+    }
+
+    class SparePart4 <<entity>> {
+        - id: int
+        - maPhuTung: String
+        - ten: String
+        - donViTinh: String
+        - giaBan: BigDecimal
+        - tonKho: BigDecimal
+        - trangThai: String
+        - nhomPhuTung: SparePartCategory4
+    }
+
+    class PurchaseInvoice4 <<entity>> {
+        - id: int
+        - maHoaDon: String
+        - maYeuCau: String
+        - ngayNhap: LocalDateTime
+        - trangThaiThanhToan: String
+        - ngayThanhToan: LocalDateTime
+        - nhaCungCap: Supplier4
+        - nguoiLap: WarehouseStaff4
+        - danhSachChiTiet: List<PurchaseInvoiceDetail4>
+        + tinhTongTien(): BigDecimal
+    }
+
+    class PurchaseInvoiceDetail4 <<entity>> {
+        - id: int
+        - soLuong: BigDecimal
+        - donGiaNhap: BigDecimal
+        - tenApDung: String
+        - donViApDung: String
+        - phuTung: SparePart4
+        + getThanhTien(): BigDecimal
+    }
+
+    SparePart4 " * " o-- " 1 " SparePartCategory4 : thuộc nhóm >
+    PurchaseInvoice4 " * " *-- " 1..* " PurchaseInvoiceDetail4 : có danh sách >
+    PurchaseInvoiceDetail4 " * " o-- " 1 " SparePart4 : nhập >
+    PurchaseInvoice4 " * " o-- " 1 " Supplier4 : từ >
+    PurchaseInvoice4 " * " o-- " 1 " WarehouseStaff4 : lập bởi >
+}
+
+' Quan hệ phụ thuộc Tầng Giao diện -> Controller
+gdChonNhaCungCap ..> SupplierServlet4 : <<GET /warehouse/suppliers>>
+gdThemNhaCungCap ..> SupplierServlet4 : <<POST /warehouse/suppliers/new>>
+gdThemPhuTung ..> SparePartServlet4 : <<POST /warehouse/parts/new>>
+
+gdLapHoaDonNhap ..> PurchaseInvoiceServlet4 : <<POST /warehouse/invoices?action=...>>
+gdHoaDonNhapDaXacNhan ..> PurchaseInvoiceServlet4 : <<GET /view, POST /pay>>
+gdInHoaDonNhap ..> PurchaseInvoiceServlet4 : <<GET /print>>
+gdChinhKho ..> PurchaseInvoiceServlet4 : <<GET /unpaid>>
+
+' Quan hệ phụ thuộc Controller -> DAO
+SupplierServlet4 ..> SupplierDAO4 : <<calls>>
+SparePartServlet4 ..> SparePartDAO4 : <<calls>>
+SparePartServlet4 ..> SparePartCategoryDAO4 : <<calls>>
+
+PurchaseInvoiceServlet4 ..> PurchaseInvoiceDAO4 : <<calls>>
+PurchaseInvoiceServlet4 ..> SupplierDAO4 : <<calls>>
+PurchaseInvoiceServlet4 ..> SparePartDAO4 : <<calls>>
+PurchaseInvoiceServlet4 ..> WarehouseStaffDAO4 : <<calls>>
+PurchaseInvoiceServlet4 ..> DraftStore4 : <<manages draft>>
+PurchaseInvoiceServlet4 ..> ValidationUtil4 : <<validates>>
+
+@enduml

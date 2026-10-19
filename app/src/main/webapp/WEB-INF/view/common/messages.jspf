@@ -1,0 +1,14 @@
+<%@ page pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<c:if test="${not empty errorMessage}">
+  <div class="notice" style="background: #fdf2f2; color: #991b1b; border-color: #f87171;" role="alert">
+    <strong>Thông báo lỗi:</strong> <c:out value="${errorMessage}" />
+  </div>
+</c:if>
+
+<c:if test="${not empty flashMessage}">
+  <div class="notice success" role="status">
+    <c:out value="${flashMessage}" />
+  </div>
+</c:if>

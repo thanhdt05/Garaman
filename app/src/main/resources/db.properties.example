@@ -1,0 +1,7 @@
+# Cấu hình kết nối MySQL cho GaraMan (đề 26)
+# Sao chép file này thành db.properties và điền thông tin phù hợp
+# Hoặc sử dụng các biến môi trường: GARAMAN_DB_URL, GARAMAN_DB_USER, GARAMAN_DB_PASSWORD
+
+db.url=jdbc:mysql://localhost:3306/garaman4?connectionTimeZone=Asia/Ho_Chi_Minh&forceConnectionTimeZoneToSession=true&characterEncoding=UTF-8
+db.user=root
+db.password=

@@ -1,0 +1,77 @@
+@startuml
+skinparam style strictuml
+skinparam sequenceMessageAlign center
+skinparam shadowing false
+skinparam roundcorner 5
+
+actor "Khách hàng" as Khach
+boundary "gdChinhKH.jsp" as UI_Home
+boundary "gdTimThongTin.jsp" as UI_Search
+boundary "gdChiTietThongTin.jsp" as UI_Detail
+control "CatalogServlet4" as Servlet
+participant "ServiceDAO4" as ServiceDAO
+participant "SparePartDAO4" as PartDAO
+
+title Biểu đồ tuần tự thiết kế - Modul Khách hàng tra cứu dịch vụ / phụ tùng
+
+== 1. Mở trang tra cứu ==
+Khach -> UI_Home : Bấm "Tra cứu dịch vụ & phụ tùng"
+UI_Home -> Servlet : GET /customer/catalog
+activate Servlet
+Servlet -> Servlet : hienThiTimKiem(req, resp)
+Servlet -> UI_Search : forward(req, resp) [trạng thái chưa tìm]
+deactivate Servlet
+UI_Search --> Khach : Hiển thị ô nhập từ khóa tìm kiếm
+
+== 2. Tìm kiếm với từ khóa ==
+Khach -> UI_Search : Nhập từ khóa "lọc", bấm "Tìm kiếm"
+UI_Search -> Servlet : GET /customer/catalog?tuKhoa=l%E1%BB%8Dc
+activate Servlet
+Servlet -> Servlet : timKiem(req, resp)
+
+alt Từ khóa hợp lệ
+    Servlet -> ServiceDAO : timDichVuTheoTen("lọc")
+    activate ServiceDAO
+    ServiceDAO --> Servlet : List<Service4> (DV1: Thay lọc dầu...)
+    deactivate ServiceDAO
+
+    Servlet -> PartDAO : timPhuTungTheoTen("lọc", true)
+    activate PartDAO
+    PartDAO --> Servlet : List<SparePart4> (PT1: Lọc dầu AF-01...)
+    deactivate PartDAO
+
+    Servlet -> Servlet : req.setAttribute("dsDichVu", dsDV)\nreq.setAttribute("dsPhuTung", dsPT)
+    Servlet -> UI_Search : forward(req, resp)
+    UI_Search --> Khach : Hiển thị bảng kết quả 2 nhóm Dịch vụ & Phụ tùng
+else Từ khóa rỗng hoặc khoảng trắng
+    Servlet -> Servlet : req.setAttribute("errorMessage", "Vui lòng nhập từ khóa")
+    Servlet -> UI_Search : forward(req, resp)
+    UI_Search --> Khach : Báo lỗi yêu cầu nhập từ khóa
+end
+deactivate Servlet
+
+== 3. Xem chi tiết phụ tùng ==
+Khach -> UI_Search : Bấm "Chi tiết" phụ tùng PT1
+UI_Search -> Servlet : GET /customer/catalog/detail?id=1&loai=spare-part&tuKhoa=l%E1%BB%8Dc
+activate Servlet
+Servlet -> Servlet : xemChiTiet(req, resp)
+Servlet -> PartDAO : layChiTietPhuTung(1, true)
+activate PartDAO
+PartDAO --> Servlet : SparePart4 (kèm nhóm, thông số kỹ thuật, giá bán)
+deactivate PartDAO
+
+Servlet -> Servlet : req.setAttribute("phuTung", pt)\nreq.setAttribute("tuKhoa", "lọc")
+Servlet -> UI_Detail : forward(req, resp)
+deactivate Servlet
+UI_Detail --> Khach : Hiển thị trang chi tiết phụ tùng và nút "Quay lại"
+
+== 4. Quay lại danh sách ==
+Khach -> UI_Detail : Bấm nút "Quay lại kết quả tìm kiếm"
+UI_Detail -> Servlet : GET /customer/catalog?tuKhoa=l%E1%BB%8Dc
+activate Servlet
+Servlet -> Servlet : timKiem(req, resp)
+Servlet -> UI_Search : forward(req, resp) [kết quả tra cứu cũ được giữ nguyên]
+deactivate Servlet
+UI_Search --> Khach : Hiển thị lại bảng kết quả với từ khóa "lọc"
+
+@enduml

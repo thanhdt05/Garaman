@@ -1,0 +1,51 @@
+@media print {
+  @page {
+    size: A4;
+    margin: 15mm;
+  }
+  body {
+    background: white;
+    font-size: 11px;
+  }
+  .sidebar, .topbar, .footer, .page-heading, .stepper, .invoice-actions, .toast, .skip-link, .notice {
+    display: none !important;
+  }
+  .workspace {
+    margin: 0;
+    min-height: 0;
+  }
+  main {
+    padding: 0;
+    max-width: none;
+  }
+  .invoice {
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    max-width: none;
+  }
+  .invoice table {
+    font-size: 10px;
+  }
+  .invoice th, .invoice td {
+    padding: 10px 8px;
+  }
+  .invoice .total-row strong {
+    font-size: 20px;
+  }
+  .signatures {
+    padding-bottom: 40px;
+  }
+  .invoice-header {
+    break-after: avoid;
+  }
+  .invoice tr {
+    break-inside: avoid;
+  }
+  .invoice .table-wrap {
+    overflow: visible;
+  }
+  a {
+    color: inherit;
+  }
+}

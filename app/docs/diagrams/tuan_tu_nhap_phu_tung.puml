@@ -1,0 +1,98 @@
+@startuml
+skinparam style strictuml
+skinparam sequenceMessageAlign center
+skinparam shadowing false
+skinparam roundcorner 5
+
+actor "Nhân viên kho" as NVKho
+boundary "gdLapHoaDonNhap.jsp" as UI_Draft
+boundary "gdHoaDonNhapDaXacNhan.jsp" as UI_View
+boundary "gdInHoaDonNhap.jsp" as UI_Print
+control "PurchaseInvoiceServlet4" as Servlet
+participant "DraftStore4" as DraftStore
+participant "ValidationUtil4" as Validator
+participant "PurchaseInvoiceDAO4" as InvoiceDAO
+participant "SparePartDAO4" as PartDAO
+database "MySQL (JDBC Connection)" as DB
+
+title Biểu đồ tuần tự thiết kế - Modul Nhân viên kho xác nhận nhập phụ tùng & thanh toán
+
+== 1. Xác nhận hóa đơn nhập (Transaction an toàn) ==
+NVKho -> UI_Draft : Bấm "Xác nhận hóa đơn"
+UI_Draft -> Servlet : POST /warehouse/invoices (action=confirm, csrfToken, draftId, version, mảng dòng)
+activate Servlet
+
+Servlet -> DraftStore : getDraft(session, draftId)
+activate DraftStore
+DraftStore --> Servlet : draftDTO
+deactivate DraftStore
+
+Servlet -> Validator : validateSoLuong(sl, donVi)\nvalidateDonGiaNhap(gia)
+activate Validator
+Validator --> Servlet : OK (hợp lệ)
+deactivate Validator
+
+Servlet -> InvoiceDAO : luuHoaDonNhap(hoaDon)
+activate InvoiceDAO
+
+InvoiceDAO -> DB : setAutoCommit(false)
+InvoiceDAO -> InvoiceDAO : khoaDuLieu(conn, nccId, nvId, partIds)\n[SELECT ... FOR UPDATE chống Deadlock]
+activate DB
+
+InvoiceDAO -> InvoiceDAO : chenHoaDon(conn, hoaDon)\n[INSERT tblPurchaseInvoice4]
+DB --> InvoiceDAO : hoaDonId
+
+loop Duyệt từng dòng phụ tùng trong hóa đơn
+    InvoiceDAO -> InvoiceDAO : chenChiTiet(conn, hoaDonId, chiTiet)\n[INSERT tblPurchaseInvoiceDetail4 với snapshot tenApDung, donViApDung]
+    InvoiceDAO -> PartDAO : tangTonSauNhap(conn, phuTungId, soLuong)
+    activate PartDAO
+    PartDAO -> DB : UPDATE tblSparePart4 SET tonKho = tonKho + ? WHERE id = ?
+    deactivate PartDAO
+end
+
+InvoiceDAO -> DB : commit()
+deactivate DB
+
+InvoiceDAO --> Servlet : hoaDonId
+deactivate InvoiceDAO
+
+Servlet -> DraftStore : removeDraft(session, draftId)
+Servlet --> UI_Draft : sendRedirect("/warehouse/invoices/view?id=" + hoaDonId)
+deactivate Servlet
+
+== 2. Xem hóa đơn đã xác nhận ==
+UI_Draft -> Servlet : GET /warehouse/invoices/view?id=hoaDonId
+activate Servlet
+Servlet -> InvoiceDAO : layThongTinHoaDonNhap(hoaDonId)
+activate InvoiceDAO
+InvoiceDAO --> Servlet : PurchaseInvoice4 (đầy đủ chi tiết, snapshot, người lập)
+deactivate InvoiceDAO
+Servlet -> UI_View : forward(req, resp)
+deactivate Servlet
+UI_View --> NVKho : Hiển thị hóa đơn ĐÃ XÁC NHẬN (chưa thanh toán)
+
+== 3. In chứng từ ==
+NVKho -> UI_View : Bấm "In hóa đơn"
+UI_View -> Servlet : GET /warehouse/invoices/print?id=hoaDonId
+activate Servlet
+Servlet -> InvoiceDAO : layThongTinHoaDonNhap(hoaDonId)
+Servlet -> UI_Print : forward(req, resp)
+deactivate Servlet
+UI_Print --> NVKho : Hiển thị mẫu in A4 chuẩn (tồn kho không đổi)
+
+== 4. Ghi nhận thanh toán ==
+NVKho -> UI_View : Nhập đúng số tiền bằng tổng tiền, bấm "Xác nhận thanh toán"
+UI_View -> Servlet : POST /warehouse/invoices/pay (id, soTienThanhToan, csrfToken)
+activate Servlet
+
+Servlet -> InvoiceDAO : ghiNhanThanhToan(hoaDonId, soTien, currentUserId)
+activate InvoiceDAO
+InvoiceDAO -> InvoiceDAO : Kiểm tra: đúng người lập, trạng thái CHUA_THANH_TOAN, đúng tổng tiền
+InvoiceDAO -> DB : UPDATE tblPurchaseInvoice4 SET trangThaiThanhToan='DA_THANH_TOAN', ngayThanhToan=NOW()
+InvoiceDAO --> Servlet : true (thành công)
+deactivate InvoiceDAO
+
+Servlet --> UI_View : sendRedirect("/warehouse/invoices/view?id=" + hoaDonId)
+deactivate Servlet
+
+@enduml
