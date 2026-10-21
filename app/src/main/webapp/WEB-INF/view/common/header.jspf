@@ -1,0 +1,83 @@
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<fmt:setLocale value="vi_VN" />
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title><c:out value="${pageTitle != null ? pageTitle : 'GaraMan · Quản lý gara ô tô'}" /></title>
+  <link rel="stylesheet" href="<c:url value='/assets/css/styles.css'/>">
+  <link rel="stylesheet" href="<c:url value='/assets/css/forms.css'/>">
+  <link rel="stylesheet" href="<c:url value='/assets/css/print.css'/>">
+</head>
+<body>
+<a class="skip-link" href="#main">Đến nội dung chính</a>
+<aside class="sidebar">
+  <a class="brand" href="<c:url value='/home'/>" aria-label="GaraMan — Trang chủ"><span class="brand-mark">G<span>.</span></span><span>GaraMan<small>QUẢN LÝ GARA Ô TÔ</small></span></a>
+  
+  <c:choose>
+    <c:when test="${currentUser.role == 'Customer'}">
+      <div class="nav-label">KHÁCH HÀNG</div>
+      <nav aria-label="Khách hàng">
+        <a class="${activeNav == 'customer-home' ? 'active' : ''}" href="<c:url value='/home'/>"><span class="nav-icon">⌂</span>Trang chính</a>
+        <a class="${activeNav == 'search' ? 'active' : ''}" href="<c:url value='/customer/catalog'/>"><span class="nav-icon">⌕</span>Dịch vụ &amp; phụ tùng</a>
+      </nav>
+    </c:when>
+    <c:when test="${currentUser.role == 'WarehouseStaff'}">
+      <div class="nav-label">NHÂN VIÊN KHO</div>
+      <nav aria-label="Nhân viên kho">
+        <a class="${activeNav == 'warehouse-home' ? 'active' : ''}" href="<c:url value='/home'/>"><span class="nav-icon">▦</span>Trang chính</a>
+        <a class="${activeNav == 'purchase' ? 'active' : ''}" href="<c:url value='/warehouse/suppliers'/>"><span class="nav-icon">↙</span>Nhập phụ tùng</a>
+        <a class="${activeNav == 'unpaid' ? 'active' : ''}" href="<c:url value='/warehouse/purchases/unpaid'/>"><span class="nav-icon">📄</span>Hóa đơn chưa trả của tôi</a>
+      </nav>
+    </c:when>
+    <c:otherwise>
+      <div class="nav-label">HỆ THỐNG</div>
+      <nav aria-label="Hệ thống">
+        <a class="${activeNav == 'home' ? 'active' : ''}" href="<c:url value='/home'/>"><span class="nav-icon">⌂</span>Trang chính</a>
+      </nav>
+    </c:otherwise>
+  </c:choose>
+
+  <div class="sidebar-bottom">
+    <span class="mini-label">GARAMAN / WEB</span>
+    <p>Mọi thông tin.<br>Một nơi quản lý.</p>
+    <c:if test="${currentUser != null}">
+      <form action="<c:url value='/logout'/>" method="post" style="margin: 0;">
+        <input type="hidden" name="csrfToken" value="<c:out value='${csrfToken}'/>">
+        <button type="submit" class="btn btn-quiet" style="padding: 0; font-size: 11px; color: var(--muted); cursor: pointer;">
+          Đăng xuất (<c:out value="${currentUser.fullName}"/>) <span aria-hidden="true">↗</span>
+        </button>
+      </form>
+    </c:if>
+  </div>
+</aside>
+<div class="workspace">
+  <header class="topbar">
+    <div class="breadcrumb">GaraMan <span>/</span> <span id="workspace-name"><c:out value="${breadcrumb != null ? breadcrumb : (currentUser.role == 'WarehouseStaff' ? 'Kho phụ tùng' : 'Khách hàng')}" /></span></div>
+    <div class="profile">
+      <span class="avatar" id="profile-initials">
+        <c:choose>
+          <c:when test="${currentUser.role == 'Customer'}">KH</c:when>
+          <c:when test="${currentUser.role == 'WarehouseStaff'}">NK</c:when>
+          <c:otherwise>GM</c:otherwise>
+        </c:choose>
+      </span>
+      <div>
+        <strong id="profile-name"><c:out value="${currentUser != null ? currentUser.fullName : 'Chưa đăng nhập'}"/></strong>
+        <small id="profile-role">
+          <c:choose>
+            <c:when test="${currentUser.role == 'Customer'}">Khách hàng</c:when>
+            <c:when test="${currentUser.role == 'WarehouseStaff'}">Nhân viên kho</c:when>
+            <c:when test="${currentUser.role == 'SalesStaff'}">Nhân viên bán hàng</c:when>
+            <c:when test="${currentUser.role == 'Manager'}">Quản lý</c:when>
+            <c:otherwise>Khách vãng lai</c:otherwise>
+          </c:choose>
+        </small>
+      </div>
+    </div>
+  </header>
+  <main id="main" tabindex="-1">
+    <%@ include file="/WEB-INF/view/common/messages.jspf" %>

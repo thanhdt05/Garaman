@@ -1,0 +1,167 @@
+@startuml catalog-design
+top to bottom direction
+skinparam monochrome true
+skinparam shadowing false
+skinparam classAttributeIconSize 0
+skinparam packageStyle rectangle
+skinparam defaultFontName "Times New Roman"
+skinparam defaultFontSize 13
+skinparam nodesep 25
+skinparam ranksep 40
+skinparam dpi 160
+scale max 6000 width
+hide circle
+title Biểu đồ lớp thiết kế modul khách hàng tìm kiếm thông tin dịch vụ/phụ tùng
+
+package "Giao diện JSP" as UI_LAYER {
+class "customerHome.jsp" as CustomerHomeView {
+  - fullName: String
+  - searchCatalogLink: link
+}
+
+class "catalogSearch.jsp" as CatalogSearchView {
+  - keyword: TextField
+  - itemTypeFilter: Select
+  - searchButton: submit
+  - services: List<Service4>
+  - spareParts: List<SparePart4>
+  - resultsTable: Table
+  - viewDetailsLink: link
+}
+
+class "itemDetails.jsp" as ItemDetailsView {
+  - service: Service4
+  - sparePart: SparePart4
+  - backLink: link
+}
+}
+package "Điều phối Servlet (lược hàm HTTP)" as CONTROL_LAYER {
+
+
+class CatalogServlet4 <<Servlet>> {
+  - serviceDAO: ServiceDAO4
+  - sparePartDAO: SparePartDAO4
+  + showSearch(request: HttpServletRequest, response: HttpServletResponse): void
+  + searchCatalog(request: HttpServletRequest, response: HttpServletResponse): void
+  + viewDetails(request: HttpServletRequest, response: HttpServletResponse): void
+}
+
+
+}
+package "Truy xuất dữ liệu" as DAO_LAYER {
+abstract class DAO {
+
+}
+
+class ServiceDAO4 {
+  + findServicesByName(keyword: String): List<Service4>
+  + getServiceDetails(serviceId: int): Service4
+}
+
+class SparePartDAO4 {
+  + findSparePartsByName(keyword: String, publishedOnly: boolean): List<SparePart4>
+  + getSparePartDetails(sparePartId: int, publishedOnly: boolean): SparePart4
+}
+}
+package "Thực thể liên quan" as ENTITY_LAYER {
+abstract class Member4 <<entity>> {
+  - id: int
+  - fullName: String
+  - username: String
+  - password: String
+  - dateOfBirth: LocalDate
+  - address: String
+  - email: String
+  - phoneNumber: String
+  - role: String
+  - accountStatus: String
+}
+
+class Customer4 <<entity>> {
+
+}
+
+class Service4 <<entity>> {
+  - id: int
+  - name: String
+  - category: String
+  - description: String
+  - content: String
+  - imagePath: String
+  - unitPrice: BigDecimal
+  - estimatedDuration: int
+  - warrantyPeriod: String
+  - warrantyTerms: String
+  - status: String
+}
+
+class SparePart4 <<entity>> {
+  - id: int
+  - name: String
+  - description: String
+  - imagePath: String
+  - unit: String
+  - manufacturer: String
+  - specifications: String
+  - compatibleVehicleModels: String
+  - sellingPrice: BigDecimal
+  - warrantyPeriod: String
+  - warrantyTerms: String
+  - status: String
+  - stockQuantity: BigDecimal
+  - category: SparePartCategory4
+}
+
+class SparePartCategory4 <<entity>> {
+  - id: int
+  - name: String
+  - description: String
+  - status: String
+}
+}
+
+Member4 <|-- Customer4
+SparePart4 "0..*" -[norank]-> "1" SparePartCategory4 : category
+DAO <|-- ServiceDAO4
+DAO <|-- SparePartDAO4
+CustomerHomeView -[dashed,norank]-> CatalogServlet4
+CatalogSearchView -[dashed,norank]-> CatalogServlet4
+ItemDetailsView -[dashed,norank]-> CatalogServlet4
+CatalogServlet4 -[dashed,norank]-> ServiceDAO4
+CatalogServlet4 -[dashed,norank]-> SparePartDAO4
+ServiceDAO4 -[dashed,norank]-> Service4
+SparePartDAO4 -[dashed,norank]-> SparePart4
+SparePartDAO4 -[dashed,norank]-> SparePartCategory4
+
+note bottom of CatalogSearchView
+  Một bảng kết quả chung; mở lần đầu chưa có kết quả.
+  Chọn một dòng để xem chi tiết; quay lại giữ điều kiện tìm.
+end note
+
+note right of ServiceDAO4
+  getServiceDetails: có trong phân tích tĩnh của DOCX;
+  ảnh giao tiếp minh họa nhánh chọn phụ tùng PT1.
+end note
+CustomerHomeView -[hidden]right-> CatalogSearchView
+CatalogSearchView -[hidden]right-> ItemDetailsView
+ServiceDAO4 -[hidden]right-> SparePartDAO4
+Member4 -[hidden]right-> Service4
+Service4 -[hidden]right-> SparePart4
+CustomerHomeView -[hidden]down-> CatalogServlet4
+CatalogServlet4 -[hidden]down-> DAO
+DAO -[hidden]down-> ServiceDAO4
+ServiceDAO4 -[hidden]down-> Member4
+legend left
+  JSP: thuộc tính giao diện được đề xuất ở bước thiết kế tĩnh.
+  TextField/TextArea: ô nhập; Select: danh sách chọn; Table: bảng hiển thị.
+  link/submit/button: liên kết, nút gửi biểu mẫu và nút thao tác.
+  Tên lớp, thuộc tính, phương thức và tham số thống nhất tiếng Anh.
+  Tên JSP/control và các hàm điều phối đã đồng bộ với mã nguồn tiếng Anh.
+  Lược query, hidden field, trạng thái render và thông báo lỗi.
+  Servlet hiện DAO sử dụng và hàm điều phối chính; lược init/doGet/doPost và hàm kỹ thuật.
+  Hàm truy xuất của thực thể pha phân tích chuyển sang DAO ở bước 3 bài giảng.
+  Nét đứt: phụ thuộc; tam giác: kế thừa; hình thoi đặc: sở hữu dòng.
+  + public; - private; ~ package-private. Lược getter/setter và hàm kỹ thuật.
+  Các ô Servlet/DAO là lớp phần mềm, không phải bảng CSDL mới.
+endlegend
+@enduml

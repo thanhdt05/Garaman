@@ -1,0 +1,91 @@
+@startuml
+skinparam style strictuml
+skinparam classAttributeIconSize 0
+skinparam packageStyle rectangle
+skinparam shadowing false
+skinparam roundcorner 5
+
+title Biểu đồ lớp thiết kế tổng thể hệ thống GaraMan (Đề 26)
+
+package "Tầng Giao diện (JSP)" {
+    class "login.jsp" as login <<boundary>>
+    class "customerHome.jsp" as customerHome <<boundary>>
+    class "catalogSearch.jsp" as catalogSearch <<boundary>>
+    class "itemDetails.jsp" as itemDetails <<boundary>>
+    class "warehouseHome.jsp" as warehouseHome <<boundary>>
+    class "selectSupplier.jsp" as selectSupplier <<boundary>>
+    class "newSupplier.jsp" as newSupplier <<boundary>>
+    class "purchaseInvoice.jsp" as purchaseInvoice <<boundary>>
+    class "newSparePart.jsp" as newSparePart <<boundary>>
+    class "confirmedInvoice.jsp" as confirmedInvoice <<boundary>>
+    class "printInvoice.jsp" as printInvoice <<boundary>>
+}
+
+package "Tầng Điều khiển & Bảo vệ (Servlet & Filter)" {
+    class EncodingFilter4 <<filter>>
+    class AuthFilter4 <<filter>>
+    class AuthServlet4 <<control>>
+    class HomeServlet4 <<control>>
+    class CatalogServlet4 <<control>>
+    class SupplierServlet4 <<control>>
+    class SparePartServlet4 <<control>>
+    class PurchaseInvoiceServlet4 <<control>>
+}
+
+package "Tầng Truy xuất Dữ liệu (DAO)" {
+    abstract class DAO
+    class MemberDAO4
+    class WarehouseStaffDAO4
+    class ServiceDAO4
+    class SparePartDAO4
+    class SparePartCategoryDAO4
+    class SupplierDAO4
+    class PurchaseInvoiceDAO4
+
+    DAO <|-- MemberDAO4
+    DAO <|-- WarehouseStaffDAO4
+    DAO <|-- ServiceDAO4
+    DAO <|-- SparePartDAO4
+    DAO <|-- SparePartCategoryDAO4
+    DAO <|-- SupplierDAO4
+    DAO <|-- PurchaseInvoiceDAO4
+
+    PurchaseInvoiceDAO4 ..> SparePartDAO4 : <<~ increaseStockAfterPurchase>>
+}
+
+package "Tầng Thực thể cốt lõi (Core Entity Model)" {
+    abstract class Member4
+    class Employee4
+    class WarehouseStaff4
+    class Customer4
+    class Service4
+    class SparePartCategory4
+    class SparePart4
+    class Supplier4
+    class PurchaseInvoice4
+    class PurchaseInvoiceDetail4
+
+    Member4 <|-- Customer4
+    Member4 <|-- Employee4
+    Employee4 <|-- WarehouseStaff4
+
+    SparePart4 " * " o-- " 1 " SparePartCategory4
+    PurchaseInvoice4 " 1 " *-- " 1..* " PurchaseInvoiceDetail4
+    PurchaseInvoiceDetail4 " * " o-- " 1 " SparePart4
+    PurchaseInvoice4 " * " o-- " 1 " Supplier4
+    PurchaseInvoice4 " * " o-- " 1 " WarehouseStaff4
+}
+
+' Phụ thuộc cơ bản
+AuthServlet4 ..> MemberDAO4
+CatalogServlet4 ..> ServiceDAO4
+CatalogServlet4 ..> SparePartDAO4
+SupplierServlet4 ..> SupplierDAO4
+SparePartServlet4 ..> SparePartDAO4
+SparePartServlet4 ..> SparePartCategoryDAO4
+PurchaseInvoiceServlet4 ..> PurchaseInvoiceDAO4
+PurchaseInvoiceServlet4 ..> SupplierDAO4
+PurchaseInvoiceServlet4 ..> SparePartDAO4
+PurchaseInvoiceServlet4 ..> WarehouseStaffDAO4
+
+@enduml

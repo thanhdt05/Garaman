@@ -1,26 +1,29 @@
-# Kế hoạch cho Gemini — GaraMan đề 26, rà soát nguồn 19/10/2026
+# Kế hoạch — chỉ hai module đề 26
 
-**Kết luận rà soát:** bộ cũ đúng hướng nhưng còn khoảng trống. Đã bổ sung [08 — kết quả đối chiếu](08_KET_QUA_RA_SOAT_NGUON.md), [09 — chuyển từng file giao diện](09_TAI_SU_DUNG_GIAO_DIEN.md) và [10 — hợp đồng triển khai bổ sung](10_HOP_DONG_TRIEN_KHAI_BO_SUNG.md). Bản giao diện sửa để dùng nằm tại [giao-dien-tham-chieu](../giao-dien-tham-chieu/README.md), xuất phát từ `E:\java\Garaman1`.
+**Đọc [00_PHAM_VI.md](00_PHAM_VI.md) trước.** Kế hoạch chỉ triển khai hai module bạn đã làm: khách tra cứu dịch vụ/phụ tùng và nhân viên kho nhập phụ tùng. Đăng nhập/đăng xuất chỉ hỗ trợ tiền điều kiện hai module.
 
-**Đã chốt một phương án:** giữ hai module đề 26 và mô hình bạn đã làm; lưu `tonKho` trực tiếp; mỗi hóa đơn có một nhân viên lập, chính người đó thực hiện thu/chi. Nhân viên tiếp nhận lưu riêng trên phiếu. Không thêm người thanh toán hoặc FK thu/chi riêng.
+**Quy ước tên mới được chủ bài chốt 21/10/2026:** [bộ tên tiếng Anh](../app/docs/DANH_SACH_DOI_TEN_TIENG_ANH.md) và [CSV cũ → mới](../app/docs/TEN_CU_TEN_MOI.csv). Hai biểu đồ lớp thiết kế/SVG và các định danh trong DOCX đã đồng bộ tên tiếng Anh theo yêu cầu của chủ bài, gồm 124 lượt đổi trong văn bản và 7 hình nhúng. Xem [nhật ký đổi tên DOCX](../app/docs/DOI_TEN_TOAN_BO_DOCX.md) và [CSV toàn báo cáo](../app/docs/TEN_CU_TEN_MOI_TOAN_BO_DOCX.csv). Mã nguồn `app/`, schema SQL và hợp đồng triển khai đã đồng bộ tên mới; xem [kết quả/backup/migration](../app/docs/CODE_ENGLISH_MIGRATION.md). CSDL và Tomcat đang chạy tại 8080 chưa được nâng cấp, chờ chủ bài đồng ý; VPP gốc giữ nguyên. Khi đồng bộ các phần sau phải dùng lại đúng bộ tên này, không tự đặt thêm tên dịch khác.
 
-File kế hoạch chính là [02_KE_HOACH.md](02_KE_HOACH.md), gồm cây thư mục, từng file/hàm, trình tự triển khai và kiểm thử. Các file còn lại bổ trợ cùng một phương án:
+Đã bỏ yêu cầu cũ tạo model/schema cho cả hệ thống. App chỉ có **10 model và 9 bảng** liên quan; không tạo POJO/bảng/khung chức năng cho các module khác. Mô hình tổng thể trong DOCX giữ nguyên làm nguồn tham chiếu.
 
-| File | Đọc để làm gì |
+| File | Nội dung |
 |---|---|
-| [01_DANH_GIA.md](01_DANH_GIA.md) | Những chỗ cuối cần đồng bộ trong bản DOCX mới, có TÌM → THAY; không áp lại danh sách sửa của các lần trước |
-| [02_KE_HOACH.md](02_KE_HOACH.md) | Phạm vi, công nghệ, cấu trúc project, model/DAO/Servlet/JSP, hàm, transaction, trình tự và nghiệm thu |
-| [03_HOP_DONG.md](03_HOP_DONG.md) | 16 bảng, kiểu/ràng buộc, quan hệ, URL/HTTP, params, request/session, ánh xạ từ phân tích |
-| [04_PROMPT_GEMINI.md](04_PROMPT_GEMINI.md) | Prompt có thể copy giao Gemini thực hiện |
-| [05_RA_SOAT_THUOC_TINH_BO_SUNG.md](05_RA_SOAT_THUOC_TINH_BO_SUNG.md) | Danh mục 14 trường giữ đã phần lớn có trong DOCX; không thêm lặp; cột tồn giữ lại |
-| [06_KIEM_TRA_BAN_MOI.md](06_KIEM_TRA_BAN_MOI.md) | Kết luận rà soát và quyết định cuối, thay thế kết luận cũ |
-| [07_DOI_CHIEU_BAO_CAO.md](07_DOI_CHIEU_BAO_CAO.md) | Mẫu triển khai 4.3.1 theo bốn bước bài giảng; ma trận và cách dùng tiếp cho 4.3.2, 4.3.3, Chương 5–6 |
-| [08_KET_QUA_RA_SOAT_NGUON.md](08_KET_QUA_RA_SOAT_NGUON.md) | Kết luận, căn cứ trang/đoạn/hình, hash nguồn và điểm lệch |
-| [09_TAI_SU_DUNG_GIAO_DIEN.md](09_TAI_SU_DUNG_GIAO_DIEN.md) | Ánh xạ từng JSP/JSPF/CSS/JS/ảnh từ prototype sang app |
-| [10_HOP_DONG_TRIEN_KHAI_BO_SUNG.md](10_HOP_DONG_TRIEN_KHAI_BO_SUNG.md) | Helper/config/filter/version nháp/409/retry/giới hạn số và render ngày JSP |
+| [00_PHAM_VI.md](00_PHAM_VI.md) | Phạm vi cao nhất; danh sách model/bảng được tạo và đầu ra hai module |
+| [01_DANH_GIA.md](01_DANH_GIA.md) | Những chỗ cần thống nhất giữa hai module và bài làm, không giao sửa cả báo cáo |
+| [02_KE_HOACH.md](02_KE_HOACH.md) | Cây file, hàm, thứ tự code và test của hai module |
+| [03_HOP_DONG.md](03_HOP_DONG.md) | 9 bảng, ánh xạ model, route/param/request/session |
+| [04_PROMPT_GEMINI.md](04_PROMPT_GEMINI.md) | Prompt dùng cho OpenCode/DeepSeek, Gemini hoặc AI khác |
+| [05_RA_SOAT_THUOC_TINH_BO_SUNG.md](05_RA_SOAT_THUOC_TINH_BO_SUNG.md) | Kiểm tra các trường liên quan hóa đơn nhập đã có trong bài làm |
+| [06_KIEM_TRA_BAN_MOI.md](06_KIEM_TRA_BAN_MOI.md) | Kết luận và phạm vi đã sửa |
+| [07_DOI_CHIEU_BAO_CAO.md](07_DOI_CHIEU_BAO_CAO.md) | 4.3.1 theo bốn bước bài giảng cho đúng hai module |
+| [08_KET_QUA_RA_SOAT_NGUON.md](08_KET_QUA_RA_SOAT_NGUON.md) | Căn cứ nguồn; mô hình tổng thể chỉ để tham chiếu |
+| [09_TAI_SU_DUNG_GIAO_DIEN.md](09_TAI_SU_DUNG_GIAO_DIEN.md) | Chuyển từng file giao diện tham chiếu sang hai module |
+| [10_HOP_DONG_TRIEN_KHAI_BO_SUNG.md](10_HOP_DONG_TRIEN_KHAI_BO_SUNG.md) | Chi tiết kỹ thuật phục vụ hai module, không mở rộng nghiệp vụ |
+| [11_CHUAN_MAU_LUONG_GIAO_DIEN.md](11_CHUAN_MAU_LUONG_GIAO_DIEN.md) | Khóa bố cục/mẫu/luồng; từng bước DOCX → màn hình → điều kiện nghiệm thu |
+| [12_RA_SOAT_APP_HIEN_TAI.md](12_RA_SOAT_APP_HIEN_TAI.md) | Lỗi đã thấy ở app hiện có, unit15 PASS thực tế và các phần chưa kiểm chứng |
 
-Thứ tự thực hiện: README → 08 → bốn tài liệu nguồn → 01/05 → 03 → 02 → 09/10 → 07; dùng 04 để giao việc. 03 khóa nghiệp vụ/schema/route; 02 khóa file/lớp/hàm; 09 khóa nguồn giao diện; 10 cụ thể hóa các chỗ kỹ thuật còn thiếu. Không lấy lịch sử trò chuyện ngoài bộ tài liệu làm yêu cầu mới. Khi nguồn thay đổi, đối chiếu lại vị trí/hash ở 08.
+Thứ tự đọc: 00 → phần hai module trong tài liệu gốc → 01/05 → 03/02 → 09/10/11 → 07; đọc12 để sửa app hiện có. Dùng04 giao AI thực hiện. 00 khóa phạm vi,11 khóa mẫu/luồng/UI; không sửa kế hoạch để hợp thức hóa bố cục AI tự đổi. Nếu chỉ dẫn cũ đòi tạo phần khác, áp dụng00.
 
-Đầu ra đợt thực hiện: project JSP/Servlet/JDBC/DAO/MySQL chạy được hai module và đăng nhập; bản sao báo cáo đã đồng bộ, phần 4.3.1 đầy đủ; sơ đồ nguồn và ảnh giao diện thật; ma trận truy vết và kết quả kiểm thử. Các phần 4.3.2 trở đi có hướng dẫn đối chiếu và đầu vào chuẩn bị, chưa được gọi là đã hoàn thành.
+Đầu ra: `app/` chạy được hai module, cấu hình/schema/seed tương ứng, README demo, kết quả test thật, nội dung 4.3.1 và bốn hình giao diện/lớp thiết kế của hai module. Không yêu cầu sửa toàn bộ DOCX, vẽ lại mô hình tổng thể hoặc chuẩn bị các chương tiếp theo.
 
-**Trạng thái hiện tại:** đã rà soát và sửa giao diện tham chiếu; kết quả UI ở [KET_QUA_KIEM_TRA.md](../giao-dien-tham-chieu/docs/KET_QUA_KIEM_TRA.md). Chưa code backend/MySQL, chưa chỉnh DOCX gốc hoặc hoàn thiện 4.3.1 trong Word. Không dùng kiểm thử prototype để khẳng định backend đã chạy.
+Giao diện tham chiếu ở [giao-dien-tham-chieu](../giao-dien-tham-chieu/README.md), kết quả prototype ở [KET_QUA_KIEM_TRA.md](../giao-dien-tham-chieu/docs/KET_QUA_KIEM_TRA.md). App hiện đã có source và unit15 PASS nhưng còn lệch theo12, chưa nghiệm thu UI/luồng Tomcat/MySQL. PASS prototype hoặc unit không chứng minh backend/E2E đã chạy. Bốn tài liệu gốc giữ nguyên.

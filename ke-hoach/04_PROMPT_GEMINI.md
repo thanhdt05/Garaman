@@ -1,56 +1,64 @@
-# Prompt giao việc cho Gemini — bản cuối
+# Prompt cho OpenCode/DeepSeek hoặc AI khác — chỉ hai module
 
-Copy toàn bộ khối bên dưới, cung cấp `ke-hoach/`, `giao-dien-tham-chieu/` và bốn tài liệu gốc. File 02 là kế hoạch chính; 03 khóa dữ liệu/route; 07 khóa báo cáo; 08 ghi kết quả rà soát nguồn; 09 ánh xạ từng file giao diện; 10 đóng các hợp đồng kỹ thuật còn thiếu. Đây là một phương án thực hiện, không yêu cầu lập lại phương án để chọn.
+Tên file được giữ để các liên kết đang có vẫn dùng được. Copy khối bên dưới khi mở AI tại thư mục Garaman.
 
 ---
 
-Thực hiện GaraMan đề 26 cho Đàm Tiến Thành, B23DCCN764. Mục tiêu là code giao diện/backend/CSDL chạy được làm căn cứ viết mục 4.3.1 Thiết kế tĩnh đúng mẫu bài giảng, bám sát báo cáo đã có, và chuẩn bị dữ liệu đối chiếu cho các phần sau.
+Hãy triển khai đúng **HAI MODULE đề 26** của bài làm hiện có:
 
-Đọc bốn tài liệu trong thư mục:
+1. Khách hàng tra cứu thông tin dịch vụ/phụ tùng.
+2. Nhân viên kho nhập phụ tùng từ nhà cung cấp, gồm các nhánh chọn/thêm NCC, chọn/thêm phụ tùng, lập nháp, xác nhận, in và ghi nhận trả đủ tiền.
 
-1. `26_B23DCCN764-full.docx`: dùng bản mới nhất, là phần người dùng đã làm, không khởi tạo lại mô hình khác.
-2. `BG HP TTTN 2 CNPM 2020 final.pdf`: đặc biệt 4.3.1 với bốn bước, ví dụ Hình 4.3–4.8; đọc 4.3.2–4.3.3 để chuẩn bị đối chiếu.
-3. `NganHangCauHoi-PhanTichThietKe-Capnhat.2019.pdf`: ĐỀ SỐ 26; đề GaraMan khác chỉ để hiểu ngữ cảnh, không tăng phạm vi code.
-4. `LAB1-JavaProgrammingBasic.docx`: cách tổ chức JSP/Servlet/JDBC/MySQL/DAO.
+Đăng nhập/đăng xuất và hai trang chính chỉ hỗ trợ hai module, không phát triển quản lý tài khoản.
 
-Đọc toàn bộ các file hiện tại trong `ke-hoach/`, bắt đầu README. Tuân thủ 01 về những sửa cuối trong báo cáo; 02 về cấu trúc/file/hàm/trình tự/test; 03 về schema và giao tiếp; 05 về thuộc tính; 07 về bố cục và ma trận báo cáo. Không sử dụng những yêu cầu đã bị thay thế trong lịch sử trò chuyện.
+**Đọc ke-hoach/00_PHAM_VI.md trước. File này thay thế chỉ dẫn cũ yêu cầu cài đặt cả mô hình hệ thống. Chỉ tạo 10 model và 9 bảng trong danh sách; không tạo POJO, SQL, DAO, Servlet, JSP hoặc test cho module khác, kể cả khung trống.**
 
-Đọc bắt buộc 08/09/10. Báo cáo nguồn chính ở Garaman có hash trong 08; không lấy DOCX khác trong Garaman1 thay thế. Tái sử dụng bố cục HTML/CSS/SVG của `giao-dien-tham-chieu/web` theo từng hàng 09, không tự thiết kế lại hoặc nhập JS sessionStorage/HTML hóa đơn fallback sang app thật. Các sửa UI đã có không chứng minh backend đã hoạt động. Chữ ký/throws, filter/config, draftVersion/409, giới hạn số, retry/pay và render LocalDateTime theo 10.
+Đọc tiếp:
 
-Tạo app/docs/METHOD_MAP.md cùng MODEL_FIELD_MAP.md; mọi hàm xuất hiện ở class/sequence diagram phải tìm được đúng chữ ký và nơi gọi trong code. Helper private được phép thêm để phân rã nhưng phải liệt kê nếu xuất hiện trên hình; không tự đặt tên một method trên sơ đồ rồi bỏ trống code. Mọi mục ngoài phạm vi chỉ ghi chuẩn bị/chưa thực hiện.
+- ke-hoach/README.md và các file 01–10 theo vai trò đã ghi; mọi file đều chịu giới hạn của 00.
+- 26_B23DCCN764-full.docx: hai kịch bản ở 1.2.1, các lớp biên/phân tích/giao tiếp của hai module, các thuộc tính/quan hệ cần thiết trong hình thiết kế. Phần mô hình tổng thể chỉ để tra cứu, không phải danh sách cài đặt.
+- Ngân hàng đề: ĐỀ SỐ 26, trang PDF 27, đúng hai chức năng trên.
+- Bài giảng: 4.3.1 và các hình ví dụ giao diện/lớp thiết kế, để trình bày hai module theo bốn bước.
+- LAB1: cách dùng JSP + Servlet + JDBC + MySQL + DAO.
+- giao-dien-tham-chieu/README.md và mã web/; tái sử dụng theo ánh xạ từng file ở 09.
+- ke-hoach/11_CHUAN_MAU_LUONG_GIAO_DIEN.md: tiêu chuẩn bắt buộc giữ mẫu/luồng/UI; ke-hoach/12_RA_SOAT_APP_HIEN_TAI.md: các lỗi cụ thể ở app đã có cần đối chiếu/sửa trước nghiệm thu. Không chấp nhận câu “hoàn thành100%” trong tài liệu cũ nếu chưa có bằng chứng.
 
-Các quyết định cố định:
+Thực hiện trong app/ theo 02/03/09/10:
 
-- Chỉ code hai module tra cứu dịch vụ/phụ tùng và nhập phụ tùng cùng đăng nhập/đăng xuất. Mô hình/16 bảng vẫn toàn hệ thống. Các module đặt lịch/tiếp nhận/thanh toán khách/thống kê chưa code giao diện/backend.
-- Giữ hậu tố 4, tên lớp/bảng/field/route, quan hệ và thông tin áp dụng trong bản đã làm. Danh mục 14 trường file 05 phần lớn đã có trong DOCX, không thêm lại hoặc tự tăng lên 16 trường. Không thêm các bản lịch sử hồ sơ đã bị loại.
-- Lưu `tblSparePart4.tonKho DECIMAL(12,3) NOT NULL DEFAULT 0`, CHECK không âm. `tangTonSauNhap` trong thiết kế chuyển sang SparePartDAO4 với Connection/id/qty; được gọi trong transaction hóa đơn. Không bỏ hình giao tiếp phân tích tăng tồn, không thay tồn lưu bằng view tính tổng giao dịch. Không lưu thanhTien/tongTien thành cột.
-- Mỗi hóa đơn có một người lập và chính người đó thực hiện thu/chi; không thêm object hay FK nhân viên thanh toán riêng. Phiếu tiếp nhận có nhân viên tiếp nhận riêng, có thể khác người lập hóa đơn khách.
-- Hóa đơn nhập chưa trả được mở lại bởi người lập; danh sách lọc theo người đang đăng nhập. Người khác thuộc kho có thể đọc/in theo quyền nhưng không pay thay. Kiểm tra phía server/DAO, không chỉ ẩn nút.
-- Giữ hai quan hệ tùy chọn: Appointment–RepairIntake là 0..1 ở hai đầu; RepairIntake–CustomerInvoice là 1 ở đầu phiếu và 0..1 ở đầu hóa đơn; FK intake trong invoice NOT NULL UNIQUE, FK appointment trong intake NULL UNIQUE.
-- Chọn Java17/Maven WAR/Tomcat9/javax.servlet/JSP/JSTL/JDBC/MySQL8.4 với dependency khóa trong file 02; không đổi sang Spring/React/JPA, không trộn jakarta/javax. JSP render, Servlet điều phối, DAO SQL/transaction, model chứa dữ liệu/tính toán.
-- Tiền/lượng dùng BigDecimal/DECIMAL; thời điểm Java LocalDateTime/MySQL DATETIME, ngày sinh LocalDate/DATE. Hình ERD Paradigm giữ nhãn date được, có ghi chú ánh xạ; không ép đổi công cụ.
+- Chỉ 10 model: Member4, Employee4, WarehouseStaff4, Customer4, Service4, SparePartCategory4, SparePart4, Supplier4, PurchaseInvoice4, PurchaseInvoiceDetail4.
+- Chỉ 9 bảng: tblMember4, tblEmployee4, tblCustomer4, tblService4, tblSparePartCategory4, tblSparePart4, tblSupplier4, tblPurchaseInvoice4, tblPurchaseInvoiceDetail4.
+- Giữ tên, field, kế thừa và quan hệ liên quan của bài làm. App là tập con để chạy hai module, không thay thế mô hình tổng thể trong Word.
+- Java17/Maven WAR/Tomcat9/javax.servlet/JSP/JSTL/JDBC/MySQL8.4 theo phiên bản ở 02. Giữ bố cục giao diện đã sửa, thay dữ liệu mô phỏng bằng server; không nhập sessionStorage/HTML hóa đơn fallback sang app.
+- JSP render; Servlet điều phối; DAO truy xuất và transaction; model dữ liệu/tính tiền. Tiền/lượng dùng BigDecimal/DECIMAL.
+- Xác nhận nhập lưu header, dòng và tăng tonKho trong cùng transaction; lỗi rollback; cùng maYeuCau không tạo/cộng hai lần. Giá nhập không thay giá bán.
+- In/pay không tăng tồn. Chỉ người lập ghi nhận trả đủ tiền; request lặp giữ mốc thanh toán. Chứng từ dùng các tên/đơn vị đã chốt theo báo cáo.
+- Giữ đầy đủ luồng chính/ngoại lệ của hai module, kiểm tra input/quyền và hợp đồng nháp ở 10; không thêm nghiệp vụ mới từ các đề GaraMan khác.
+- Giữ giao diện nguồn theo11, áp dụng điều chỉnh chủ bài 21/10/2026: tra cứu một bảng chung có cột Loại và select bộ lọc UI; nhập chọn part bằng bảng kết quả có nút Chọn từng dòng ngay trên hóa đơn; ngày nhập/tổng0 đúng vị trí; không lộ UUID/snapshot; không tự thêm màn duyệt trước xác nhận. Không chỉ sao chép CSS rồi thay layout. Lọc UI boLoc theo03/11, không thay loai chi tiết.
 
-Làm theo thứ tự:
+Không làm đặt lịch, tiếp nhận sửa xe, xe, phân công kỹ thuật, hóa đơn khách, thống kê hoặc quản trị danh mục đầy đủ. Không tạo lớp/bảng dự phòng cho chúng. Không yêu cầu chuẩn bị các phần/chương sau của báo cáo.
 
-1. Tạo `app/docs/BAO_CAO_DA_SUA.docx` từ bản sao DOCX mới. Áp đúng các sửa còn tồn tại trong file 01, không lặp những gì người dùng đã sửa. Không sửa file gốc. Ghi `THAY_DOI_SO_VOI_BAO_CAO.md` theo vị trí/câu/hình, không dùng nhật ký thay bản sửa.
-2. Tạo schema/model, `TU_DIEN_DU_LIEU.md` và `MODEL_FIELD_MAP.md`. Ghi rõ field từ hình → Java → SQL hoặc object/dẫn xuất. Khóa 16 bảng và các FK/NULL/UNIQUE theo file 03.
-3. Thực hiện các giai đoạn 1–7 file 02 tại `app/`: bộ khung, DB/model, đăng nhập, tra cứu, thêm/chọn NCC/part, nháp, xác nhận/in/pay. Mọi file/hàm được giao phải có triển khai thực, không dừng ở TODO.
-4. Build, chạy unit/integration test thích hợp, deploy và chạy các ca C01–C07/P01–P16 cùng biến thể tồn/rollback. Integration test dùng DB `_test` riêng, không xóa DB demo/người dùng.
-5. Hoàn thiện 4.3.1 theo file 07: từng module có đủ bốn bước, bốn hình chính, ảnh thật và chữ ký hàm thật. Xuất sơ đồ nguồn sang SVG/PNG, chèn nội dung/hình vào bản sao báo cáo với caption/tham chiếu đúng số.
-6. Tạo ma trận truy vết và `DOI_CHIEU_PHAN_SAU.md` để làm tiếp 4.3.2/4.3.3/Chương5–6. Chỉ chuẩn bị đầu vào/hướng dẫn cho các mục này; không gọi chúng đã hoàn thành, không viết thêm module ngoài đề.
-7. Bàn giao README chạy từ schema/seed, cấu hình, build/deploy, URL/tài khoản demo, kết quả test thật và giới hạn thực tế.
+Trình tự:
 
-Các điểm bắt buộc kiểm chứng:
+1. Đọc nguồn và tóm tắt ngắn phạm vi đúng hai module, rồi bắt đầu code theo 02; không dừng ở lập lại kế hoạch.
+2. Tạo bộ khung, 9 bảng/10 model, seed tài khoản/danh mục, đăng nhập hỗ trợ.
+3. Hoàn thành module tra cứu và module nhập với các nhánh đã giao; dùng UI tham chiếu.
+4. Build/deploy và kiểm tra hai module; kết quả chưa chạy ghi rõ. Dùng DB test riêng, không xóa dữ liệu người dùng.
+5. Chuẩn bị app/docs/4.3.1_THIET_KE_TINH.md, bốn hình giao diện/lớp thiết kế, ảnh chạy thật và ma trận truy vết chỉ của hai module theo 07. Không chỉnh toàn bộ DOCX; giữ nguyên nguồn.
+6. Bàn giao README chạy/demo, schema/seed, kết quả test và các file ánh xạ thật của hai module. Dừng khi các đầu ra này hoàn tất, không mở thêm module.
 
-- Tìm theo tên chứa từ khóa, trang đầu chưa có kết quả; phân biệt service/part khi id trùng; quay về giữ từ khóa; chỉ công bố mục hợp lệ cho khách.
-- Nháp theo UUID trong session, hai tab không trộn; tìm/chuyển form thêm part không mất input; part trùng focus dòng cũ; dòng 0/0 không được xác nhận.
-- INSERT header, INSERT chi tiết và UPDATE cộng tồn cùng Connection/transaction. Một lỗi rollback mọi thay đổi. Hai request cùng maYeuCau chỉ tạo/cộng một lần; hai mã khác nhau nhập cùng part đều cộng, không mất cập nhật.
-- Retry sau mất response hoặc sau xóa nháp vẫn tìm id đã lưu. Chống lặp bằng UNIQUE và transaction, không chỉ disable nút.
-- In và pay không đổi tồn. Pay đúng tổng, chỉ người lập, request lặp giữ mốc cũ. Không lưu trả góp/đặt cọc hoặc tạo bảng Payment.
-- Bản in dùng tên NCC/nhân viên/part/đơn vị đã chốt; đổi master không đổi bản in cũ. Không in thêm địa chỉ/điện thoại NCC hay hãng part ngoài phạm vi đã thống nhất.
-- Input tổng/người lập/trạng thái/thời điểm từ client không làm căn cứ lưu; PreparedStatement, HTML escape, CSRF và kiểm tra quyền theo file 03.
-- Ma trận TC/NH file 07 nối từng bước/ngoại lệ DOCX tới JSP → route → Servlet → DAO/model → bảng/cột → test → hình. Hình thiết kế có Servlet thật theo Lab1; không vẽ JSP gọi DAO trực tiếp nếu code không làm vậy.
+Nếu lần chạy trước đã tạo code ngoài phạm vi, ghi nhận và tách khỏi build/demo nếu cần; không tự xóa file hoặc DB. Nếu thiếu công cụ đọc PDF/DOCX, tìm cách trích xuất phần cần đọc, không đoán nội dung hoặc bỏ qua các hình liên quan. Nếu môi trường thiếu runtime/DB, hoàn thiện phần độc lập và ghi chính xác phần chưa kiểm chứng.
 
-Nếu thiếu MySQL/Tomcat/công cụ xuất hình/chỉnh DOCX, vẫn hoàn thiện phần độc lập; ghi chính xác phần chưa chạy/chưa xuất/chưa chèn và bàn giao nguồn/vị trí sẵn dùng. Không báo test pass, ảnh thật hoặc DOCX hoàn tất khi chưa kiểm chứng. Không đổi công nghệ/nghiệp vụ để che thiếu môi trường.
+Ghi tiến độ vào app/docs/TIEN_DO.md, chỉ theo các giai đoạn hai module. Mọi hàm đưa lên hình phải khớp code và METHOD_MAP.md. Chỉ hỏi khi có mâu thuẫn thực sự chưa được bộ tài liệu giải quyết.
 
-Không hỏi lại các quyết định đã chốt. Có thể thêm helper private nhỏ phục vụ triển khai; không âm thầm thêm module, public API, bảng/cột hoặc quan hệ ngoài hợp đồng. Nếu phát hiện mâu thuẫn thực sự, ghi vị trí và đối chiếu quyết định cuối; không tự sáng tác quy tắc mới.
+---
+
+Nếu OpenCode đang làm theo prompt cũ, gửi:
+
+```text
+Dừng mở rộng phạm vi theo yêu cầu cũ. Đọc lại ke-hoach/00_PHAM_VI.md và 04_PROMPT_GEMINI.md đã sửa. Chỉ làm hai module của tôi với 9 bảng/10 model trong danh sách. Không tạo tiếp model/schema/khung chức năng cho các phần khác. Kiểm tra tiến độ hiện có, giữ file/dữ liệu đã có và tiếp tục hai module theo kế hoạch mới.
+```
+
+
+## Ràng buộc sửa chữa theo yêu cầu chủ bài
+
+Giữ nguyên các màn hình, nút/thao tác và luồng gọi trong thiết kế hai module của `26_B23DCCN764-full.docx` và giao diện tham chiếu. Sửa lỗi bên trong các hàm nghiệp vụ hiện có; không tự thêm màn, route, action, DAO nghiệp vụ hoặc hàm nghiệp vụ mới để xử lý lỗi. Dùng lại POST cập nhật khi rời hóa đơn sang form thêm phụ tùng để giữ dữ liệu. UUID/version/CSRF là tham số ẩn hỗ trợ kỹ thuật, không thành chức năng mới trên giao diện. Các hàm kỹ thuật hỗ trợ đã có không phải use case mới; không vẽ chúng thành nút hoặc luồng nghiệp vụ riêng. Nếu thiết kế gốc chưa đủ để quyết định một thay đổi nghiệp vụ, nêu đúng điểm thiếu để chủ bài quyết định.

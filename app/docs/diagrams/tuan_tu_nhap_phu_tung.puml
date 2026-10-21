@@ -1,0 +1,108 @@
+@startuml
+skinparam style strictuml
+skinparam sequenceMessageAlign center
+skinparam shadowing false
+skinparam roundcorner 5
+
+actor "Nhân viên kho" as NVKho
+boundary "purchaseInvoice.jsp" as UI_Draft
+boundary "confirmedInvoice.jsp" as UI_View
+boundary "printInvoice.jsp" as UI_Print
+control "PurchaseInvoiceServlet4" as Servlet
+participant "DraftStore4" as DraftStore
+participant "Validation4" as Validator
+participant "PurchaseInvoiceDAO4" as InvoiceDAO
+participant "SparePartDAO4" as PartDAO
+database "MySQL (JDBC Connection)" as DB
+
+title Biểu đồ tuần tự thiết kế - Modul Nhân viên kho xác nhận nhập phụ tùng & thanh toán
+
+== 1. Xác nhận hóa đơn nhập (Transaction an toàn) ==
+NVKho -> UI_Draft : Bấm "Xác nhận hóa đơn"
+UI_Draft -> Servlet : POST /warehouse/purchases/confirm (csrfToken, requestCode, draftVersion, mảng dòng)
+activate Servlet
+
+note over Servlet, DraftStore
+Khóa session ngắn: kiểm tra draftVersion, lưu input bằng
+saveLineInputsToDraft (hàm riêng), saveDraft,
+updateFormValues và incrementDraftVersion.
+end note
+Servlet -> DraftStore : beginConfirmation(session, requestCode, version)
+activate DraftStore
+DraftStore --> Servlet : PurchaseInvoice4 draft
+deactivate DraftStore
+
+Servlet -> Validator : validateQuantity(sl, unit)\nsoThapPhan(gia, ...)
+activate Validator
+Validator --> Servlet : OK (hợp lệ)
+deactivate Validator
+
+Servlet -> InvoiceDAO : savePurchaseInvoice(purchaseInvoice)
+activate InvoiceDAO
+
+InvoiceDAO -> DB : setAutoCommit(false)
+InvoiceDAO -> DB : SELECT ... FOR UPDATE\n[NCC, nhân viên, phụ tùng theo ID tăng dần]
+activate DB
+
+InvoiceDAO -> InvoiceDAO : insertInvoice(conn, purchaseInvoice)\n[INSERT tblPurchaseInvoice4]
+DB --> InvoiceDAO : invoiceId
+
+InvoiceDAO -> InvoiceDAO : insertInvoiceDetails(conn, invoiceId, sortedDetails)\n[executeBatch toàn bộ dòng, chốt sparePartNameSnapshot / unitSnapshot]
+loop Duyệt từng dòng phụ tùng để cộng tồn
+    InvoiceDAO -> PartDAO : increaseStockAfterPurchase(conn, sparePartId, quantity)
+    activate PartDAO
+    PartDAO -> DB : UPDATE tblSparePart4 SET stockQuantity = stockQuantity + ? WHERE id = ?
+    deactivate PartDAO
+end
+
+InvoiceDAO -> DB : commit()
+deactivate DB
+
+InvoiceDAO --> Servlet : invoiceId
+deactivate InvoiceDAO
+
+Servlet -> DraftStore : removeDraft(session, requestCode)
+note over Servlet, DraftStore
+finally: endConfirmation(session, requestCode).
+Lỗi SQL hoặc validation: rollback trong DAO, giữ nháp để sửa.
+Retry đã lưu: findInvoiceIdByRequestCode trả ID cũ, không cộng tồn lần hai.
+end note
+Servlet --> UI_Draft : sendRedirect("/warehouse/purchases/view?id=" + invoiceId)
+deactivate Servlet
+
+== 2. Xem hóa đơn đã xác nhận ==
+UI_Draft -> Servlet : GET /warehouse/purchases/view?id=invoiceId
+activate Servlet
+Servlet -> InvoiceDAO : getPurchaseInvoiceDetails(invoiceId)
+activate InvoiceDAO
+InvoiceDAO --> Servlet : PurchaseInvoice4 (đầy đủ chi tiết, snapshot, người lập)
+deactivate InvoiceDAO
+Servlet -> UI_View : forward(req, resp)
+deactivate Servlet
+UI_View --> NVKho : Hiển thị hóa đơn ĐÃ XÁC NHẬN (chưa thanh toán)
+
+== 3. In chứng từ ==
+NVKho -> UI_View : Bấm "In hóa đơn"
+UI_View -> Servlet : GET /warehouse/purchases/print?id=invoiceId
+activate Servlet
+Servlet -> InvoiceDAO : getPurchaseInvoiceDetails(invoiceId)
+Servlet -> UI_Print : forward(req, resp)
+deactivate Servlet
+UI_Print --> NVKho : Hiển thị mẫu in A4 chuẩn (tồn kho không đổi)
+
+== 4. Ghi nhận thanh toán ==
+NVKho -> UI_View : Nhập đúng số tiền bằng tổng tiền, bấm "Đã thanh toán"
+UI_View -> Servlet : POST /warehouse/purchases/pay (id, amountPaid, csrfToken)
+activate Servlet
+
+Servlet -> InvoiceDAO : recordPayment(invoiceId, amount, currentUserId)
+activate InvoiceDAO
+InvoiceDAO -> InvoiceDAO : Kiểm tra: đúng người lập, trạng thái Chưa thanh toán, đúng tổng tiền
+InvoiceDAO -> DB : UPDATE tblPurchaseInvoice4 SET paymentStatus=?, paidAt=?
+InvoiceDAO --> Servlet : true (thành công)
+deactivate InvoiceDAO
+
+Servlet --> UI_View : sendRedirect("/warehouse/purchases/view?id=" + invoiceId)
+deactivate Servlet
+
+@enduml

@@ -1,0 +1,10 @@
+{
+  "classes": 24,
+  "relationships": 35,
+  "collinear_overlaps": 0,
+  "wires_through_classes": 0,
+  "size": [
+    3300,
+    4570
+  ]
+}

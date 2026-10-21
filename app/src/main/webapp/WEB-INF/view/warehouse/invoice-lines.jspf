@@ -1,0 +1,38 @@
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<fmt:setLocale value="vi_VN" />
+
+<div class="table-wrap">
+  <table>
+    <thead>
+      <tr>
+        <th>STT</th>
+        <th>Tên phụ tùng</th>
+        <th>ĐVT</th>
+        <th class="number">Số lượng</th>
+        <th class="number">Đơn giá nhập (₫)</th>
+        <th class="number">Thành tiền (₫)</th>
+      </tr>
+    </thead>
+    <tbody data-invoice-lines>
+      <c:forEach var="invoiceDetail" items="${purchaseInvoice.invoiceDetails}" varStatus="status">
+        <tr>
+          <td class="code"><fmt:formatNumber value="${status.index + 1}" pattern="00"/></td>
+          <td>
+            <strong><c:out value="${invoiceDetail.sparePartNameSnapshot}"/></strong>
+            <small>PT<c:out value="${invoiceDetail.sparePart.id}"/></small>
+          </td>
+          <td><c:out value="${invoiceDetail.unitSnapshot}"/></td>
+          <td class="number"><fmt:formatNumber value="${invoiceDetail.quantity}" maxFractionDigits="3"/></td>
+          <td class="number"><fmt:formatNumber value="${invoiceDetail.purchaseUnitPrice}" type="currency" currencySymbol="₫" maxFractionDigits="2"/></td>
+          <td class="number"><fmt:formatNumber value="${invoiceDetail.lineAmount}" type="currency" currencySymbol="₫" maxFractionDigits="2"/></td>
+        </tr>
+      </c:forEach>
+    </tbody>
+  </table>
+</div>
+<div class="total-row">
+  <span>Tổng tiền hóa đơn</span>
+  <strong data-invoice-total><fmt:formatNumber value="${purchaseInvoice.totalAmount}" type="currency" currencySymbol="₫" maxFractionDigits="2"/></strong>
+</div>

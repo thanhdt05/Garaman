@@ -1,0 +1,118 @@
+@startuml
+skinparam style strictuml
+skinparam packageStyle rectangle
+skinparam shadowing false
+skinparam roundcorner 5
+
+title Biểu đồ Cơ sở Dữ liệu 9 Bảng - GaraMan Đề 26
+
+entity "tblMember4" as tblMember4 {
+    * id : INT (PK, AI)
+    --
+    * fullName : VARCHAR(255)
+    username : VARCHAR(100) (UQ)
+    password : VARCHAR(255)
+    dateOfBirth : DATE
+    address : TEXT
+    email : VARCHAR(255)
+    * phoneNumber : VARCHAR(20)
+    * role : VARCHAR(30)
+    accountStatus : VARCHAR(30)
+}
+
+entity "tblEmployee4" as tblEmployee4 {
+    * tblMember4id : INT (PK, FK)
+    --
+    * position : VARCHAR(30)
+    * employmentStatus : VARCHAR(30)
+}
+
+entity "tblCustomer4" as tblCustomer4 {
+    * tblMember4id : INT (PK, FK)
+}
+
+entity "tblSupplier4" as tblSupplier4 {
+    * id : INT (PK, AI)
+    --
+    * name : VARCHAR(255)
+    * address : TEXT
+    * phoneNumber : VARCHAR(20)
+    email : VARCHAR(255)
+    * status : VARCHAR(30)
+}
+
+entity "tblSparePartCategory4" as tblSparePartCategory4 {
+    * id : INT (PK, AI)
+    --
+    * name : VARCHAR(255) (UQ)
+    description : TEXT
+    * status : VARCHAR(30)
+}
+
+entity "tblService4" as tblService4 {
+    * id : INT (PK, AI)
+    --
+    * name : VARCHAR(255)
+    * category : VARCHAR(255)
+    * description : TEXT
+    * content : TEXT
+    imagePath : VARCHAR(255)
+    * unitPrice : DECIMAL(18,2)
+    * estimatedDuration : INT
+    warrantyPeriod : VARCHAR(255)
+    warrantyTerms : TEXT
+    * status : VARCHAR(30)
+}
+
+entity "tblSparePart4" as tblSparePart4 {
+    * id : INT (PK, AI)
+    --
+    * name : VARCHAR(255)
+    description : TEXT
+    imagePath : VARCHAR(255)
+    * unit : VARCHAR(20)
+    * manufacturer : VARCHAR(255)
+    specifications : TEXT
+    compatibleVehicleModels : TEXT
+    sellingPrice : DECIMAL(18,2)
+    warrantyPeriod : VARCHAR(255)
+    warrantyTerms : TEXT
+    * status : VARCHAR(30)
+    * stockQuantity : DECIMAL(12,3)
+    * tblSparePartCategory4id : INT (FK)
+}
+
+entity "tblPurchaseInvoice4" as tblPurchaseInvoice4 {
+    * id : INT (PK, AI)
+    --
+    * purchaseDate : DATETIME
+    * confirmedAt : DATETIME
+    * paymentStatus : VARCHAR(30)
+    paidAt : DATETIME
+    * tblSupplier4id : INT (FK)
+    * tblEmployee4id : INT (FK)
+    * requestCode : CHAR(36) (UQ)
+    * supplierNameSnapshot : VARCHAR(255)
+    * warehouseStaffNameSnapshot : VARCHAR(255)
+}
+
+entity "tblPurchaseInvoiceDetail4" as tblPurchaseInvoiceDetail4 {
+    * id : INT (PK, AI)
+    --
+    * quantity : DECIMAL(12,3)
+    * purchaseUnitPrice : DECIMAL(18,2)
+    * tblPurchaseInvoice4id : INT (FK)
+    * tblSparePart4id : INT (FK)
+    * sparePartNameSnapshot : VARCHAR(255)
+    * unitSnapshot : VARCHAR(20)
+}
+
+tblMember4 ||--o| tblEmployee4 : "1 - 0..1"
+tblMember4 ||--o| tblCustomer4 : "1 - 0..1"
+tblSparePartCategory4 ||--o{ tblSparePart4 : "1 - n"
+tblSupplier4 ||--o{ tblPurchaseInvoice4 : "1 - n"
+tblEmployee4 ||--o{ tblPurchaseInvoice4 : "1 - n"
+tblPurchaseInvoice4 ||--|{ tblPurchaseInvoiceDetail4 : "1 - 1..n"
+tblSparePart4 ||--o{ tblPurchaseInvoiceDetail4 : "1 - n"
+
+@enduml

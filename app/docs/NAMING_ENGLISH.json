@@ -1,0 +1,1568 @@
+{
+  "date": "2026-10-21",
+  "scope": "Canonical English names for two diagrams, report and app source/SQL schema. Current live DB/deployment awaits migration approval; see CODE_ENGLISH_MIGRATION.md.",
+  "classOrder": [
+    "customerHome.jsp",
+    "catalogSearch.jsp",
+    "itemDetails.jsp",
+    "CatalogServlet4",
+    "DAO",
+    "ServiceDAO4",
+    "SparePartDAO4",
+    "Member4",
+    "Customer4",
+    "Service4",
+    "SparePart4",
+    "SparePartCategory4",
+    "warehouseHome.jsp",
+    "selectSupplier.jsp",
+    "newSupplier.jsp",
+    "purchaseInvoice.jsp",
+    "newSparePart.jsp",
+    "confirmedInvoice.jsp",
+    "printInvoice.jsp",
+    "SupplierServlet4",
+    "SparePartServlet4",
+    "PurchaseInvoiceServlet4",
+    "SupplierDAO4",
+    "WarehouseStaffDAO4",
+    "SparePartCategoryDAO4",
+    "PurchaseInvoiceDAO4",
+    "Employee4",
+    "WarehouseStaff4",
+    "Supplier4",
+    "PurchaseInvoice4",
+    "PurchaseInvoiceDetail4"
+  ],
+  "views": {
+    "gdChinhKH.jsp": [
+      "customerHome.jsp",
+      "CustomerHomeView"
+    ],
+    "gdTimThongTin.jsp": [
+      "catalogSearch.jsp",
+      "CatalogSearchView"
+    ],
+    "gdChiTietThongTin.jsp": [
+      "itemDetails.jsp",
+      "ItemDetailsView"
+    ],
+    "gdChinhKho.jsp": [
+      "warehouseHome.jsp",
+      "WarehouseHomeView"
+    ],
+    "gdChonNhaCungCap.jsp": [
+      "selectSupplier.jsp",
+      "SelectSupplierView"
+    ],
+    "gdThemNhaCungCap.jsp": [
+      "newSupplier.jsp",
+      "NewSupplierView"
+    ],
+    "gdLapHoaDonNhap.jsp": [
+      "purchaseInvoice.jsp",
+      "PurchaseInvoiceView"
+    ],
+    "gdThemPhuTung.jsp": [
+      "newSparePart.jsp",
+      "NewSparePartView"
+    ],
+    "gdHoaDonNhapDaXacNhan.jsp": [
+      "confirmedInvoice.jsp",
+      "ConfirmedInvoiceView"
+    ],
+    "gdInHoaDonNhap.jsp": [
+      "printInvoice.jsp",
+      "PrintInvoiceView"
+    ]
+  },
+  "attributes": {
+    "hoTen": "fullName",
+    "tenDangNhap": "username",
+    "matKhau": "password",
+    "ngaySinh": "dateOfBirth",
+    "diaChi": "address",
+    "dienThoai": "phoneNumber",
+    "vaiTro": "role",
+    "trangThaiTaiKhoan": "accountStatus",
+    "viTri": "position",
+    "trangThaiLamViec": "employmentStatus",
+    "ten": "name",
+    "nhom": "category",
+    "moTa": "description",
+    "noiDung": "content",
+    "hinhAnh": "imagePath",
+    "donGia": "unitPrice",
+    "thoiGianDuKien": "estimatedDuration",
+    "hanBaoHanh": "warrantyPeriod",
+    "dieuKienBaoHanh": "warrantyTerms",
+    "trangThai": "status",
+    "donVi": "unit",
+    "hangSanXuat": "manufacturer",
+    "thongSo": "specifications",
+    "dongXePhuHop": "compatibleVehicleModels",
+    "giaBan": "sellingPrice",
+    "tonKho": "stockQuantity",
+    "maYeuCau": "requestCode",
+    "ngayNhap": "purchaseDate",
+    "thoiDiemXacNhan": "confirmedAt",
+    "tinhTrang": "paymentStatus",
+    "thoiDiemThanhToan": "paidAt",
+    "nhaCungCap": "supplier",
+    "nhanVienKho": "warehouseStaff",
+    "dsChiTietNhap": "invoiceDetails",
+    "nhaCungCapTenApDung": "supplierNameSnapshot",
+    "nhanVienTenApDung": "warehouseStaffNameSnapshot",
+    "soLuong": "quantity",
+    "donGiaNhap": "purchaseUnitPrice",
+    "tenPhuTungApDung": "sparePartNameSnapshot",
+    "donViApDung": "unitSnapshot",
+    "phuTung": "sparePart",
+    "tuKhoa": "keyword",
+    "boLoc": "itemTypeFilter",
+    "dichVu": "service",
+    "hoaDonNhap": "purchaseInvoice",
+    "soTienDaTra": "amountPaid"
+  },
+  "controls": {
+    "timThongTin": "searchCatalogLink",
+    "btnTimKiem": "searchButton",
+    "dsDichVu": "services",
+    "dsPhuTung": "spareParts",
+    "tblKetQua": "resultsTable",
+    "chonThongTin": "viewDetailsLink",
+    "quayLai": "backLink",
+    "nhapPhuTung": "startPurchaseLink",
+    "dsNhaCungCap": "suppliers",
+    "tblNhaCungCap": "suppliersTable",
+    "btnChonNhaCungCap": "selectSupplierButton",
+    "themNhaCungCap": "addSupplierLink",
+    "btnLuu": "saveButton",
+    "tblKetQuaPhuTung": "sparePartsTable",
+    "btnChonPhuTung": "selectSparePartButton",
+    "tblChiTietNhap": "invoiceDetailsTable",
+    "themPhuTung": "addSparePartButton",
+    "btnCapNhat": "updateButton",
+    "btnXacNhan": "confirmButton",
+    "btnHuy": "cancelButton",
+    "dsNhom": "categories",
+    "btnDaThanhToan": "markAsPaidButton",
+    "inHoaDon": "printInvoiceLink",
+    "btnIn": "printButton"
+  },
+  "methods": {
+    "timDichVuTheoTen": "findServicesByName",
+    "layChiTietDichVu": "getServiceDetails",
+    "timPhuTungTheoTen": "findSparePartsByName",
+    "layChiTietPhuTung": "getSparePartDetails",
+    "timNhaCungCapTheoTen": "findSuppliersByName",
+    "layThongTinNhaCungCap": "getSupplierDetails",
+    "themNhaCungCap": "addSupplier",
+    "layThongTinNhanVienKho": "getWarehouseStaffDetails",
+    "layDanhSachNhom": "getActiveCategories",
+    "themPhuTung": "addSparePart",
+    "tangTonSauNhap": "increaseStockAfterPurchase",
+    "luuHoaDonNhap": "savePurchaseInvoice",
+    "layThongTinHoaDonNhap": "getPurchaseInvoiceDetails",
+    "ghiNhanThanhToan": "recordPayment",
+    "tinhTongTien": "calculateTotalAmount"
+  },
+  "parameters": {
+    "tuKhoa": "keyword",
+    "chiCongBo": "publishedOnly",
+    "con": "connection",
+    "idPhuTung": "sparePartId",
+    "soLuong": "quantity",
+    "hoaDon": "purchaseInvoice",
+    "idHoaDon": "invoiceId",
+    "soTienDaTra": "amountPaid",
+    "idNhanVienHienTai": "currentWarehouseStaffId",
+    "part": "sparePart"
+  },
+  "records": [
+    {
+      "kind": "JSP",
+      "owner": "gdChinhKH.jsp",
+      "newOwner": "customerHome.jsp",
+      "old": "gdChinhKH.jsp",
+      "new": "customerHome.jsp",
+      "type": ""
+    },
+    {
+      "kind": "UI attribute",
+      "owner": "gdChinhKH.jsp",
+      "newOwner": "customerHome.jsp",
+      "old": "hoTen",
+      "new": "fullName",
+      "type": "String"
+    },
+    {
+      "kind": "UI attribute",
+      "owner": "gdChinhKH.jsp",
+      "newOwner": "customerHome.jsp",
+      "old": "timThongTin",
+      "new": "searchCatalogLink",
+      "type": "link"
+    },
+    {
+      "kind": "JSP",
+      "owner": "gdTimThongTin.jsp",
+      "newOwner": "catalogSearch.jsp",
+      "old": "gdTimThongTin.jsp",
+      "new": "catalogSearch.jsp",
+      "type": ""
+    },
+    {
+      "kind": "UI attribute",
+      "owner": "gdTimThongTin.jsp",
+      "newOwner": "catalogSearch.jsp",
+      "old": "tuKhoa",
+      "new": "keyword",
+      "type": "TextField"
+    },
+    {
+      "kind": "UI attribute",
+      "owner": "gdTimThongTin.jsp",
+      "newOwner": "catalogSearch.jsp",
+      "old": "boLoc",
+      "new": "itemTypeFilter",
+      "type": "Select"
+    },
+    {
+      "kind": "UI attribute",
+      "owner": "gdTimThongTin.jsp",
+      "newOwner": "catalogSearch.jsp",
+      "old": "btnTimKiem",
+      "new": "searchButton",
+      "type": "submit"
+    },
+    {
+      "kind": "UI attribute",
+      "owner": "gdTimThongTin.jsp",
+      "newOwner": "catalogSearch.jsp",
+      "old": "dsDichVu",
+      "new": "services",
+      "type": "List<Service4>"
+    },
+    {
+      "kind": "UI attribute",
+      "owner": "gdTimThongTin.jsp",
+      "newOwner": "catalogSearch.jsp",
+      "old": "dsPhuTung",
+      "new": "spareParts",
+      "type": "List<SparePart4>"
+    },
+    {
+      "kind": "UI attribute",
+      "owner": "gdTimThongTin.jsp",
+      "newOwner": "catalogSearch.jsp",
+      "old": "tblKetQua",
+      "new": "resultsTable",
+      "type": "Table"
+    },
+    {
+      "kind": "UI attribute",
+      "owner": "gdTimThongTin.jsp",
+      "newOwner": "catalogSearch.jsp",
+      "old": "chonThongTin",
+      "new": "viewDetailsLink",
+      "type": "link"
+    },
+    {
+      "kind": "JSP",
+      "owner": "gdChiTietThongTin.jsp",
+      "newOwner": "itemDetails.jsp",
+      "old": "gdChiTietThongTin.jsp",
+      "new": "itemDetails.jsp",
+      "type": ""
+    },
+    {
+      "kind": "UI attribute",
+      "owner": "gdChiTietThongTin.jsp",
+      "newOwner": "itemDetails.jsp",
+      "old": "dichVu",
+      "new": "service",
+      "type": "Service4"
+    },
+    {
+      "kind": "UI attribute",
+      "owner": "gdChiTietThongTin.jsp",
+      "newOwner": "itemDetails.jsp",
+      "old": "phuTung",
+      "new": "sparePart",
+      "type": "SparePart4"
+    },
+    {
+      "kind": "UI attribute",
+      "owner": "gdChiTietThongTin.jsp",
+      "newOwner": "itemDetails.jsp",
+      "old": "quayLai",
+      "new": "backLink",
+      "type": "link"
+    },
+    {
+      "kind": "Parameter",
+      "owner": "ServiceDAO4.timDichVuTheoTen",
+      "newOwner": "ServiceDAO4.findServicesByName",
+      "old": "tuKhoa",
+      "new": "keyword",
+      "type": "String"
+    },
+    {
+      "kind": "Method",
+      "owner": "ServiceDAO4",
+      "newOwner": "ServiceDAO4",
+      "old": "timDichVuTheoTen(tuKhoa: String): List<Service4>",
+      "new": "findServicesByName(keyword: String): List<Service4>",
+      "type": ""
+    },
+    {
+      "kind": "Parameter",
+      "owner": "ServiceDAO4.layChiTietDichVu",
+      "newOwner": "ServiceDAO4.getServiceDetails",
+      "old": "id",
+      "new": "serviceId",
+      "type": "int"
+    },
+    {
+      "kind": "Method",
+      "owner": "ServiceDAO4",
+      "newOwner": "ServiceDAO4",
+      "old": "layChiTietDichVu(id: int): Service4",
+      "new": "getServiceDetails(serviceId: int): Service4",
+      "type": ""
+    },
+    {
+      "kind": "Parameter",
+      "owner": "SparePartDAO4.timPhuTungTheoTen",
+      "newOwner": "SparePartDAO4.findSparePartsByName",
+      "old": "tuKhoa",
+      "new": "keyword",
+      "type": "String"
+    },
+    {
+      "kind": "Parameter",
+      "owner": "SparePartDAO4.timPhuTungTheoTen",
+      "newOwner": "SparePartDAO4.findSparePartsByName",
+      "old": "chiCongBo",
+      "new": "publishedOnly",
+      "type": "boolean"
+    },
+    {
+      "kind": "Method",
+      "owner": "SparePartDAO4",
+      "newOwner": "SparePartDAO4",
+      "old": "timPhuTungTheoTen(tuKhoa: String, chiCongBo: boolean): List<SparePart4>",
+      "new": "findSparePartsByName(keyword: String, publishedOnly: boolean): List<SparePart4>",
+      "type": ""
+    },
+    {
+      "kind": "Parameter",
+      "owner": "SparePartDAO4.layChiTietPhuTung",
+      "newOwner": "SparePartDAO4.getSparePartDetails",
+      "old": "id",
+      "new": "sparePartId",
+      "type": "int"
+    },
+    {
+      "kind": "Parameter",
+      "owner": "SparePartDAO4.layChiTietPhuTung",
+      "newOwner": "SparePartDAO4.getSparePartDetails",
+      "old": "chiCongBo",
+      "new": "publishedOnly",
+      "type": "boolean"
+    },
+    {
+      "kind": "Method",
+      "owner": "SparePartDAO4",
+      "newOwner": "SparePartDAO4",
+      "old": "layChiTietPhuTung(id: int, chiCongBo: boolean): SparePart4",
+      "new": "getSparePartDetails(sparePartId: int, publishedOnly: boolean): SparePart4",
+      "type": ""
+    },
+    {
+      "kind": "Entity attribute",
+      "owner": "Member4",
+      "newOwner": "Member4",
+      "old": "id",
+      "new": "id",
+      "type": "int"
+    },
+    {
+      "kind": "Entity attribute",
+      "owner": "Member4",
+      "newOwner": "Member4",
+      "old": "hoTen",
+      "new": "fullName",
+      "type": "String"
+    },
+    {
+      "kind": "Entity attribute",
+      "owner": "Member4",
+      "newOwner": "Member4",
+      "old": "tenDangNhap",
+      "new": "username",
+      "type": "String"
+    },
+    {
+      "kind": "Entity attribute",
+      "owner": "Member4",
+      "newOwner": "Member4",
+      "old": "matKhau",
+      "new": "password",
+      "type": "String"
+    },
+    {
+      "kind": "Entity attribute",
+      "owner": "Member4",
+      "newOwner": "Member4",
+      "old": "ngaySinh",
+      "new": "dateOfBirth",
+      "type": "LocalDate"
+    },
+    {
+      "kind": "Entity attribute",
+      "owner": "Member4",
+      "newOwner": "Member4",
+      "old": "diaChi",
+      "new": "address",
+      "type": "String"
+    },
+    {
+      "kind": "Entity attribute",
+      "owner": "Member4",
+      "newOwner": "Member4",
+      "old": "email",
+      "new": "email",
+      "type": "String"
+    },
+    {
+      "kind": "Entity attribute",
+      "owner": "Member4",
+      "newOwner": "Member4",
+      "old": "dienThoai",
+      "new": "phoneNumber",
+      "type": "String"
+    },
+    {
+      "kind": "Entity attribute",
+      "owner": "Member4",
+      "newOwner": "Member4",
+      "old": "vaiTro",
+      "new": "role",
+      "type": "String"
+    },
+    {
+      "kind": "Entity attribute",
+      "owner": "Member4",
+      "newOwner": "Member4",
+      "old": "trangThaiTaiKhoan",
+      "new": "accountStatus",
+      "type": "String"
+    },
+    {
+      "kind": "Entity attribute",
+      "owner": "Service4",
+      "newOwner": "Service4",
+      "old": "id",
+      "new": "id",
+      "type": "int"
+    },
+    {
+      "kind": "Entity attribute",
+      "owner": "Service4",
+      "newOwner": "Service4",
+      "old": "ten",
+      "new": "name",
+      "type": "String"
+    },
+    {
+      "kind": "Entity attribute",
+      "owner": "Service4",
+      "newOwner": "Service4",
+      "old": "nhom",
+      "new": "category",
+      "type": "String"
+    },
+    {
+      "kind": "Entity attribute",
+      "owner": "Service4",
+      "newOwner": "Service4",
+      "old": "moTa",
+      "new": "description",
+      "type": "String"
+    },
+    {
+      "kind": "Entity attribute",
+      "owner": "Service4",
+      "newOwner": "Service4",
+      "old": "noiDung",
+      "new": "content",
+      "type": "String"
+    },
+    {
+      "kind": "Entity attribute",
+      "owner": "Service4",
+      "newOwner": "Service4",
+      "old": "hinhAnh",
+      "new": "imagePath",
+      "type": "String"
+    },
+    {
+      "kind": "Entity attribute",
+      "owner": "Service4",
+      "newOwner": "Service4",
+      "old": "donGia",
+      "new": "unitPrice",
+      "type": "BigDecimal"
+    },
+    {
+      "kind": "Entity attribute",
+      "owner": "Service4",
+      "newOwner": "Service4",
+      "old": "thoiGianDuKien",
+      "new": "estimatedDuration",
+      "type": "int"
+    },
+    {
+      "kind": "Entity attribute",
+      "owner": "Service4",
+      "newOwner": "Service4",
+      "old": "hanBaoHanh",
+      "new": "warrantyPeriod",
+      "type": "String"
+    },
+    {
+      "kind": "Entity attribute",
+      "owner": "Service4",
+      "newOwner": "Service4",
+      "old": "dieuKienBaoHanh",
+      "new": "warrantyTerms",
+      "type": "String"
+    },
+    {
+      "kind": "Entity attribute",
+      "owner": "Service4",
+      "newOwner": "Service4",
+      "old": "trangThai",
+      "new": "status",
+      "type": "String"
+    },
+    {
+      "kind": "Entity attribute",
+      "owner": "SparePart4",
+      "newOwner": "SparePart4",
+      "old": "id",
+      "new": "id",
+      "type": "int"
+    },
+    {
+      "kind": "Entity attribute",
+      "owner": "SparePart4",
+      "newOwner": "SparePart4",
+      "old": "ten",
+      "new": "name",
+      "type": "String"
+    },
+    {
+      "kind": "Entity attribute",
+      "owner": "SparePart4",
+      "newOwner": "SparePart4",
+      "old": "moTa",
+      "new": "description",
+      "type": "String"
+    },
+    {
+      "kind": "Entity attribute",
+      "owner": "SparePart4",
+      "newOwner": "SparePart4",
+      "old": "hinhAnh",
+      "new": "imagePath",
+      "type": "String"
+    },
+    {
+      "kind": "Entity attribute",
+      "owner": "SparePart4",
+      "newOwner": "SparePart4",
+      "old": "donVi",
+      "new": "unit",
+      "type": "String"
+    },
+    {
+      "kind": "Entity attribute",
+      "owner": "SparePart4",
+      "newOwner": "SparePart4",
+      "old": "hangSanXuat",
+      "new": "manufacturer",
+      "type": "String"
+    },
+    {
+      "kind": "Entity attribute",
+      "owner": "SparePart4",
+      "newOwner": "SparePart4",
+      "old": "thongSo",
+      "new": "specifications",
+      "type": "String"
+    },
+    {
+      "kind": "Entity attribute",
+      "owner": "SparePart4",
+      "newOwner": "SparePart4",
+      "old": "dongXePhuHop",
+      "new": "compatibleVehicleModels",
+      "type": "String"
+    },
+    {
+      "kind": "Entity attribute",
+      "owner": "SparePart4",
+      "newOwner": "SparePart4",
+      "old": "giaBan",
+      "new": "sellingPrice",
+      "type": "BigDecimal"
+    },
+    {
+      "kind": "Entity attribute",
+      "owner": "SparePart4",
+      "newOwner": "SparePart4",
+      "old": "hanBaoHanh",
+      "new": "warrantyPeriod",
+      "type": "String"
+    },
+    {
+      "kind": "Entity attribute",
+      "owner": "SparePart4",
+      "newOwner": "SparePart4",
+      "old": "dieuKienBaoHanh",
+      "new": "warrantyTerms",
+      "type": "String"
+    },
+    {
+      "kind": "Entity attribute",
+      "owner": "SparePart4",
+      "newOwner": "SparePart4",
+      "old": "trangThai",
+      "new": "status",
+      "type": "String"
+    },
+    {
+      "kind": "Entity attribute",
+      "owner": "SparePart4",
+      "newOwner": "SparePart4",
+      "old": "tonKho",
+      "new": "stockQuantity",
+      "type": "BigDecimal"
+    },
+    {
+      "kind": "Entity attribute",
+      "owner": "SparePart4",
+      "newOwner": "SparePart4",
+      "old": "nhom",
+      "new": "category",
+      "type": "SparePartCategory4"
+    },
+    {
+      "kind": "Entity attribute",
+      "owner": "SparePartCategory4",
+      "newOwner": "SparePartCategory4",
+      "old": "id",
+      "new": "id",
+      "type": "int"
+    },
+    {
+      "kind": "Entity attribute",
+      "owner": "SparePartCategory4",
+      "newOwner": "SparePartCategory4",
+      "old": "ten",
+      "new": "name",
+      "type": "String"
+    },
+    {
+      "kind": "Entity attribute",
+      "owner": "SparePartCategory4",
+      "newOwner": "SparePartCategory4",
+      "old": "moTa",
+      "new": "description",
+      "type": "String"
+    },
+    {
+      "kind": "Entity attribute",
+      "owner": "SparePartCategory4",
+      "newOwner": "SparePartCategory4",
+      "old": "trangThai",
+      "new": "status",
+      "type": "String"
+    },
+    {
+      "kind": "JSP",
+      "owner": "gdChinhKho.jsp",
+      "newOwner": "warehouseHome.jsp",
+      "old": "gdChinhKho.jsp",
+      "new": "warehouseHome.jsp",
+      "type": ""
+    },
+    {
+      "kind": "UI attribute",
+      "owner": "gdChinhKho.jsp",
+      "newOwner": "warehouseHome.jsp",
+      "old": "hoTen",
+      "new": "fullName",
+      "type": "String"
+    },
+    {
+      "kind": "UI attribute",
+      "owner": "gdChinhKho.jsp",
+      "newOwner": "warehouseHome.jsp",
+      "old": "nhapPhuTung",
+      "new": "startPurchaseLink",
+      "type": "link"
+    },
+    {
+      "kind": "JSP",
+      "owner": "gdChonNhaCungCap.jsp",
+      "newOwner": "selectSupplier.jsp",
+      "old": "gdChonNhaCungCap.jsp",
+      "new": "selectSupplier.jsp",
+      "type": ""
+    },
+    {
+      "kind": "UI attribute",
+      "owner": "gdChonNhaCungCap.jsp",
+      "newOwner": "selectSupplier.jsp",
+      "old": "tuKhoa",
+      "new": "keyword",
+      "type": "TextField"
+    },
+    {
+      "kind": "UI attribute",
+      "owner": "gdChonNhaCungCap.jsp",
+      "newOwner": "selectSupplier.jsp",
+      "old": "btnTimKiem",
+      "new": "searchButton",
+      "type": "submit"
+    },
+    {
+      "kind": "UI attribute",
+      "owner": "gdChonNhaCungCap.jsp",
+      "newOwner": "selectSupplier.jsp",
+      "old": "dsNhaCungCap",
+      "new": "suppliers",
+      "type": "List<Supplier4>"
+    },
+    {
+      "kind": "UI attribute",
+      "owner": "gdChonNhaCungCap.jsp",
+      "newOwner": "selectSupplier.jsp",
+      "old": "tblNhaCungCap",
+      "new": "suppliersTable",
+      "type": "Table"
+    },
+    {
+      "kind": "UI attribute",
+      "owner": "gdChonNhaCungCap.jsp",
+      "newOwner": "selectSupplier.jsp",
+      "old": "btnChonNhaCungCap",
+      "new": "selectSupplierButton",
+      "type": "submit"
+    },
+    {
+      "kind": "UI attribute",
+      "owner": "gdChonNhaCungCap.jsp",
+      "newOwner": "selectSupplier.jsp",
+      "old": "themNhaCungCap",
+      "new": "addSupplierLink",
+      "type": "link"
+    },
+    {
+      "kind": "JSP",
+      "owner": "gdThemNhaCungCap.jsp",
+      "newOwner": "newSupplier.jsp",
+      "old": "gdThemNhaCungCap.jsp",
+      "new": "newSupplier.jsp",
+      "type": ""
+    },
+    {
+      "kind": "UI attribute",
+      "owner": "gdThemNhaCungCap.jsp",
+      "newOwner": "newSupplier.jsp",
+      "old": "nhaCungCap",
+      "new": "supplier",
+      "type": "Supplier4"
+    },
+    {
+      "kind": "UI attribute",
+      "owner": "gdThemNhaCungCap.jsp",
+      "newOwner": "newSupplier.jsp",
+      "old": "ten",
+      "new": "name",
+      "type": "TextField"
+    },
+    {
+      "kind": "UI attribute",
+      "owner": "gdThemNhaCungCap.jsp",
+      "newOwner": "newSupplier.jsp",
+      "old": "diaChi",
+      "new": "address",
+      "type": "TextField"
+    },
+    {
+      "kind": "UI attribute",
+      "owner": "gdThemNhaCungCap.jsp",
+      "newOwner": "newSupplier.jsp",
+      "old": "dienThoai",
+      "new": "phoneNumber",
+      "type": "TextField"
+    },
+    {
+      "kind": "UI attribute",
+      "owner": "gdThemNhaCungCap.jsp",
+      "newOwner": "newSupplier.jsp",
+      "old": "email",
+      "new": "email",
+      "type": "TextField"
+    },
+    {
+      "kind": "UI attribute",
+      "owner": "gdThemNhaCungCap.jsp",
+      "newOwner": "newSupplier.jsp",
+      "old": "btnLuu",
+      "new": "saveButton",
+      "type": "submit"
+    },
+    {
+      "kind": "UI attribute",
+      "owner": "gdThemNhaCungCap.jsp",
+      "newOwner": "newSupplier.jsp",
+      "old": "quayLai",
+      "new": "backLink",
+      "type": "link"
+    },
+    {
+      "kind": "JSP",
+      "owner": "gdLapHoaDonNhap.jsp",
+      "newOwner": "purchaseInvoice.jsp",
+      "old": "gdLapHoaDonNhap.jsp",
+      "new": "purchaseInvoice.jsp",
+      "type": ""
+    },
+    {
+      "kind": "UI attribute",
+      "owner": "gdLapHoaDonNhap.jsp",
+      "newOwner": "purchaseInvoice.jsp",
+      "old": "hoaDonNhap",
+      "new": "purchaseInvoice",
+      "type": "PurchaseInvoice4"
+    },
+    {
+      "kind": "UI attribute",
+      "owner": "gdLapHoaDonNhap.jsp",
+      "newOwner": "purchaseInvoice.jsp",
+      "old": "nhaCungCap",
+      "new": "supplier",
+      "type": "Supplier4"
+    },
+    {
+      "kind": "UI attribute",
+      "owner": "gdLapHoaDonNhap.jsp",
+      "newOwner": "purchaseInvoice.jsp",
+      "old": "nhanVienKho",
+      "new": "warehouseStaff",
+      "type": "WarehouseStaff4"
+    },
+    {
+      "kind": "UI attribute",
+      "owner": "gdLapHoaDonNhap.jsp",
+      "newOwner": "purchaseInvoice.jsp",
+      "old": "tuKhoa",
+      "new": "keyword",
+      "type": "TextField"
+    },
+    {
+      "kind": "UI attribute",
+      "owner": "gdLapHoaDonNhap.jsp",
+      "newOwner": "purchaseInvoice.jsp",
+      "old": "btnTimKiem",
+      "new": "searchButton",
+      "type": "submit"
+    },
+    {
+      "kind": "UI attribute",
+      "owner": "gdLapHoaDonNhap.jsp",
+      "newOwner": "purchaseInvoice.jsp",
+      "old": "dsPhuTung",
+      "new": "spareParts",
+      "type": "List<SparePart4>"
+    },
+    {
+      "kind": "UI attribute",
+      "owner": "gdLapHoaDonNhap.jsp",
+      "newOwner": "purchaseInvoice.jsp",
+      "old": "tblKetQuaPhuTung",
+      "new": "sparePartsTable",
+      "type": "Table"
+    },
+    {
+      "kind": "UI attribute",
+      "owner": "gdLapHoaDonNhap.jsp",
+      "newOwner": "purchaseInvoice.jsp",
+      "old": "btnChonPhuTung",
+      "new": "selectSparePartButton",
+      "type": "submit"
+    },
+    {
+      "kind": "UI attribute",
+      "owner": "gdLapHoaDonNhap.jsp",
+      "newOwner": "purchaseInvoice.jsp",
+      "old": "tblChiTietNhap",
+      "new": "invoiceDetailsTable",
+      "type": "Table"
+    },
+    {
+      "kind": "UI attribute",
+      "owner": "gdLapHoaDonNhap.jsp",
+      "newOwner": "purchaseInvoice.jsp",
+      "old": "themPhuTung",
+      "new": "addSparePartButton",
+      "type": "submit"
+    },
+    {
+      "kind": "UI attribute",
+      "owner": "gdLapHoaDonNhap.jsp",
+      "newOwner": "purchaseInvoice.jsp",
+      "old": "btnCapNhat",
+      "new": "updateButton",
+      "type": "submit"
+    },
+    {
+      "kind": "UI attribute",
+      "owner": "gdLapHoaDonNhap.jsp",
+      "newOwner": "purchaseInvoice.jsp",
+      "old": "btnXacNhan",
+      "new": "confirmButton",
+      "type": "submit"
+    },
+    {
+      "kind": "UI attribute",
+      "owner": "gdLapHoaDonNhap.jsp",
+      "newOwner": "purchaseInvoice.jsp",
+      "old": "btnHuy",
+      "new": "cancelButton",
+      "type": "submit"
+    },
+    {
+      "kind": "JSP",
+      "owner": "gdThemPhuTung.jsp",
+      "newOwner": "newSparePart.jsp",
+      "old": "gdThemPhuTung.jsp",
+      "new": "newSparePart.jsp",
+      "type": ""
+    },
+    {
+      "kind": "UI attribute",
+      "owner": "gdThemPhuTung.jsp",
+      "newOwner": "newSparePart.jsp",
+      "old": "phuTung",
+      "new": "sparePart",
+      "type": "SparePart4"
+    },
+    {
+      "kind": "UI attribute",
+      "owner": "gdThemPhuTung.jsp",
+      "newOwner": "newSparePart.jsp",
+      "old": "ten",
+      "new": "name",
+      "type": "TextField"
+    },
+    {
+      "kind": "UI attribute",
+      "owner": "gdThemPhuTung.jsp",
+      "newOwner": "newSparePart.jsp",
+      "old": "dsNhom",
+      "new": "categories",
+      "type": "List<SparePartCategory4>"
+    },
+    {
+      "kind": "UI attribute",
+      "owner": "gdThemPhuTung.jsp",
+      "newOwner": "newSparePart.jsp",
+      "old": "nhom",
+      "new": "category",
+      "type": "Select"
+    },
+    {
+      "kind": "UI attribute",
+      "owner": "gdThemPhuTung.jsp",
+      "newOwner": "newSparePart.jsp",
+      "old": "donVi",
+      "new": "unit",
+      "type": "Select"
+    },
+    {
+      "kind": "UI attribute",
+      "owner": "gdThemPhuTung.jsp",
+      "newOwner": "newSparePart.jsp",
+      "old": "hangSanXuat",
+      "new": "manufacturer",
+      "type": "TextField"
+    },
+    {
+      "kind": "UI attribute",
+      "owner": "gdThemPhuTung.jsp",
+      "newOwner": "newSparePart.jsp",
+      "old": "moTa",
+      "new": "description",
+      "type": "TextArea"
+    },
+    {
+      "kind": "UI attribute",
+      "owner": "gdThemPhuTung.jsp",
+      "newOwner": "newSparePart.jsp",
+      "old": "thongSo",
+      "new": "specifications",
+      "type": "TextField"
+    },
+    {
+      "kind": "UI attribute",
+      "owner": "gdThemPhuTung.jsp",
+      "newOwner": "newSparePart.jsp",
+      "old": "dongXePhuHop",
+      "new": "compatibleVehicleModels",
+      "type": "TextField"
+    },
+    {
+      "kind": "UI attribute",
+      "owner": "gdThemPhuTung.jsp",
+      "newOwner": "newSparePart.jsp",
+      "old": "hinhAnh",
+      "new": "imagePath",
+      "type": "Select"
+    },
+    {
+      "kind": "UI attribute",
+      "owner": "gdThemPhuTung.jsp",
+      "newOwner": "newSparePart.jsp",
+      "old": "giaBan",
+      "new": "sellingPrice",
+      "type": "TextField"
+    },
+    {
+      "kind": "UI attribute",
+      "owner": "gdThemPhuTung.jsp",
+      "newOwner": "newSparePart.jsp",
+      "old": "hanBaoHanh",
+      "new": "warrantyPeriod",
+      "type": "TextField"
+    },
+    {
+      "kind": "UI attribute",
+      "owner": "gdThemPhuTung.jsp",
+      "newOwner": "newSparePart.jsp",
+      "old": "dieuKienBaoHanh",
+      "new": "warrantyTerms",
+      "type": "TextArea"
+    },
+    {
+      "kind": "UI attribute",
+      "owner": "gdThemPhuTung.jsp",
+      "newOwner": "newSparePart.jsp",
+      "old": "trangThai",
+      "new": "status",
+      "type": "Select"
+    },
+    {
+      "kind": "UI attribute",
+      "owner": "gdThemPhuTung.jsp",
+      "newOwner": "newSparePart.jsp",
+      "old": "btnLuu",
+      "new": "saveButton",
+      "type": "submit"
+    },
+    {
+      "kind": "UI attribute",
+      "owner": "gdThemPhuTung.jsp",
+      "newOwner": "newSparePart.jsp",
+      "old": "quayLai",
+      "new": "backLink",
+      "type": "link"
+    },
+    {
+      "kind": "JSP",
+      "owner": "gdHoaDonNhapDaXacNhan.jsp",
+      "newOwner": "confirmedInvoice.jsp",
+      "old": "gdHoaDonNhapDaXacNhan.jsp",
+      "new": "confirmedInvoice.jsp",
+      "type": ""
+    },
+    {
+      "kind": "UI attribute",
+      "owner": "gdHoaDonNhapDaXacNhan.jsp",
+      "newOwner": "confirmedInvoice.jsp",
+      "old": "hoaDonNhap",
+      "new": "purchaseInvoice",
+      "type": "PurchaseInvoice4"
+    },
+    {
+      "kind": "UI attribute",
+      "owner": "gdHoaDonNhapDaXacNhan.jsp",
+      "newOwner": "confirmedInvoice.jsp",
+      "old": "tblChiTietNhap",
+      "new": "invoiceDetailsTable",
+      "type": "Table"
+    },
+    {
+      "kind": "UI attribute",
+      "owner": "gdHoaDonNhapDaXacNhan.jsp",
+      "newOwner": "confirmedInvoice.jsp",
+      "old": "soTienDaTra",
+      "new": "amountPaid",
+      "type": "TextField"
+    },
+    {
+      "kind": "UI attribute",
+      "owner": "gdHoaDonNhapDaXacNhan.jsp",
+      "newOwner": "confirmedInvoice.jsp",
+      "old": "btnDaThanhToan",
+      "new": "markAsPaidButton",
+      "type": "submit"
+    },
+    {
+      "kind": "UI attribute",
+      "owner": "gdHoaDonNhapDaXacNhan.jsp",
+      "newOwner": "confirmedInvoice.jsp",
+      "old": "inHoaDon",
+      "new": "printInvoiceLink",
+      "type": "link"
+    },
+    {
+      "kind": "JSP",
+      "owner": "gdInHoaDonNhap.jsp",
+      "newOwner": "printInvoice.jsp",
+      "old": "gdInHoaDonNhap.jsp",
+      "new": "printInvoice.jsp",
+      "type": ""
+    },
+    {
+      "kind": "UI attribute",
+      "owner": "gdInHoaDonNhap.jsp",
+      "newOwner": "printInvoice.jsp",
+      "old": "hoaDonNhap",
+      "new": "purchaseInvoice",
+      "type": "PurchaseInvoice4"
+    },
+    {
+      "kind": "UI attribute",
+      "owner": "gdInHoaDonNhap.jsp",
+      "newOwner": "printInvoice.jsp",
+      "old": "tblChiTietNhap",
+      "new": "invoiceDetailsTable",
+      "type": "Table"
+    },
+    {
+      "kind": "UI attribute",
+      "owner": "gdInHoaDonNhap.jsp",
+      "newOwner": "printInvoice.jsp",
+      "old": "btnIn",
+      "new": "printButton",
+      "type": "button"
+    },
+    {
+      "kind": "UI attribute",
+      "owner": "gdInHoaDonNhap.jsp",
+      "newOwner": "printInvoice.jsp",
+      "old": "quayLai",
+      "new": "backLink",
+      "type": "link"
+    },
+    {
+      "kind": "Parameter",
+      "owner": "SupplierDAO4.timNhaCungCapTheoTen",
+      "newOwner": "SupplierDAO4.findSuppliersByName",
+      "old": "tuKhoa",
+      "new": "keyword",
+      "type": "String"
+    },
+    {
+      "kind": "Method",
+      "owner": "SupplierDAO4",
+      "newOwner": "SupplierDAO4",
+      "old": "timNhaCungCapTheoTen(tuKhoa: String): List<Supplier4>",
+      "new": "findSuppliersByName(keyword: String): List<Supplier4>",
+      "type": ""
+    },
+    {
+      "kind": "Parameter",
+      "owner": "SupplierDAO4.layThongTinNhaCungCap",
+      "newOwner": "SupplierDAO4.getSupplierDetails",
+      "old": "id",
+      "new": "supplierId",
+      "type": "int"
+    },
+    {
+      "kind": "Method",
+      "owner": "SupplierDAO4",
+      "newOwner": "SupplierDAO4",
+      "old": "layThongTinNhaCungCap(id: int): Supplier4",
+      "new": "getSupplierDetails(supplierId: int): Supplier4",
+      "type": ""
+    },
+    {
+      "kind": "Parameter",
+      "owner": "SupplierDAO4.themNhaCungCap",
+      "newOwner": "SupplierDAO4.addSupplier",
+      "old": "supplier",
+      "new": "supplier",
+      "type": "Supplier4"
+    },
+    {
+      "kind": "Method",
+      "owner": "SupplierDAO4",
+      "newOwner": "SupplierDAO4",
+      "old": "themNhaCungCap(supplier: Supplier4): int",
+      "new": "addSupplier(supplier: Supplier4): int",
+      "type": ""
+    },
+    {
+      "kind": "Parameter",
+      "owner": "WarehouseStaffDAO4.layThongTinNhanVienKho",
+      "newOwner": "WarehouseStaffDAO4.getWarehouseStaffDetails",
+      "old": "id",
+      "new": "warehouseStaffId",
+      "type": "int"
+    },
+    {
+      "kind": "Method",
+      "owner": "WarehouseStaffDAO4",
+      "newOwner": "WarehouseStaffDAO4",
+      "old": "layThongTinNhanVienKho(id: int): WarehouseStaff4",
+      "new": "getWarehouseStaffDetails(warehouseStaffId: int): WarehouseStaff4",
+      "type": ""
+    },
+    {
+      "kind": "Method",
+      "owner": "SparePartCategoryDAO4",
+      "newOwner": "SparePartCategoryDAO4",
+      "old": "layDanhSachNhom(): List<SparePartCategory4>",
+      "new": "getActiveCategories(): List<SparePartCategory4>",
+      "type": ""
+    },
+    {
+      "kind": "Parameter",
+      "owner": "SparePartDAO4.themPhuTung",
+      "newOwner": "SparePartDAO4.addSparePart",
+      "old": "part",
+      "new": "sparePart",
+      "type": "SparePart4"
+    },
+    {
+      "kind": "Method",
+      "owner": "SparePartDAO4",
+      "newOwner": "SparePartDAO4",
+      "old": "themPhuTung(part: SparePart4): int",
+      "new": "addSparePart(sparePart: SparePart4): int",
+      "type": ""
+    },
+    {
+      "kind": "Parameter",
+      "owner": "SparePartDAO4.tangTonSauNhap",
+      "newOwner": "SparePartDAO4.increaseStockAfterPurchase",
+      "old": "con",
+      "new": "connection",
+      "type": "Connection"
+    },
+    {
+      "kind": "Parameter",
+      "owner": "SparePartDAO4.tangTonSauNhap",
+      "newOwner": "SparePartDAO4.increaseStockAfterPurchase",
+      "old": "idPhuTung",
+      "new": "sparePartId",
+      "type": "int"
+    },
+    {
+      "kind": "Parameter",
+      "owner": "SparePartDAO4.tangTonSauNhap",
+      "newOwner": "SparePartDAO4.increaseStockAfterPurchase",
+      "old": "soLuong",
+      "new": "quantity",
+      "type": "BigDecimal"
+    },
+    {
+      "kind": "Method",
+      "owner": "SparePartDAO4",
+      "newOwner": "SparePartDAO4",
+      "old": "tangTonSauNhap(con: Connection, idPhuTung: int, soLuong: BigDecimal): void",
+      "new": "increaseStockAfterPurchase(connection: Connection, sparePartId: int, quantity: BigDecimal): void",
+      "type": ""
+    },
+    {
+      "kind": "Parameter",
+      "owner": "PurchaseInvoiceDAO4.luuHoaDonNhap",
+      "newOwner": "PurchaseInvoiceDAO4.savePurchaseInvoice",
+      "old": "hoaDon",
+      "new": "purchaseInvoice",
+      "type": "PurchaseInvoice4"
+    },
+    {
+      "kind": "Method",
+      "owner": "PurchaseInvoiceDAO4",
+      "newOwner": "PurchaseInvoiceDAO4",
+      "old": "luuHoaDonNhap(hoaDon: PurchaseInvoice4): int",
+      "new": "savePurchaseInvoice(purchaseInvoice: PurchaseInvoice4): int",
+      "type": ""
+    },
+    {
+      "kind": "Parameter",
+      "owner": "PurchaseInvoiceDAO4.layThongTinHoaDonNhap",
+      "newOwner": "PurchaseInvoiceDAO4.getPurchaseInvoiceDetails",
+      "old": "id",
+      "new": "invoiceId",
+      "type": "int"
+    },
+    {
+      "kind": "Method",
+      "owner": "PurchaseInvoiceDAO4",
+      "newOwner": "PurchaseInvoiceDAO4",
+      "old": "layThongTinHoaDonNhap(id: int): PurchaseInvoice4",
+      "new": "getPurchaseInvoiceDetails(invoiceId: int): PurchaseInvoice4",
+      "type": ""
+    },
+    {
+      "kind": "Parameter",
+      "owner": "PurchaseInvoiceDAO4.ghiNhanThanhToan",
+      "newOwner": "PurchaseInvoiceDAO4.recordPayment",
+      "old": "idHoaDon",
+      "new": "invoiceId",
+      "type": "int"
+    },
+    {
+      "kind": "Parameter",
+      "owner": "PurchaseInvoiceDAO4.ghiNhanThanhToan",
+      "newOwner": "PurchaseInvoiceDAO4.recordPayment",
+      "old": "soTienDaTra",
+      "new": "amountPaid",
+      "type": "BigDecimal"
+    },
+    {
+      "kind": "Parameter",
+      "owner": "PurchaseInvoiceDAO4.ghiNhanThanhToan",
+      "newOwner": "PurchaseInvoiceDAO4.recordPayment",
+      "old": "idNhanVienHienTai",
+      "new": "currentWarehouseStaffId",
+      "type": "int"
+    },
+    {
+      "kind": "Method",
+      "owner": "PurchaseInvoiceDAO4",
+      "newOwner": "PurchaseInvoiceDAO4",
+      "old": "ghiNhanThanhToan(idHoaDon: int, soTienDaTra: BigDecimal, idNhanVienHienTai: int): boolean",
+      "new": "recordPayment(invoiceId: int, amountPaid: BigDecimal, currentWarehouseStaffId: int): boolean",
+      "type": ""
+    },
+    {
+      "kind": "Entity attribute",
+      "owner": "Employee4",
+      "newOwner": "Employee4",
+      "old": "viTri",
+      "new": "position",
+      "type": "String"
+    },
+    {
+      "kind": "Entity attribute",
+      "owner": "Employee4",
+      "newOwner": "Employee4",
+      "old": "trangThaiLamViec",
+      "new": "employmentStatus",
+      "type": "String"
+    },
+    {
+      "kind": "Entity attribute",
+      "owner": "Supplier4",
+      "newOwner": "Supplier4",
+      "old": "id",
+      "new": "id",
+      "type": "int"
+    },
+    {
+      "kind": "Entity attribute",
+      "owner": "Supplier4",
+      "newOwner": "Supplier4",
+      "old": "ten",
+      "new": "name",
+      "type": "String"
+    },
+    {
+      "kind": "Entity attribute",
+      "owner": "Supplier4",
+      "newOwner": "Supplier4",
+      "old": "diaChi",
+      "new": "address",
+      "type": "String"
+    },
+    {
+      "kind": "Entity attribute",
+      "owner": "Supplier4",
+      "newOwner": "Supplier4",
+      "old": "dienThoai",
+      "new": "phoneNumber",
+      "type": "String"
+    },
+    {
+      "kind": "Entity attribute",
+      "owner": "Supplier4",
+      "newOwner": "Supplier4",
+      "old": "email",
+      "new": "email",
+      "type": "String"
+    },
+    {
+      "kind": "Entity attribute",
+      "owner": "Supplier4",
+      "newOwner": "Supplier4",
+      "old": "trangThai",
+      "new": "status",
+      "type": "String"
+    },
+    {
+      "kind": "Entity attribute",
+      "owner": "PurchaseInvoice4",
+      "newOwner": "PurchaseInvoice4",
+      "old": "id",
+      "new": "id",
+      "type": "int"
+    },
+    {
+      "kind": "Entity attribute",
+      "owner": "PurchaseInvoice4",
+      "newOwner": "PurchaseInvoice4",
+      "old": "maYeuCau",
+      "new": "requestCode",
+      "type": "String"
+    },
+    {
+      "kind": "Entity attribute",
+      "owner": "PurchaseInvoice4",
+      "newOwner": "PurchaseInvoice4",
+      "old": "ngayNhap",
+      "new": "purchaseDate",
+      "type": "LocalDateTime"
+    },
+    {
+      "kind": "Entity attribute",
+      "owner": "PurchaseInvoice4",
+      "newOwner": "PurchaseInvoice4",
+      "old": "thoiDiemXacNhan",
+      "new": "confirmedAt",
+      "type": "LocalDateTime"
+    },
+    {
+      "kind": "Entity attribute",
+      "owner": "PurchaseInvoice4",
+      "newOwner": "PurchaseInvoice4",
+      "old": "tinhTrang",
+      "new": "paymentStatus",
+      "type": "String"
+    },
+    {
+      "kind": "Entity attribute",
+      "owner": "PurchaseInvoice4",
+      "newOwner": "PurchaseInvoice4",
+      "old": "thoiDiemThanhToan",
+      "new": "paidAt",
+      "type": "LocalDateTime"
+    },
+    {
+      "kind": "Entity attribute",
+      "owner": "PurchaseInvoice4",
+      "newOwner": "PurchaseInvoice4",
+      "old": "nhaCungCap",
+      "new": "supplier",
+      "type": "Supplier4"
+    },
+    {
+      "kind": "Entity attribute",
+      "owner": "PurchaseInvoice4",
+      "newOwner": "PurchaseInvoice4",
+      "old": "nhanVienKho",
+      "new": "warehouseStaff",
+      "type": "WarehouseStaff4"
+    },
+    {
+      "kind": "Entity attribute",
+      "owner": "PurchaseInvoice4",
+      "newOwner": "PurchaseInvoice4",
+      "old": "dsChiTietNhap",
+      "new": "invoiceDetails",
+      "type": "List<PurchaseInvoiceDetail4>"
+    },
+    {
+      "kind": "Entity attribute",
+      "owner": "PurchaseInvoice4",
+      "newOwner": "PurchaseInvoice4",
+      "old": "nhaCungCapTenApDung",
+      "new": "supplierNameSnapshot",
+      "type": "String"
+    },
+    {
+      "kind": "Entity attribute",
+      "owner": "PurchaseInvoice4",
+      "newOwner": "PurchaseInvoice4",
+      "old": "nhanVienTenApDung",
+      "new": "warehouseStaffNameSnapshot",
+      "type": "String"
+    },
+    {
+      "kind": "Method",
+      "owner": "PurchaseInvoice4",
+      "newOwner": "PurchaseInvoice4",
+      "old": "tinhTongTien(): BigDecimal",
+      "new": "calculateTotalAmount(): BigDecimal",
+      "type": ""
+    },
+    {
+      "kind": "Entity attribute",
+      "owner": "PurchaseInvoiceDetail4",
+      "newOwner": "PurchaseInvoiceDetail4",
+      "old": "id",
+      "new": "id",
+      "type": "int"
+    },
+    {
+      "kind": "Entity attribute",
+      "owner": "PurchaseInvoiceDetail4",
+      "newOwner": "PurchaseInvoiceDetail4",
+      "old": "soLuong",
+      "new": "quantity",
+      "type": "BigDecimal"
+    },
+    {
+      "kind": "Entity attribute",
+      "owner": "PurchaseInvoiceDetail4",
+      "newOwner": "PurchaseInvoiceDetail4",
+      "old": "donGiaNhap",
+      "new": "purchaseUnitPrice",
+      "type": "BigDecimal"
+    },
+    {
+      "kind": "Entity attribute",
+      "owner": "PurchaseInvoiceDetail4",
+      "newOwner": "PurchaseInvoiceDetail4",
+      "old": "tenPhuTungApDung",
+      "new": "sparePartNameSnapshot",
+      "type": "String"
+    },
+    {
+      "kind": "Entity attribute",
+      "owner": "PurchaseInvoiceDetail4",
+      "newOwner": "PurchaseInvoiceDetail4",
+      "old": "donViApDung",
+      "new": "unitSnapshot",
+      "type": "String"
+    },
+    {
+      "kind": "Entity attribute",
+      "owner": "PurchaseInvoiceDetail4",
+      "newOwner": "PurchaseInvoiceDetail4",
+      "old": "phuTung",
+      "new": "sparePart",
+      "type": "SparePart4"
+    }
+  ]
+}

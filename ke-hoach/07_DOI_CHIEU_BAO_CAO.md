@@ -1,25 +1,25 @@
 # Hướng dẫn viết và đối chiếu báo cáo theo bài giảng
 
+Đối chiếu hình thức và luồng bắt buộc với [11](11_CHUAN_MAU_LUONG_GIAO_DIEN.md). Không viết lời mô tả/hình theo UI AI tự đổi nếu chưa đúng bài làm và prototype. Các điểm chưa khớp trong app hiện tại đã ghi ở12.
+
 ## 1. Căn cứ và nguyên tắc sử dụng
 
-Đây là hướng dẫn cho Gemini viết **4.3.1** bằng giao diện/code thật và chuẩn bị dữ liệu đối chiếu cho phần sau. Phần 4.3.2 trở đi được hướng dẫn để người dùng tiếp tục, chưa phải yêu cầu triển khai thêm chức năng hoặc tự viết hết báo cáo trong đợt này.
+Chỉ hướng dẫn **4.3.1 cho hai module đề 26** bằng giao diện/code thực tế, theo phạm vi 00. Bàn giao Markdown và hình sẵn chèn. Không yêu cầu viết/sửa toàn bộ báo cáo hoặc chuẩn bị các phần/chương tiếp theo.
 
 | Nguồn | Phần dùng | Áp dụng |
 |---|---|---|
 | DOCX mới của người dùng | Kịch bản hai module; hình lớp phân tích đang là 1.5/1.6; giao tiếp; lớp thực thể và CSDL | Đầu vào nghiệp vụ và mô hình, giữ hậu tố 4 và luồng người dùng đã làm |
 | Ngân hàng đề, ĐỀ SỐ 26, trang PDF 27 | Tra cứu và nhập phụ tùng; yêu cầu giao tiếp/lớp thiết kế/CSDL/code/gói/triển khai | Chốt hai module, đề GaraMan khác chỉ cung cấp ngữ cảnh |
 | Bài giảng, 4.3.1, trang in 96–103 (PDF 97–104) | Bốn bước ở trang in 96–97; Hình 4.3–4.8, riêng Hình 4.8 ở trang in 103 | Trình bày mỗi module với thiết kế giao diện và biểu đồ lớp thiết kế, không chỉ chụp web/dán code |
-| Bài giảng, 4.3.2, trang in 103–112 | Hoạt động, kịch bản phiên bản 3, tuần tự thiết kế | Dùng đúng các hàm đã chốt trong biểu đồ lớp và code |
-| Bài giảng, 4.3.3, trang in 113–114 | Gói và triển khai | Vẽ package thực và các node chạy hệ thống |
 | Lab1 | JSP + Servlet + JDBC + MySQL + DAO; JavaBean/UserDAO/UserServlet và các JSP | JSP giao diện, Servlet nhận request, DAO truy cập DB, model chứa dữ liệu |
 
 Bài giảng dùng các trang JSP và DAO trong ví dụ. Lab1 bổ sung Servlet điều phối; vì vậy thiết kế của bài này thể hiện Servlet thực tế, không mô tả JSP gọi DAO trực tiếp nếu code không làm vậy. Giống mẫu về phương pháp/bốn bước/tầng và cách xác định input–output; không chép tên lớp đăng kí học, màu sắc hoặc các thao tác của ví dụ sang GaraMan.
 
-Số hình/tiêu đề hiện có của DOCX là số nguồn để tìm. Khi đổi đánh số theo Chương 3–4, lập bảng số nguồn → số cuối và cập nhật lời dẫn/caption đồng bộ. Không mặc định đã có Hình 3.5 nếu DOCX chưa đổi số. Trong bản nháp có thể dùng mã hình TK-TC-UI, TK-TC-CLASS, TK-NH-UI, TK-NH-CLASS, sau đó gán số cuối.
+Số hình/tiêu đề hiện có của DOCX dùng để tìm nguồn, không đánh số lại báo cáo. Hình mới dùng mã TK-TC-UI, TK-TC-CLASS, TK-NH-UI, TK-NH-CLASS; ghi vị trí sẵn chèn vào 4.3.1. Chỉ chỉnh bản sao Word nếu người dùng yêu cầu riêng.
 
 ## 2. Đầu ra bắt buộc của 4.3.1
 
-Trong `app/docs/4.3.1_THIET_KE_TINH.md`, và chèn vào bản sao DOCX:
+Trong `app/docs/4.3.1_THIET_KE_TINH.md`, kèm hình nguồn và ảnh xuất sẵn chèn:
 
 ```text
 4.3 THIẾT KẾ CHI TIẾT CHO MODUL
@@ -63,7 +63,7 @@ Chụp giao diện ứng dụng đang chạy. Từ khóa rỗng báo lỗi, khô
 
 Sau bảng, liệt kê thuộc tính ẩn/truyền kèm: id đối tượng, loai, tuKhoa; thông tin tài khoản từ session, không cho người dùng nhập lại. Query param và hidden field là cách trao đổi, không tự thêm cột CSDL.
 
-Tên request attributes, route và kiểu theo file 03. Không tạo Java class trùng tên lớp biên để thay JSP. Không thêm lớp CatalogItem4 hoặc bảng Product chung vì có thể render hai list thực thể sẵn có.
+Tên request attributes/route/kiểu theo03; giữ boLoc UI khi tìm/xem/quay lại theo11, hai list trong một bảng. Không tạo Java class trùng tên biên thay JSP; JSP không có các method Java tự đặt chỉ để đưa lên hình. Không thêm CatalogItem4 hoặc bảng Product chung.
 
 ### Bước 3. DAO với tham số và kết quả
 
@@ -162,7 +162,7 @@ Trên `purchase-design.puml` vẽ JSP/Servlet → DAO → entity như mẫu, th�
 ```text
 Mã yêu cầu | Vị trí trong DOCX | Bước/ngoại lệ | UI/JSP | HTTP/route |
 Servlet.method | DAO/model.method | Bảng/cột | Test ID |
-Hình 4.3.1 | Mã nhánh cho 4.3.2
+Hình thiết kế 4.3.1 của module tương ứng
 ```
 
 Mỗi dòng phải chứa tên thật; không dùng dấu “...” để che thiếu đường xử lí. Những hàng tối thiểu:
@@ -187,74 +187,16 @@ Mỗi dòng phải chứa tên thật; không dùng dấu “...” để che th
 
 Liên kết các mã trên tới C01–C07, P01–P16 và các biến thể tồn/rollback trong file 02. Một yêu cầu có thể nhiều test. Các điều kiện kỹ thuật được ghi là lựa chọn thiết kế, không gán giả một bước UC chưa có.
 
-## 6. Dữ liệu bàn giao để làm 4.3.2 đúng mẫu
+## 6. Giới hạn bàn giao
 
-Đầu ra đợt này có `DOI_CHIEU_PHAN_SAU.md`, ghi danh sách actor/lifeline, chữ ký hàm đã code, route, điều kiện và biến đầu vào/đầu ra cho từng nhánh. Chưa khẳng định đã viết xong 4.3.2.
+Chỉ code, kiểm tra và thiết kế tĩnh hai module. Không tạo tài liệu phần sau, hình toàn hệ thống, POJO hoặc bảng dự phòng. Dùng METHOD_MAP để kiểm tra chữ ký trên bốn hình thiết kế của hai module.
 
-Khi người dùng làm tiếp 4.3.2:
-
-1. Vẽ biểu đồ hoạt động mỗi module. Các hành động xử lí hệ thống gắn đúng method đã thiết kế; thao tác con người như nhập từ khóa, giao tiền là hành động actor, không bịa thành method DAO.
-2. Viết kịch bản phiên bản 3: actor → JSP/form → Servlet → DAO/model → trả kết quả → forward/redirect tới JSP. Không lấy nguyên kịch bản phân tích trong đó entity tự tìm DB thay cho bản thiết kế.
-3. Vẽ tuần tự từ chính kịch bản phiên bản 3, tên thông điệp đúng signature code, có tham số/giá trị trả về và activation. Dùng alt/loop cho tìm rỗng, lặp dòng, dữ liệu sai và request lặp; không thay các nhánh thành module mới.
-
-Luồng tra cứu cần đối chiếu:
-
-```text
-Customer → gdTimThongTin.jsp → CatalogServlet4.timKiem(req,res)
-  → ServiceDAO4.timDichVuTheoTen(tuKhoa): List<Service4>
-  → SparePartDAO4.timPhuTungTheoTen(tuKhoa,true): List<SparePart4>
-  → request attributes → forward gdTimThongTin.jsp
-Chọn kết quả → CatalogServlet4.xemChiTiet(req,res)
-  → DAO chi tiết đúng loai → forward gdChiTietThongTin.jsp
-```
-
-Luồng xác nhận nhập cần đối chiếu:
-
-```text
-WarehouseStaff → gdLapHoaDonNhap.jsp → PurchaseInvoiceServlet4.xacNhanHoaDon(req,res)
-  → đọc/validate input và nháp, kiểm tra maYeuCau đã lưu
-  → PurchaseInvoiceDAO4.luuHoaDonNhap(hoaDon)
-     → transaction/khóa/đọc lại dữ liệu → INSERT header/dòng
-     → SparePartDAO4.tangTonSauNhap(con,id,qty) trong loop
-     → commit → id
-  → redirect GET view → PurchaseInvoiceServlet4.xemHoaDon(req,res)
-     → PurchaseInvoiceDAO4.layThongTinHoaDonNhap(id)
-     → forward gdHoaDonNhapDaXacNhan.jsp
-```
-
-Trong hình tuần tự chi tiết, chỉ ghi `chenHoaDon`, `chenChiTiet` và method private đúng chữ ký khi code thật có gọi; commit/rollback thuộc JDBC Connection. Hai HTTP request quanh redirect là hai lần xử lí riêng, không vẽ redirect như một forward trong cùng request. In và pay là nhánh/request riêng; không đặt pay bên trong `luuHoaDonNhap`.
-
-Luồng pay: Servlet lấy user từ session → DAO.ghiNhanThanhToan(id,tien,userId) → kiểm tra người lập/trạng thái/đúng tổng → UPDATE trạng thái/thời điểm → redirect view. Không gọi tăng tồn, không thêm người thanh toán vào model.
-
-Giữ hình giao tiếp pha phân tích hiện có; hình tuần tự thiết kế có DAO/Servlet rõ hơn là mức chi tiết mới, không phải lý do thay lại hình phân tích đã chốt.
-
-## 7. Dùng tiếp cho 4.3.3, Chương 5 và Chương 6
-
-### 4.3.3 Thiết kế triển khai
-
-- Biểu đồ gói: model, dao, controller, filter, util, dto, exception; view/member, view/customer, view/warehouse, common; assets/resources. Mũi tên phụ thuộc theo import/call thực tế.
-- Biểu đồ triển khai: trình duyệt → HTTP → Tomcat chứa WAR/JSP/Servlet/DAO/model → JDBC → MySQL chứa garaman4. Nếu demo cùng máy vẫn vẽ các môi trường chạy logic đúng, không bịa ba máy vật lí bắt buộc.
-- Ghi artifact WAR/context, phiên bản thực chạy và cấu hình kết nối không chứa mật khẩu thật. Ba tầng trình bày/xử lí/truy cập dữ liệu không đồng nghĩa phải có ba máy.
-- Không thêm server Spring/React, dịch vụ thanh toán hoặc Redis không có trong code.
-
-### Chương 5 Cài đặt
-
-Dùng cấu trúc môi trường → thư mục/package → cài đặt từng module → kiểm thử đơn vị theo bài giảng. Trích đúng file/hàm, tập trung điểm quan trọng: tìm đúng loại, giữ nháp, transaction lưu/cộng tồn, chống lặp, in/pay tách riêng. Không dán toàn bộ source thay lời giải thích; source nằm trong project.
-
-Ghi công nghệ/version thật, lệnh build/deploy, script/schema/seed, tài khoản demo và URL trong README. Unit test cho tổng tiền/validate; integration test cho transaction/quyền người lập/cộng tồn đồng thời. Báo kết quả thật, tách lỗi môi trường khỏi lỗi nghiệp vụ. Nếu chưa chạy trình duyệt thì không gọi ảnh mockup là ảnh thật.
-
-### Chương 6 Rà soát và kiểm thử
-
-Theo các nhóm của bài giảng: đặc tả → phân tích → thiết kế → code → test chức năng. Dùng checklist có câu hỏi cụ thể, kết quả và vị trí lỗi/sửa, thay vì đánh tất cả đạt chung chung.
-
-Các test chức năng có: mã yêu cầu từ ma trận, tiền điều kiện, dữ liệu, các bước, kết quả mong đợi, thực tế, pass/fail/chưa chạy và ảnh/log. Tái hiện ví dụ DOCX, ca lỗi và ca rollback/confirm lặp/pay lặp. Không gọi các module đặt lịch/tiếp nhận/thống kê chưa code là đã kiểm thử.
-
-## 8. Kiểm tra chéo trước khi bàn giao 4.3.1
+## 7. Kiểm tra chéo trước khi bàn giao 4.3.1
 
 - Mọi biên phân tích đều có JSP/đường đi hoặc giải thích gộp/tách rõ; 3 JSP khách và 7 JSP kho đúng bảng ánh xạ, đăng nhập là hỗ trợ.
 - Mọi public/package method dùng trên class diagram có trong code với cùng tham số/kiểu trả về/phạm vi. Method phân tích cần SQL đã được chuyển sang DAO, công thức tiền vẫn ở model.
-- Model–SQL giữ đúng object/FK và kiểu theo MODEL_FIELD_MAP; 16 bảng, đúng quan hệ tùy chọn, không có bảng nhân viên vai trò đã bỏ hoặc FK thu/chi riêng.
+- Model–SQL giữ đúng object/FK/kiểu theo MODEL_FIELD_MAP; đúng 9 bảng và 10 model ở 00, không có bảng/model ngoài phạm vi hoặc FK người thanh toán riêng.
 - Hàm tăng tồn ở DAO nhận Connection; transaction hóa đơn gọi nó; hình thể hiện phụ thuộc này, test chứng minh rollback và không tăng lặp.
 - UI không lộ UUID/SQL/tên bảng; tổng và người lập lấy phía server; hóa đơn/bản in dùng các trường áp dụng lịch sử.
 - Bốn hình chính đọc được, có nguồn chỉnh sửa và ảnh từ ứng dụng chạy; caption/lời dẫn đúng số cuối trong DOCX.
-- Các chữ “chưa triển khai/chưa chạy/chưa chèn” phản ánh đúng thực tế; không gán trạng thái hoàn thành cho phần 4.3.2 trở đi chỉ vì đã chuẩn bị ma trận.
+- Ghi kết quả chạy thật của hai module; không dùng việc chưa làm module khác hoặc chưa sửa toàn bộ DOCX làm lý do coi hai module chưa hoàn thành.

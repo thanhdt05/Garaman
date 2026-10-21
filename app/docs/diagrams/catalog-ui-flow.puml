@@ -1,0 +1,51 @@
+@startuml catalog-ui-flow
+skinparam style strictuml
+skinparam packageStyle rectangle
+skinparam roundcorner 6
+skinparam shadowing false
+
+title Sơ đồ thiết kế giao diện & Luồng màn hình - Module Khách hàng tra cứu dịch vụ / phụ tùng (Đề 26)
+
+class "customerHome.jsp\n(Trang chủ Khách hàng)" as UI_Home <<Boundary>> {
+    -- Khu vực hiển thị --
+    * Banner chào mừng Khách hàng
+    * Thẻ giới thiệu: Dịch vụ & Phụ tùng ô tô
+    -- Nút thao tác --
+    + [Tìm dịch vụ / phụ tùng →] : GET /customer/catalog
+}
+
+class "catalogSearch.jsp\n(Tìm dịch vụ & phụ tùng)" as UI_Search <<Boundary>> {
+    -- Form tìm kiếm --
+    * Select [itemTypeFilter]: "Dịch vụ & phụ tùng" | "Dịch vụ" | "Phụ tùng"
+    * Input [keyword]: Tên dịch vụ / phụ tùng
+    * Nút [Tìm kiếm] : GET /customer/catalog?keyword=...&itemTypeFilter=...
+    -- Khu vực kết quả (Bảng chung) --
+    * Cột: [Mã] | [Tên] | [Loại] | [Đơn giá / Giá bán] | [Xem chi tiết →]
+    * Badge: [Dịch vụ] (neutral) | [Phụ tùng]
+    * Trạng thái rỗng: "Bạn muốn tìm thông tin gì?"
+    * Trạng thái không thấy: "Không tìm thấy kết quả"
+    -- Nút điều hướng --
+    + [← Về trang chính] : GET /home
+}
+
+class "itemDetails.jsp\n(Chi tiết dịch vụ / phụ tùng)" as UI_Detail <<Boundary>> {
+    -- Nhánh Dịch vụ (itemType=service) --
+    * Mã DV, Tên dịch vụ, Nhóm dịch vụ
+    * Đơn giá nhân công, Thời gian dự kiến
+    * Nội dung thực hiện, Điều kiện bảo hành
+    -- Nhánh Phụ tùng (itemType=part) --
+    * Mã PT, Tên phụ tùng, Nhóm phụ tùng
+    * Giá bán niêm yết, Đơn vị tính, Hãng sản xuất
+    * Thông số kỹ thuật, Dòng xe phù hợp
+    * Chính sách bảo hành nhà sản xuất
+    -- Nút điều hướng --
+    + [← Quay lại tìm kiếm] : GET /customer/catalog?keyword=...&itemTypeFilter=...
+}
+
+UI_Home --> UI_Search : Bấm "Tìm dịch vụ / phụ tùng →"\n(GET /customer/catalog)
+UI_Search --> UI_Search : Nhập từ khóa + chọn bộ lọc, bấm "Tìm kiếm"\n(Ngoại lệ 3a: rỗng báo lỗi trước query; 4a: không thấy kết quả)
+UI_Search --> UI_Detail : Bấm "Xem chi tiết →" trên từng dòng kết quả\n(GET /customer/catalog/detail?id=...&itemType=...&keyword=...&itemTypeFilter=...)
+UI_Detail --> UI_Search : Bấm "← Quay lại tìm kiếm"\n(Bảo toàn nguyên trạng keyword và itemTypeFilter)
+UI_Search --> UI_Home : Bấm "← Về trang chính"\n(GET /home)
+
+@enduml

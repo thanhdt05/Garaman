@@ -1,0 +1,174 @@
+﻿Loại,Lớp/trang cũ,Lớp/trang mới,Tên cũ,Tên mới,Kiểu dữ liệu
+JSP,gdChinhKH.jsp,customerHome.jsp,gdChinhKH.jsp,customerHome.jsp,
+UI attribute,gdChinhKH.jsp,customerHome.jsp,hoTen,fullName,String
+UI attribute,gdChinhKH.jsp,customerHome.jsp,timThongTin,searchCatalogLink,link
+JSP,gdTimThongTin.jsp,catalogSearch.jsp,gdTimThongTin.jsp,catalogSearch.jsp,
+UI attribute,gdTimThongTin.jsp,catalogSearch.jsp,tuKhoa,keyword,TextField
+UI attribute,gdTimThongTin.jsp,catalogSearch.jsp,boLoc,itemTypeFilter,Select
+UI attribute,gdTimThongTin.jsp,catalogSearch.jsp,btnTimKiem,searchButton,submit
+UI attribute,gdTimThongTin.jsp,catalogSearch.jsp,dsDichVu,services,List<Service4>
+UI attribute,gdTimThongTin.jsp,catalogSearch.jsp,dsPhuTung,spareParts,List<SparePart4>
+UI attribute,gdTimThongTin.jsp,catalogSearch.jsp,tblKetQua,resultsTable,Table
+UI attribute,gdTimThongTin.jsp,catalogSearch.jsp,chonThongTin,viewDetailsLink,link
+JSP,gdChiTietThongTin.jsp,itemDetails.jsp,gdChiTietThongTin.jsp,itemDetails.jsp,
+UI attribute,gdChiTietThongTin.jsp,itemDetails.jsp,dichVu,service,Service4
+UI attribute,gdChiTietThongTin.jsp,itemDetails.jsp,phuTung,sparePart,SparePart4
+UI attribute,gdChiTietThongTin.jsp,itemDetails.jsp,quayLai,backLink,link
+Parameter,ServiceDAO4.timDichVuTheoTen,ServiceDAO4.findServicesByName,tuKhoa,keyword,String
+Method,ServiceDAO4,ServiceDAO4,timDichVuTheoTen(tuKhoa: String): List<Service4>,findServicesByName(keyword: String): List<Service4>,
+Parameter,ServiceDAO4.layChiTietDichVu,ServiceDAO4.getServiceDetails,id,serviceId,int
+Method,ServiceDAO4,ServiceDAO4,layChiTietDichVu(id: int): Service4,getServiceDetails(serviceId: int): Service4,
+Parameter,SparePartDAO4.timPhuTungTheoTen,SparePartDAO4.findSparePartsByName,tuKhoa,keyword,String
+Parameter,SparePartDAO4.timPhuTungTheoTen,SparePartDAO4.findSparePartsByName,chiCongBo,publishedOnly,boolean
+Method,SparePartDAO4,SparePartDAO4,"timPhuTungTheoTen(tuKhoa: String, chiCongBo: boolean): List<SparePart4>","findSparePartsByName(keyword: String, publishedOnly: boolean): List<SparePart4>",
+Parameter,SparePartDAO4.layChiTietPhuTung,SparePartDAO4.getSparePartDetails,id,sparePartId,int
+Parameter,SparePartDAO4.layChiTietPhuTung,SparePartDAO4.getSparePartDetails,chiCongBo,publishedOnly,boolean
+Method,SparePartDAO4,SparePartDAO4,"layChiTietPhuTung(id: int, chiCongBo: boolean): SparePart4","getSparePartDetails(sparePartId: int, publishedOnly: boolean): SparePart4",
+Entity attribute,Member4,Member4,id,id,int
+Entity attribute,Member4,Member4,hoTen,fullName,String
+Entity attribute,Member4,Member4,tenDangNhap,username,String
+Entity attribute,Member4,Member4,matKhau,password,String
+Entity attribute,Member4,Member4,ngaySinh,dateOfBirth,LocalDate
+Entity attribute,Member4,Member4,diaChi,address,String
+Entity attribute,Member4,Member4,email,email,String
+Entity attribute,Member4,Member4,dienThoai,phoneNumber,String
+Entity attribute,Member4,Member4,vaiTro,role,String
+Entity attribute,Member4,Member4,trangThaiTaiKhoan,accountStatus,String
+Entity attribute,Service4,Service4,id,id,int
+Entity attribute,Service4,Service4,ten,name,String
+Entity attribute,Service4,Service4,nhom,category,String
+Entity attribute,Service4,Service4,moTa,description,String
+Entity attribute,Service4,Service4,noiDung,content,String
+Entity attribute,Service4,Service4,hinhAnh,imagePath,String
+Entity attribute,Service4,Service4,donGia,unitPrice,BigDecimal
+Entity attribute,Service4,Service4,thoiGianDuKien,estimatedDuration,int
+Entity attribute,Service4,Service4,hanBaoHanh,warrantyPeriod,String
+Entity attribute,Service4,Service4,dieuKienBaoHanh,warrantyTerms,String
+Entity attribute,Service4,Service4,trangThai,status,String
+Entity attribute,SparePart4,SparePart4,id,id,int
+Entity attribute,SparePart4,SparePart4,ten,name,String
+Entity attribute,SparePart4,SparePart4,moTa,description,String
+Entity attribute,SparePart4,SparePart4,hinhAnh,imagePath,String
+Entity attribute,SparePart4,SparePart4,donVi,unit,String
+Entity attribute,SparePart4,SparePart4,hangSanXuat,manufacturer,String
+Entity attribute,SparePart4,SparePart4,thongSo,specifications,String
+Entity attribute,SparePart4,SparePart4,dongXePhuHop,compatibleVehicleModels,String
+Entity attribute,SparePart4,SparePart4,giaBan,sellingPrice,BigDecimal
+Entity attribute,SparePart4,SparePart4,hanBaoHanh,warrantyPeriod,String
+Entity attribute,SparePart4,SparePart4,dieuKienBaoHanh,warrantyTerms,String
+Entity attribute,SparePart4,SparePart4,trangThai,status,String
+Entity attribute,SparePart4,SparePart4,tonKho,stockQuantity,BigDecimal
+Entity attribute,SparePart4,SparePart4,nhom,category,SparePartCategory4
+Entity attribute,SparePartCategory4,SparePartCategory4,id,id,int
+Entity attribute,SparePartCategory4,SparePartCategory4,ten,name,String
+Entity attribute,SparePartCategory4,SparePartCategory4,moTa,description,String
+Entity attribute,SparePartCategory4,SparePartCategory4,trangThai,status,String
+JSP,gdChinhKho.jsp,warehouseHome.jsp,gdChinhKho.jsp,warehouseHome.jsp,
+UI attribute,gdChinhKho.jsp,warehouseHome.jsp,hoTen,fullName,String
+UI attribute,gdChinhKho.jsp,warehouseHome.jsp,nhapPhuTung,startPurchaseLink,link
+JSP,gdChonNhaCungCap.jsp,selectSupplier.jsp,gdChonNhaCungCap.jsp,selectSupplier.jsp,
+UI attribute,gdChonNhaCungCap.jsp,selectSupplier.jsp,tuKhoa,keyword,TextField
+UI attribute,gdChonNhaCungCap.jsp,selectSupplier.jsp,btnTimKiem,searchButton,submit
+UI attribute,gdChonNhaCungCap.jsp,selectSupplier.jsp,dsNhaCungCap,suppliers,List<Supplier4>
+UI attribute,gdChonNhaCungCap.jsp,selectSupplier.jsp,tblNhaCungCap,suppliersTable,Table
+UI attribute,gdChonNhaCungCap.jsp,selectSupplier.jsp,btnChonNhaCungCap,selectSupplierButton,submit
+UI attribute,gdChonNhaCungCap.jsp,selectSupplier.jsp,themNhaCungCap,addSupplierLink,link
+JSP,gdThemNhaCungCap.jsp,newSupplier.jsp,gdThemNhaCungCap.jsp,newSupplier.jsp,
+UI attribute,gdThemNhaCungCap.jsp,newSupplier.jsp,nhaCungCap,supplier,Supplier4
+UI attribute,gdThemNhaCungCap.jsp,newSupplier.jsp,ten,name,TextField
+UI attribute,gdThemNhaCungCap.jsp,newSupplier.jsp,diaChi,address,TextField
+UI attribute,gdThemNhaCungCap.jsp,newSupplier.jsp,dienThoai,phoneNumber,TextField
+UI attribute,gdThemNhaCungCap.jsp,newSupplier.jsp,email,email,TextField
+UI attribute,gdThemNhaCungCap.jsp,newSupplier.jsp,btnLuu,saveButton,submit
+UI attribute,gdThemNhaCungCap.jsp,newSupplier.jsp,quayLai,backLink,link
+JSP,gdLapHoaDonNhap.jsp,purchaseInvoice.jsp,gdLapHoaDonNhap.jsp,purchaseInvoice.jsp,
+UI attribute,gdLapHoaDonNhap.jsp,purchaseInvoice.jsp,hoaDonNhap,purchaseInvoice,PurchaseInvoice4
+UI attribute,gdLapHoaDonNhap.jsp,purchaseInvoice.jsp,nhaCungCap,supplier,Supplier4
+UI attribute,gdLapHoaDonNhap.jsp,purchaseInvoice.jsp,nhanVienKho,warehouseStaff,WarehouseStaff4
+UI attribute,gdLapHoaDonNhap.jsp,purchaseInvoice.jsp,tuKhoa,keyword,TextField
+UI attribute,gdLapHoaDonNhap.jsp,purchaseInvoice.jsp,btnTimKiem,searchButton,submit
+UI attribute,gdLapHoaDonNhap.jsp,purchaseInvoice.jsp,dsPhuTung,spareParts,List<SparePart4>
+UI attribute,gdLapHoaDonNhap.jsp,purchaseInvoice.jsp,tblKetQuaPhuTung,sparePartsTable,Table
+UI attribute,gdLapHoaDonNhap.jsp,purchaseInvoice.jsp,btnChonPhuTung,selectSparePartButton,submit
+UI attribute,gdLapHoaDonNhap.jsp,purchaseInvoice.jsp,tblChiTietNhap,invoiceDetailsTable,Table
+UI attribute,gdLapHoaDonNhap.jsp,purchaseInvoice.jsp,themPhuTung,addSparePartButton,submit
+UI attribute,gdLapHoaDonNhap.jsp,purchaseInvoice.jsp,btnCapNhat,updateButton,submit
+UI attribute,gdLapHoaDonNhap.jsp,purchaseInvoice.jsp,btnXacNhan,confirmButton,submit
+UI attribute,gdLapHoaDonNhap.jsp,purchaseInvoice.jsp,btnHuy,cancelButton,submit
+JSP,gdThemPhuTung.jsp,newSparePart.jsp,gdThemPhuTung.jsp,newSparePart.jsp,
+UI attribute,gdThemPhuTung.jsp,newSparePart.jsp,phuTung,sparePart,SparePart4
+UI attribute,gdThemPhuTung.jsp,newSparePart.jsp,ten,name,TextField
+UI attribute,gdThemPhuTung.jsp,newSparePart.jsp,dsNhom,categories,List<SparePartCategory4>
+UI attribute,gdThemPhuTung.jsp,newSparePart.jsp,nhom,category,Select
+UI attribute,gdThemPhuTung.jsp,newSparePart.jsp,donVi,unit,Select
+UI attribute,gdThemPhuTung.jsp,newSparePart.jsp,hangSanXuat,manufacturer,TextField
+UI attribute,gdThemPhuTung.jsp,newSparePart.jsp,moTa,description,TextArea
+UI attribute,gdThemPhuTung.jsp,newSparePart.jsp,thongSo,specifications,TextField
+UI attribute,gdThemPhuTung.jsp,newSparePart.jsp,dongXePhuHop,compatibleVehicleModels,TextField
+UI attribute,gdThemPhuTung.jsp,newSparePart.jsp,hinhAnh,imagePath,Select
+UI attribute,gdThemPhuTung.jsp,newSparePart.jsp,giaBan,sellingPrice,TextField
+UI attribute,gdThemPhuTung.jsp,newSparePart.jsp,hanBaoHanh,warrantyPeriod,TextField
+UI attribute,gdThemPhuTung.jsp,newSparePart.jsp,dieuKienBaoHanh,warrantyTerms,TextArea
+UI attribute,gdThemPhuTung.jsp,newSparePart.jsp,trangThai,status,Select
+UI attribute,gdThemPhuTung.jsp,newSparePart.jsp,btnLuu,saveButton,submit
+UI attribute,gdThemPhuTung.jsp,newSparePart.jsp,quayLai,backLink,link
+JSP,gdHoaDonNhapDaXacNhan.jsp,confirmedInvoice.jsp,gdHoaDonNhapDaXacNhan.jsp,confirmedInvoice.jsp,
+UI attribute,gdHoaDonNhapDaXacNhan.jsp,confirmedInvoice.jsp,hoaDonNhap,purchaseInvoice,PurchaseInvoice4
+UI attribute,gdHoaDonNhapDaXacNhan.jsp,confirmedInvoice.jsp,tblChiTietNhap,invoiceDetailsTable,Table
+UI attribute,gdHoaDonNhapDaXacNhan.jsp,confirmedInvoice.jsp,soTienDaTra,amountPaid,TextField
+UI attribute,gdHoaDonNhapDaXacNhan.jsp,confirmedInvoice.jsp,btnDaThanhToan,markAsPaidButton,submit
+UI attribute,gdHoaDonNhapDaXacNhan.jsp,confirmedInvoice.jsp,inHoaDon,printInvoiceLink,link
+JSP,gdInHoaDonNhap.jsp,printInvoice.jsp,gdInHoaDonNhap.jsp,printInvoice.jsp,
+UI attribute,gdInHoaDonNhap.jsp,printInvoice.jsp,hoaDonNhap,purchaseInvoice,PurchaseInvoice4
+UI attribute,gdInHoaDonNhap.jsp,printInvoice.jsp,tblChiTietNhap,invoiceDetailsTable,Table
+UI attribute,gdInHoaDonNhap.jsp,printInvoice.jsp,btnIn,printButton,button
+UI attribute,gdInHoaDonNhap.jsp,printInvoice.jsp,quayLai,backLink,link
+Parameter,SupplierDAO4.timNhaCungCapTheoTen,SupplierDAO4.findSuppliersByName,tuKhoa,keyword,String
+Method,SupplierDAO4,SupplierDAO4,timNhaCungCapTheoTen(tuKhoa: String): List<Supplier4>,findSuppliersByName(keyword: String): List<Supplier4>,
+Parameter,SupplierDAO4.layThongTinNhaCungCap,SupplierDAO4.getSupplierDetails,id,supplierId,int
+Method,SupplierDAO4,SupplierDAO4,layThongTinNhaCungCap(id: int): Supplier4,getSupplierDetails(supplierId: int): Supplier4,
+Parameter,SupplierDAO4.themNhaCungCap,SupplierDAO4.addSupplier,supplier,supplier,Supplier4
+Method,SupplierDAO4,SupplierDAO4,themNhaCungCap(supplier: Supplier4): int,addSupplier(supplier: Supplier4): int,
+Parameter,WarehouseStaffDAO4.layThongTinNhanVienKho,WarehouseStaffDAO4.getWarehouseStaffDetails,id,warehouseStaffId,int
+Method,WarehouseStaffDAO4,WarehouseStaffDAO4,layThongTinNhanVienKho(id: int): WarehouseStaff4,getWarehouseStaffDetails(warehouseStaffId: int): WarehouseStaff4,
+Method,SparePartCategoryDAO4,SparePartCategoryDAO4,layDanhSachNhom(): List<SparePartCategory4>,getActiveCategories(): List<SparePartCategory4>,
+Parameter,SparePartDAO4.themPhuTung,SparePartDAO4.addSparePart,part,sparePart,SparePart4
+Method,SparePartDAO4,SparePartDAO4,themPhuTung(part: SparePart4): int,addSparePart(sparePart: SparePart4): int,
+Parameter,SparePartDAO4.tangTonSauNhap,SparePartDAO4.increaseStockAfterPurchase,con,connection,Connection
+Parameter,SparePartDAO4.tangTonSauNhap,SparePartDAO4.increaseStockAfterPurchase,idPhuTung,sparePartId,int
+Parameter,SparePartDAO4.tangTonSauNhap,SparePartDAO4.increaseStockAfterPurchase,soLuong,quantity,BigDecimal
+Method,SparePartDAO4,SparePartDAO4,"tangTonSauNhap(con: Connection, idPhuTung: int, soLuong: BigDecimal): void","increaseStockAfterPurchase(connection: Connection, sparePartId: int, quantity: BigDecimal): void",
+Parameter,PurchaseInvoiceDAO4.luuHoaDonNhap,PurchaseInvoiceDAO4.savePurchaseInvoice,hoaDon,purchaseInvoice,PurchaseInvoice4
+Method,PurchaseInvoiceDAO4,PurchaseInvoiceDAO4,luuHoaDonNhap(hoaDon: PurchaseInvoice4): int,savePurchaseInvoice(purchaseInvoice: PurchaseInvoice4): int,
+Parameter,PurchaseInvoiceDAO4.layThongTinHoaDonNhap,PurchaseInvoiceDAO4.getPurchaseInvoiceDetails,id,invoiceId,int
+Method,PurchaseInvoiceDAO4,PurchaseInvoiceDAO4,layThongTinHoaDonNhap(id: int): PurchaseInvoice4,getPurchaseInvoiceDetails(invoiceId: int): PurchaseInvoice4,
+Parameter,PurchaseInvoiceDAO4.ghiNhanThanhToan,PurchaseInvoiceDAO4.recordPayment,idHoaDon,invoiceId,int
+Parameter,PurchaseInvoiceDAO4.ghiNhanThanhToan,PurchaseInvoiceDAO4.recordPayment,soTienDaTra,amountPaid,BigDecimal
+Parameter,PurchaseInvoiceDAO4.ghiNhanThanhToan,PurchaseInvoiceDAO4.recordPayment,idNhanVienHienTai,currentWarehouseStaffId,int
+Method,PurchaseInvoiceDAO4,PurchaseInvoiceDAO4,"ghiNhanThanhToan(idHoaDon: int, soTienDaTra: BigDecimal, idNhanVienHienTai: int): boolean","recordPayment(invoiceId: int, amountPaid: BigDecimal, currentWarehouseStaffId: int): boolean",
+Entity attribute,Employee4,Employee4,viTri,position,String
+Entity attribute,Employee4,Employee4,trangThaiLamViec,employmentStatus,String
+Entity attribute,Supplier4,Supplier4,id,id,int
+Entity attribute,Supplier4,Supplier4,ten,name,String
+Entity attribute,Supplier4,Supplier4,diaChi,address,String
+Entity attribute,Supplier4,Supplier4,dienThoai,phoneNumber,String
+Entity attribute,Supplier4,Supplier4,email,email,String
+Entity attribute,Supplier4,Supplier4,trangThai,status,String
+Entity attribute,PurchaseInvoice4,PurchaseInvoice4,id,id,int
+Entity attribute,PurchaseInvoice4,PurchaseInvoice4,maYeuCau,requestCode,String
+Entity attribute,PurchaseInvoice4,PurchaseInvoice4,ngayNhap,purchaseDate,LocalDateTime
+Entity attribute,PurchaseInvoice4,PurchaseInvoice4,thoiDiemXacNhan,confirmedAt,LocalDateTime
+Entity attribute,PurchaseInvoice4,PurchaseInvoice4,tinhTrang,paymentStatus,String
+Entity attribute,PurchaseInvoice4,PurchaseInvoice4,thoiDiemThanhToan,paidAt,LocalDateTime
+Entity attribute,PurchaseInvoice4,PurchaseInvoice4,nhaCungCap,supplier,Supplier4
+Entity attribute,PurchaseInvoice4,PurchaseInvoice4,nhanVienKho,warehouseStaff,WarehouseStaff4
+Entity attribute,PurchaseInvoice4,PurchaseInvoice4,dsChiTietNhap,invoiceDetails,List<PurchaseInvoiceDetail4>
+Entity attribute,PurchaseInvoice4,PurchaseInvoice4,nhaCungCapTenApDung,supplierNameSnapshot,String
+Entity attribute,PurchaseInvoice4,PurchaseInvoice4,nhanVienTenApDung,warehouseStaffNameSnapshot,String
+Method,PurchaseInvoice4,PurchaseInvoice4,tinhTongTien(): BigDecimal,calculateTotalAmount(): BigDecimal,
+Entity attribute,PurchaseInvoiceDetail4,PurchaseInvoiceDetail4,id,id,int
+Entity attribute,PurchaseInvoiceDetail4,PurchaseInvoiceDetail4,soLuong,quantity,BigDecimal
+Entity attribute,PurchaseInvoiceDetail4,PurchaseInvoiceDetail4,donGiaNhap,purchaseUnitPrice,BigDecimal
+Entity attribute,PurchaseInvoiceDetail4,PurchaseInvoiceDetail4,tenPhuTungApDung,sparePartNameSnapshot,String
+Entity attribute,PurchaseInvoiceDetail4,PurchaseInvoiceDetail4,donViApDung,unitSnapshot,String
+Entity attribute,PurchaseInvoiceDetail4,PurchaseInvoiceDetail4,phuTung,sparePart,SparePart4

@@ -1,23 +1,19 @@
-# Danh mục thuộc tính — bản cuối
+# Thuộc tính cần đối chiếu — chỉ hai module
 
-Giữ tên/giá/đơn vị và nhận diện trên chứng từ như DOCX mới đã làm. Không mở rộng sang bản lịch sử toàn bộ hồ sơ. Danh sách sau là **14 trường từng được thống nhất so với bản đầu**, phần lớn đã có trong DOCX hiện tại: kiểm tra đủ, không thêm lại hoặc tạo tên khác.
+Áp dụng [00_PHAM_VI.md](00_PHAM_VI.md). Chỉ kiểm tra những trường có trong hai module, giữ đúng bài làm; không thêm các lớp/bảng khác để hoàn thiện mô hình tổng thể.
 
-| Bảng | Trường giữ | Số trường |
+| Bảng | Trường cần giữ từ bài làm | Số trường |
 |---|---|---|
-| tblAppointment4 | hoTenLienHe, dienThoaiLienHe | 2 |
-| tblRepairService4 | tenDichVuApDung | 1 |
-| tblRepairPart4 | tenPhuTungApDung, donViApDung | 2 |
-| tblCustomerInvoice4 | tblEmployee4id, hoTenKhachHangApDung, bienSoApDung, nhanVienTenApDung | 4 |
 | tblPurchaseInvoice4 | maYeuCau, nhaCungCapTenApDung, nhanVienTenApDung | 3 |
 | tblPurchaseInvoiceDetail4 | tenPhuTungApDung, donViApDung | 2 |
-| Tổng | | **14** |
+| Tổng thuộc phạm vi nhập hàng | | **5** |
 
-Trong đó có 12 giá trị nghiệp vụ, 1 FK người lập hóa đơn khách và 1 mã yêu cầu kỹ thuật. Không suy ra rằng đây là 14 cột đang thiếu trong bản mới. Giữ giá, lượng và bảo hành áp dụng đã có sẵn; không đếm chúng là trường thêm.
+Đây là danh sách kiểm tra trường đã có, không phải yêu cầu thêm lặp 5 cột. maYeuCau là mã chống xác nhận trùng; bốn trường còn lại giữ thông tin nhận diện khi xác nhận.
 
-**Tồn kho:** giữ cột `tblSparePart4.tonKho DECIMAL(12,3) NOT NULL DEFAULT 0`, CHECK >= 0. Đây là cột có trong mô hình ban đầu được quyết định giữ lại, không tính vào 14 trường. Lưu hóa đơn nhập, dòng và tăng tồn trong một transaction; mã yêu cầu UNIQUE chống tăng lặp. Không lưu `thanhTien`/`tongTien` thành cột.
+- Giữ tonKho DECIMAL(12,3) NOT NULL DEFAULT 0, không âm; part mới tồn 0. Xác nhận nhập lưu hóa đơn/dòng/tăng tồn cùng transaction.
+- thanhTien/tongTien tính từ lượng/giá đã lưu, không có cột riêng; không dùng giá bán danh mục thay giá nhập.
+- Hóa đơn nhập có một người lập, chính người đó ghi nhận trả tiền. Không thêm object/FK người thanh toán riêng.
+- Giữ địa chỉ/điện thoại/email NCC và hãng trong master để tìm/chọn/đối chiếu trước xác nhận; không sao chép chúng lên chứng từ. Hóa đơn xác nhận/bản in dùng tên NCC, nhân viên, part và đơn vị áp dụng đã chốt.
+- Không đổi đơn vị part đã có giao dịch. Đơn vị, công bố và các trường bắt buộc theo 03/09/10.
 
-**Nhân viên:** CustomerInvoice có một người lập/thu tiền; PurchaseInvoice có một người lập/trả tiền. Người tiếp nhận lưu riêng ở RepairIntake. Không thêm thuộc tính object `nhanVienThanhToan` hoặc hai cột `tblEmployeeThanhToan4id` từng xuất hiện ở kế hoạch trước. Danh sách hóa đơn nhập chưa trả chỉ của chính người đang đăng nhập lập.
-
-Không tạo các trường bản lịch sử dư: emailLienHe/diaChiLienHe ở lịch hẹn; nhaCungCapDiaChiApDung/nhaCungCapDienThoaiApDung ở hóa đơn nhập; hangSanXuatApDung ở dòng nhập; dienThoaiKhachHangApDung ở hóa đơn khách. Các trường danh mục gốc như địa chỉ NCC, hãng phụ tùng vẫn giữ để tra cứu/chọn; chỉ không sao chép lên chứng từ.
-
-Hóa đơn nhập và bản in dùng tên NCC, tên người lập, tên/đơn vị dòng đã chốt; không JOIN tên hiện tại để thay thế. Sau xác nhận không sửa dòng; chỉ trạng thái/thời điểm thanh toán được cập nhật. Không đổi đơn vị part có giao dịch; tạo part khác khi bản chất/đơn vị khác. Giữ đủ 16 bảng theo file 03, không thêm bảng Payment, lịch sử ca hoặc bảng nháp.
+Không áp danh sách thuộc tính của lịch hẹn, tiếp nhận, hóa đơn khách hoặc thống kê vào app hai module. Chỉ tạo 9 bảng và 10 model đã khóa ở 00.

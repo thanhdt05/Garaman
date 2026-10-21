@@ -1,0 +1,87 @@
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<section class="panel" id="parts-picker">
+  <div class="panel-head">
+    <h2>Tìm và chọn phụ tùng</h2>
+    <button type="submit" class="text-link"
+            formaction="<c:url value='/warehouse/purchases/update'/>"
+            name="destination" value="new-part"
+            style="background:none;border:none;cursor:pointer;">
+      + Thêm phụ tùng mới
+    </button>
+  </div>
+  <div class="panel-body">
+    <div class="inline-search">
+      <div class="field">
+        <label for="sparePartKeyword">Tên phụ tùng</label>
+        <input id="sparePartKeyword" name="keyword" maxlength="150"
+               placeholder="Nhập tên hoặc một phần tên, ví dụ: Lọc"
+               value="<c:out value='${keyword}'/>"
+               aria-describedby="part-search-error">
+      </div>
+      <button class="btn btn-primary" type="submit" id="btn-search-parts"
+              formaction="<c:url value='/warehouse/purchases/search-part'/>">
+        Tìm kiếm
+      </button>
+    </div>
+    <c:choose>
+      <c:when test="${not empty partSearchError}">
+        <p class="error" id="part-search-error" role="alert"><c:out value="${partSearchError}"/></p>
+      </c:when>
+      <c:when test="${not empty spareParts}">
+        <div class="picker-result" id="part-results">
+          <div class="panel-head">
+            <h3>Danh sách phụ tùng tìm thấy</h3>
+            <span class="result-count" id="part-result-count"><c:out value="${spareParts.size()}"/> phụ tùng</span>
+          </div>
+          <div class="table-wrap">
+            <table id="part-table">
+              <thead>
+                <tr>
+                  <th>Mã</th>
+                  <th>Tên phụ tùng</th>
+                  <th>ĐVT</th>
+                  <th>Hãng sản xuất</th>
+                  <th class="number">Chọn</th>
+                </tr>
+              </thead>
+              <tbody>
+              <c:forEach var="sparePart" items="${spareParts}">
+                <tr class="${selectedPartId == sparePart.id ? 'highlight' : ''}">
+                  <td class="code">PT<c:out value="${sparePart.id}"/></td>
+                  <td><strong><c:out value="${sparePart.name}"/></strong></td>
+                  <td><c:out value="${sparePart.unit}"/></td>
+                  <td><c:out value="${sparePart.manufacturer}"/></td>
+                  <td class="number">
+                    <button class="btn btn-small select-part" type="submit"
+                            formaction="<c:url value='/warehouse/purchases/add-line'/>"
+                            name="selectedPartId" value="${sparePart.id}"
+                            aria-label="Chọn <c:out value='${sparePart.name}'/>">
+                      Chọn →
+                    </button>
+                  </td>
+                </tr>
+              </c:forEach>
+              </tbody>
+            </table>
+          </div>
+          <div class="panel-note">Bấm Chọn tại dòng phụ tùng cần nhập. Phụ tùng đã có sẽ được đưa về dòng tương ứng.</div>
+        </div>
+      </c:when>
+
+      <c:when test="${not empty keyword}">
+        <div class="empty" id="part-search-empty">
+          <strong>Không tìm thấy phụ tùng</strong>
+          Thử tên khác hoặc chọn “+ Thêm phụ tùng mới”.
+        </div>
+      </c:when>
+
+      <c:otherwise>
+        <p class="page-subtitle picker-result" id="part-search-initial">
+          Nhập tên và chọn Tìm kiếm để xem các phụ tùng phù hợp.
+        </p>
+      </c:otherwise>
+    </c:choose>
+  </div>
+</section>

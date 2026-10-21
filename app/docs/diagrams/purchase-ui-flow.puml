@@ -1,0 +1,112 @@
+@startuml purchase-ui-flow
+skinparam style strictuml
+skinparam packageStyle rectangle
+skinparam roundcorner 6
+skinparam shadowing false
+
+title Sơ đồ thiết kế giao diện & Luồng màn hình - Module Nhân viên kho nhập phụ tùng (Đề 26)
+
+class "warehouseHome.jsp\n(Trang chủ Nhân viên kho)" as UI_HomeKho <<Boundary>> {
+    -- Khu vực hiển thị --
+    * Banner chào mừng Thủ kho
+    * Danh sách hóa đơn chưa thanh toán của tôi
+    -- Nút thao tác --
+    + [Bắt đầu nhập phụ tùng →] : GET /warehouse/suppliers
+    + [Mở hóa đơn →] : GET /warehouse/purchases/view?id=...
+}
+
+class "selectSupplier.jsp\n(Bước 1: Chọn NCC)" as UI_ChooseSupplier <<Boundary>> {
+    -- Form tìm kiếm NCC --
+    * Input [supplierKeyword]: Tìm theo tên nhà cung cấp
+    * Nút [Tìm kiếm] : GET /warehouse/suppliers?keyword=...
+    -- Danh sách kết quả (5 cột) --
+    * Cột: [Mã NCC] | [Nhà cung cấp] | [Liên hệ] | [Trạng thái] | [Chọn →]
+    * Thao tác chọn: POST /warehouse/purchases/start (supplierId, csrfToken)
+    -- Thao tác phụ --
+    + [+ Thêm nhà cung cấp] : GET /warehouse/suppliers/new
+    + [← Về trang chính] : GET /home
+}
+
+class "newSupplier.jsp\n(Thêm mới NCC)" as UI_AddSupplier <<Boundary>> {
+    -- Form thông tin nhà cung cấp --
+    * Input [name*], [address*], [phoneNumber*], [email]
+    -- Nút thao tác --
+    + [Lưu nhà cung cấp →] : POST /warehouse/suppliers/create
+    + [← Quay lại] : GET /warehouse/suppliers
+}
+
+class "purchaseInvoice.jsp\n(Bước 2: Lập hóa đơn nhập)" as UI_DraftInvoice <<Boundary>> {
+    -- Thông tin chung --
+    * Nhà cung cấp, Nhân viên kho, Địa chỉ, Ngày nhập dự kiến
+    * Link: [Đổi nhà cung cấp] (quay lại chọn NCC)
+    -- Bảng kết quả tìm phụ tùng --
+    * Input tìm kiếm tên: [sparePartKeyword] + Nút [Tìm kiếm]
+    * Bảng [part-table]: [Mã] | [Tên phụ tùng] | [ĐVT] | [Hãng sản xuất] | [Chọn →]
+    * Nút Chọn từng dòng: POST /warehouse/purchases/add-line (selectedPartId, kèm toàn bộ dòng đang sửa)
+    * Link: [+ Thêm phụ tùng mới]
+    -- Bảng các dòng nhập --
+    * Cột: [STT] | [Phụ tùng] | [Hãng] | [ĐVT] | [Số lượng] | [Đơn giá nhập] | [Thành tiền] | [✕ Xóa]
+    * Khung tổng tiền: Hiển thị liên tục (0 ₫ khi chưa có dòng)
+    -- Nút thao tác --
+    + [Xác nhận hóa đơn →] : POST /warehouse/purchases/confirm
+    + [Hủy hóa đơn] : POST /warehouse/purchases/cancel
+    + [↻ Cập nhật & tính lại tiền] : POST /warehouse/purchases/update
+}
+
+class "newSparePart.jsp\n(Thêm phụ tùng mới)" as UI_AddPart <<Boundary>> {
+    -- Form thông tin phụ tùng --
+    * Input [name*], [categoryId*], [unit*], [manufacturer*]
+    * Input [sellingPrice], [specifications], [compatibleVehicleModels], [warrantyPeriod], [status], [description]
+    * Tồn kho ban đầu: cố định 0
+    -- Nút thao tác --
+    + [Lưu phụ tùng →] : POST /warehouse/parts/create (kèm requestCode)
+    + [← Quay lại hóa đơn] : GET /warehouse/purchases/draft?requestCode=...
+}
+
+class "confirmedInvoice.jsp\n(Bước 3: Hóa đơn đã xác nhận)" as UI_ConfirmedInvoice <<Boundary>> {
+    -- Thông tin hóa đơn (Snapshot) --
+    * Mã HN, Tên NCC, Ngày nhập, Nhân viên kho, Thời điểm xác nhận
+    * Bảng 6 cột phụ tùng đã chốt số liệu
+    -- Thanh toán cho NCC --
+    * Input [amountPaid] (ban đầu 0, giữ số đã nhập khi báo lỗi)
+    * Nút [Đã thanh toán] : POST /warehouse/purchases/pay
+    * Trạng thái thanh toán: [Chưa thanh toán] | [Đã thanh toán]
+    -- Nút điều hướng --
+    + [In hóa đơn nhập →] : GET /warehouse/purchases/print?id=...
+    + [← Về trang chính] : GET /home
+}
+
+class "printInvoice.jsp\n(Bước 4: Bản in A4 chứng từ)" as UI_PrintInvoice <<Boundary>> {
+    -- Khung chứng từ in A4 --
+    * Tiêu đề GaraMan, Số chứng từ HN..., Ngày nhập
+    * Thông tin NCC, Nhân viên kho, Trạng thái thanh toán
+    * Bảng 6 cột chi tiết dòng hàng
+    * 3 ô chữ ký: Người lập, Thủ kho nhận hàng, Đại diện NCC
+    -- Nút thao tác --
+    + [In] : window.print()
+    + [← Quay lại hóa đơn] : GET /warehouse/purchases/view?id=...
+}
+
+UI_HomeKho --> UI_ChooseSupplier : Bắt đầu nhập (GET /warehouse/suppliers)
+UI_HomeKho --> UI_ConfirmedInvoice : Mở hóa đơn chưa trả (GET /warehouse/purchases/view?id=...)
+
+UI_ChooseSupplier --> UI_AddSupplier : Chưa có NCC, bấm "+ Thêm nhà cung cấp"
+UI_AddSupplier --> UI_ChooseSupplier : Lưu thành công, quay về danh sách (kèm selectedId)
+UI_AddSupplier --> UI_ChooseSupplier : Bấm "← Quay lại"
+
+UI_ChooseSupplier --> UI_DraftInvoice : Chọn NCC -> POST start -> Redirect draft
+UI_DraftInvoice --> UI_ChooseSupplier : Bấm "Đổi nhà cung cấp"
+
+UI_DraftInvoice --> UI_AddPart : Bấm "+ Thêm phụ tùng mới" (kèm requestCode)
+UI_AddPart --> UI_DraftInvoice : Lưu thành công, quay lại hóa đơn (kèm selectedPartId)
+UI_AddPart --> UI_DraftInvoice : Bấm "← Quay lại hóa đơn"
+
+UI_DraftInvoice --> UI_HomeKho : Bấm "Hủy hóa đơn" (POST cancel -> xóa draft session)
+UI_DraftInvoice --> UI_ConfirmedInvoice : Bấm "Xác nhận hóa đơn →" (POST confirm -> lưu DB, tăng tồn)
+
+UI_ConfirmedInvoice --> UI_ConfirmedInvoice : Nhập đủ tiền, bấm "Đã thanh toán" (POST pay)
+UI_ConfirmedInvoice --> UI_PrintInvoice : Bấm "In hóa đơn nhập →" (GET print)
+UI_PrintInvoice --> UI_ConfirmedInvoice : Đóng/hủy in, bấm "← Quay lại hóa đơn"
+UI_ConfirmedInvoice --> UI_HomeKho : Bấm "← Về trang chính"
+
+@enduml
