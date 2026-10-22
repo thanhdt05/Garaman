@@ -1,0 +1,89 @@
+{
+  "date": "2026-10-22",
+  "scope": "static-source-review",
+  "sources": {
+    "app/src/main/java/controller/SupplierServlet4.java": "b1b87d9b3fbd05b0e222b88e7ddf1707ca39ed53e041f699c0a5b6ecd78b8504",
+    "app/src/main/java/controller/PurchaseInvoiceServlet4.java": "daa91e03d189009fe217d201a8cec07f903e76f79fac23c53b6e42fe86f6e0a8",
+    "app/src/main/java/controller/AuthServlet4.java": "bfe46980f96b4e10edbd92fa24434f10e09f4495061b4b95c12ecb659bf0a3cf",
+    "app/src/main/java/controller/HomeServlet4.java": "f57fc8ae81ba01e5082dd795348fb1be0bbbaabcb75f44bcacc8db1ac6849ad3",
+    "app/src/main/java/controller/SparePartServlet4.java": "fcb18d1ab54b66ab16669d77e5ca00bfe948c81dd3ec8620d33abc70d30d5171",
+    "app/src/main/java/controller/CatalogServlet4.java": "199047771a048fde56a695c5478e03882c88e7c8eb94d75bfbb2a3ae4124da80",
+    "app/src/main/java/dao/SupplierDAO4.java": "1018bee1c99a670e9cabfb3c7d087357cb50180b509010c36403f9fa6832ba5e",
+    "app/src/main/java/dao/ServiceDAO4.java": "154ff3c5c9b86d5f220ee63d86aab2db8e3ddffe3b9432efad1f6a345fb06689",
+    "app/src/main/java/dao/DAO.java": "d7d81947666978035b27611090a666d81922b2943d735f33299e27b93829ed45",
+    "app/src/main/java/dao/SparePartDAO4.java": "ab1ac923d84a19712966b3c30faeae46cb80ce01ef71484723de2dd89f156d25",
+    "app/src/main/java/dao/MemberDAO4.java": "b40879665e3985bf14083d9efb37622961d5e55c3e4839af28cf450cd72a8c95",
+    "app/src/main/java/dao/WarehouseStaffDAO4.java": "5bbfa9ab4683bba58e6b19b8e61d54d9d8985bb57626636cb06d1a43456ff19d",
+    "app/src/main/java/dao/PurchaseInvoiceDAO4.java": "38bc352310da6e56dc1faf4891e82e2110288cdf2263870a46d86f6718431f46",
+    "app/src/main/java/dao/SparePartCategoryDAO4.java": "770615bf81d02e2932a78f188292ee169879f011a1f27c67f40460d6568a90ba",
+    "app/src/main/java/model/PurchaseInvoice4.java": "491d89082422c045150a5a9c4d4470f75a09be9c540787dd10e54e0cc42aa22b",
+    "app/src/main/java/model/PurchaseInvoiceDetail4.java": "579a595910f1ae325d956639e25b067663db20a7c932517b725527c8da97b641",
+    "app/src/main/java/filter/AuthFilter4.java": "35dd778820fd0500bc2570a7d0de30533d4f1d34ec9ab3ebde4d69a6df3b4c04",
+    "app/src/main/java/util/DraftStore4.java": "e446b1d0c4b9603d284171d7be160f598c80663f6b36445b795ef4d09ef8efdb",
+    "app/src/main/java/util/Validation4.java": "d177c11d9b2888d9dad740a2b706376cb88f471a1a833841a94693e20287746e",
+    "app/src/main/webapp/WEB-INF/view/customer/customerHome.jsp": "635b88e33c43c90394d331f076ab7de8501051a2151bc30ee23e2deebaf3893c",
+    "app/src/main/webapp/WEB-INF/view/customer/catalogSearch.jsp": "082302f7672a8421be18476dec4c66a53bcdb6435b14a5f7b0cfeadbaf7cd5a6",
+    "app/src/main/webapp/WEB-INF/view/customer/itemDetails.jsp": "0975fbf14cd655a179efffaa66827fbf69aba949be3940900644e5e79c4f2fbd",
+    "app/src/main/webapp/WEB-INF/view/warehouse/confirmedInvoice.jsp": "b30a319a0e1bc950bf02601a373309cc304ac98fd9775fd57b05c663d14e7bad",
+    "app/src/main/webapp/WEB-INF/view/warehouse/warehouseHome.jsp": "4462ca957604837bf956403a3a1edd76dd1904c8439f192506278ffe331da2f8",
+    "app/src/main/webapp/WEB-INF/view/warehouse/newSupplier.jsp": "095bc056450a5cf57f665b39c7abd70558e218eb23992576d54d34707244f6da",
+    "app/src/main/webapp/WEB-INF/view/warehouse/selectSupplier.jsp": "289048e6f392137c450f4883c07d425a47d9f7e9c44c844368ece78dffc633c4",
+    "app/src/main/webapp/WEB-INF/view/warehouse/purchaseInvoice.jsp": "fab7b60a498b9d3b89ca99a85e0512e1909b63893a41f0155cc9a3acde5a2ad0",
+    "app/src/main/webapp/WEB-INF/view/warehouse/newSparePart.jsp": "29c50326327f8e2b8843b758efea2d8d60bafcb5b507e585eb94ff2f64790248",
+    "app/src/main/webapp/WEB-INF/view/warehouse/parts-picker.jspf": "a2bef1edb0c136f25b617b8b420e73f8a2925d170fcfa684384fd8970c1c087f",
+    "app/src/main/webapp/WEB-INF/view/warehouse/invoice-lines.jspf": "fd4493db48675ef9acf20f0da43fbc0f4d77b319b9f61a45741073e0a242d8e0",
+    "app/src/main/webapp/WEB-INF/view/warehouse/printInvoice.jsp": "f5509887034b9f392abd712d2b85c3b278b32b51b620b21a56420d3ed74a3fb4",
+    "app/src/main/webapp/assets/js/purchase.js": "3d6b9d9d3ac2018b881f5cf53f05631ad3af30f8847e3e82cb162101a7c07259",
+    "app/src/main/webapp/assets/js/print.js": "52bf7d97418b35ec027abb529c97967459fc2b271572e5ea0337241a366df7c2",
+    "app/src/main/webapp/WEB-INF/web.xml": "38990a58a296cbcb733d8c33cf0cfb3be554711b0b961bfb13a1f6b388877597"
+  },
+  "checks": {
+    "catalog": {
+      "nodes": 16,
+      "edges": 19,
+      "clicks_from_display": true,
+      "orthogonal_connectors": true,
+      "dao_methods_exist": true,
+      "xml_and_utf8": true
+    },
+    "purchase": {
+      "nodes": 56,
+      "edges": 81,
+      "clicks_from_display": true,
+      "orthogonal_connectors": true,
+      "dao_methods_exist": true,
+      "xml_and_utf8": true
+    }
+  },
+  "reviewed_methods": {
+    "CatalogServlet4": [
+      "showSearch",
+      "searchCatalog",
+      "viewDetails"
+    ],
+    "SupplierServlet4": [
+      "showSupplierSelection",
+      "searchSuppliers",
+      "showNewSupplier",
+      "addSupplier"
+    ],
+    "SparePartServlet4": [
+      "showNewSparePart",
+      "addSparePart"
+    ],
+    "PurchaseInvoiceServlet4": [
+      "startPurchase",
+      "showDraft",
+      "searchSpareParts",
+      "addInvoiceLine",
+      "updateInvoiceLines",
+      "removeInvoiceLine",
+      "cancelDraft",
+      "confirmInvoice",
+      "viewInvoice",
+      "printInvoice",
+      "recordPayment",
+      "showUnpaidInvoices"
+    ]
+  }
+}

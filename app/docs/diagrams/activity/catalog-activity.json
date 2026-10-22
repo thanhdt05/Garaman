@@ -1,0 +1,754 @@
+{
+  "title": "Biểu đồ thiết kế hoạt động modul tìm kiếm thông tin dịch vụ/phụ tùng",
+  "width": 1940,
+  "height": 1120,
+  "groups": [
+    {
+      "id": "home",
+      "x": 50,
+      "y": 160,
+      "w": 280,
+      "h": 300,
+      "title": "Xử lí tại customerHome.jsp",
+      "owner": ""
+    },
+    {
+      "id": "search",
+      "x": 460,
+      "y": 160,
+      "w": 640,
+      "h": 580,
+      "title": "Xử lí tại catalogSearch.jsp",
+      "owner": ""
+    },
+    {
+      "id": "detail",
+      "x": 1270,
+      "y": 160,
+      "w": 580,
+      "h": 580,
+      "title": "Xử lí tại itemDetails.jsp",
+      "owner": ""
+    }
+  ],
+  "nodes": [
+    {
+      "id": "start",
+      "x": 180,
+      "y": 90,
+      "w": 20,
+      "h": 20,
+      "label": "Bắt đầu",
+      "method": "",
+      "kind": "start"
+    },
+    {
+      "id": "h1",
+      "x": 80,
+      "y": 240,
+      "w": 220,
+      "h": 60,
+      "label": "Nhận thông tin KH",
+      "method": "",
+      "kind": "action"
+    },
+    {
+      "id": "hshow",
+      "x": 110,
+      "y": 360,
+      "w": 160,
+      "h": 60,
+      "label": "Hiển thị GD",
+      "method": "",
+      "kind": "display"
+    },
+    {
+      "id": "s1",
+      "x": 500,
+      "y": 240,
+      "w": 220,
+      "h": 60,
+      "label": "Nhận thông tin KH",
+      "method": "",
+      "kind": "action"
+    },
+    {
+      "id": "s2",
+      "x": 500,
+      "y": 400,
+      "w": 220,
+      "h": 60,
+      "label": "Nhận từ khóa",
+      "method": "",
+      "kind": "action"
+    },
+    {
+      "id": "s3",
+      "x": 500,
+      "y": 580,
+      "w": 220,
+      "h": 60,
+      "label": "Lấy thông tin\nDV/PT",
+      "method": "",
+      "kind": "action"
+    },
+    {
+      "id": "sshow",
+      "x": 880,
+      "y": 580,
+      "w": 170,
+      "h": 80,
+      "label": "Hiển thị GD",
+      "method": "",
+      "kind": "display"
+    },
+    {
+      "id": "t1",
+      "x": 1310,
+      "y": 240,
+      "w": 500,
+      "h": 60,
+      "label": "Nhận thông tin DV/PT",
+      "method": "",
+      "kind": "action"
+    },
+    {
+      "id": "t2",
+      "x": 1310,
+      "y": 400,
+      "w": 220,
+      "h": 60,
+      "label": "Lấy chi tiết DV",
+      "method": "",
+      "kind": "action"
+    },
+    {
+      "id": "t3",
+      "x": 1590,
+      "y": 400,
+      "w": 220,
+      "h": 60,
+      "label": "Lấy chi tiết PT",
+      "method": "",
+      "kind": "action"
+    },
+    {
+      "id": "tshow",
+      "x": 1470,
+      "y": 580,
+      "w": 180,
+      "h": 60,
+      "label": "Hiển thị GD",
+      "method": "",
+      "kind": "display"
+    },
+    {
+      "id": "q1",
+      "x": 460,
+      "y": 880,
+      "w": 300,
+      "h": 80,
+      "label": "ServiceDAO4:",
+      "method": "findServicesByName()",
+      "kind": "callout"
+    },
+    {
+      "id": "q2",
+      "x": 820,
+      "y": 880,
+      "w": 300,
+      "h": 80,
+      "label": "SparePartDAO4:",
+      "method": "findSparePartsByName()",
+      "kind": "callout"
+    },
+    {
+      "id": "q3",
+      "x": 1250,
+      "y": 880,
+      "w": 260,
+      "h": 80,
+      "label": "ServiceDAO4:",
+      "method": "getServiceDetails()",
+      "kind": "callout"
+    },
+    {
+      "id": "q4",
+      "x": 1570,
+      "y": 880,
+      "w": 290,
+      "h": 80,
+      "label": "SparePartDAO4:",
+      "method": "getSparePartDetails()",
+      "kind": "callout"
+    },
+    {
+      "id": "end",
+      "x": 180,
+      "y": 900,
+      "w": 20,
+      "h": 20,
+      "label": "Kết thúc",
+      "method": "",
+      "kind": "end"
+    }
+  ],
+  "edges": [
+    {
+      "a": "start",
+      "b": "h1",
+      "label": "",
+      "points": [
+        [
+          190,
+          110
+        ],
+        [
+          190,
+          140
+        ],
+        [
+          330,
+          140
+        ],
+        [
+          330,
+          210
+        ],
+        [
+          190,
+          210
+        ],
+        [
+          190,
+          240
+        ]
+      ],
+      "pos": null,
+      "call": false
+    },
+    {
+      "a": "h1",
+      "b": "hshow",
+      "label": "",
+      "points": [
+        [
+          190,
+          300
+        ],
+        [
+          190,
+          360
+        ]
+      ],
+      "pos": null,
+      "call": false
+    },
+    {
+      "a": "hshow",
+      "b": "s1",
+      "label": "[click tìm thông tin]",
+      "points": [
+        [
+          270,
+          390
+        ],
+        [
+          470,
+          390
+        ],
+        [
+          470,
+          270
+        ],
+        [
+          500,
+          270
+        ]
+      ],
+      "pos": [
+        290.4,
+        380.0
+      ],
+      "call": false
+    },
+    {
+      "a": "s1",
+      "b": "sshow",
+      "label": "[chưa tìm]",
+      "points": [
+        [
+          720,
+          270
+        ],
+        [
+          940,
+          270
+        ],
+        [
+          940,
+          580
+        ]
+      ],
+      "pos": [
+        790.0,
+        260.0
+      ],
+      "call": false
+    },
+    {
+      "a": "sshow",
+      "b": "s2",
+      "label": "[click tìm]",
+      "points": [
+        [
+          990,
+          580
+        ],
+        [
+          990,
+          360
+        ],
+        [
+          570,
+          360
+        ],
+        [
+          570,
+          400
+        ]
+      ],
+      "pos": [
+        736.4,
+        350.0
+      ],
+      "call": false
+    },
+    {
+      "a": "s2",
+      "b": "s3",
+      "label": "[hợp lệ]",
+      "points": [
+        [
+          610,
+          460
+        ],
+        [
+          610,
+          580
+        ]
+      ],
+      "pos": [
+        532.4,
+        525.0
+      ],
+      "call": false
+    },
+    {
+      "a": "s2",
+      "b": "sshow",
+      "label": "[từ khóa sai]",
+      "points": [
+        [
+          720,
+          430
+        ],
+        [
+          850,
+          430
+        ],
+        [
+          850,
+          600
+        ],
+        [
+          880,
+          600
+        ]
+      ],
+      "pos": [
+        734.2,
+        420.0
+      ],
+      "call": false
+    },
+    {
+      "a": "s3",
+      "b": "sshow",
+      "label": "[lấy xong / lỗi]",
+      "points": [
+        [
+          720,
+          600
+        ],
+        [
+          840,
+          600
+        ],
+        [
+          840,
+          620
+        ],
+        [
+          880,
+          620
+        ]
+      ],
+      "pos": [
+        748.4,
+        590.0
+      ],
+      "call": false
+    },
+    {
+      "a": "sshow",
+      "b": "t1",
+      "label": "[click 1 DV/PT]",
+      "points": [
+        [
+          1050,
+          620
+        ],
+        [
+          1080,
+          620
+        ],
+        [
+          1080,
+          210
+        ],
+        [
+          1560,
+          210
+        ],
+        [
+          1560,
+          240
+        ]
+      ],
+      "pos": [
+        1092.0,
+        420.0
+      ],
+      "call": false
+    },
+    {
+      "a": "t1",
+      "b": "t2",
+      "label": "[dịch vụ]",
+      "points": [
+        [
+          1480,
+          300
+        ],
+        [
+          1480,
+          330
+        ],
+        [
+          1420,
+          330
+        ],
+        [
+          1420,
+          400
+        ]
+      ],
+      "pos": [
+        1335.2,
+        370.0
+      ],
+      "call": false
+    },
+    {
+      "a": "t1",
+      "b": "t3",
+      "label": "[phụ tùng]",
+      "points": [
+        [
+          1640,
+          300
+        ],
+        [
+          1640,
+          370
+        ],
+        [
+          1700,
+          370
+        ],
+        [
+          1700,
+          400
+        ]
+      ],
+      "pos": [
+        1548.0,
+        340.0
+      ],
+      "call": false
+    },
+    {
+      "a": "t2",
+      "b": "tshow",
+      "label": "[lấy xong dữ liệu]",
+      "points": [
+        [
+          1380,
+          460
+        ],
+        [
+          1380,
+          550
+        ],
+        [
+          1510,
+          550
+        ],
+        [
+          1510,
+          580
+        ]
+      ],
+      "pos": [
+        1230.4,
+        510.0
+      ],
+      "call": false
+    },
+    {
+      "a": "t3",
+      "b": "tshow",
+      "label": "[lấy xong dữ liệu]",
+      "points": [
+        [
+          1660,
+          460
+        ],
+        [
+          1660,
+          490
+        ],
+        [
+          1560,
+          490
+        ],
+        [
+          1560,
+          580
+        ]
+      ],
+      "pos": [
+        1566.2,
+        514.0
+      ],
+      "call": false
+    },
+    {
+      "a": "tshow",
+      "b": "s2",
+      "label": "[click quay lại]",
+      "points": [
+        [
+          1610,
+          580
+        ],
+        [
+          1610,
+          550
+        ],
+        [
+          1670,
+          550
+        ],
+        [
+          1670,
+          860
+        ],
+        [
+          1530,
+          860
+        ],
+        [
+          1530,
+          990
+        ],
+        [
+          160,
+          990
+        ],
+        [
+          160,
+          440
+        ],
+        [
+          480,
+          440
+        ],
+        [
+          480,
+          350
+        ],
+        [
+          650,
+          350
+        ],
+        [
+          650,
+          400
+        ]
+      ],
+      "pos": [
+        24.8,
+        720.0
+      ],
+      "call": false
+    },
+    {
+      "a": "sshow",
+      "b": "end",
+      "label": "[kết thúc tra cứu]",
+      "points": [
+        [
+          880,
+          640
+        ],
+        [
+          850,
+          640
+        ],
+        [
+          850,
+          860
+        ],
+        [
+          1140,
+          860
+        ],
+        [
+          1140,
+          980
+        ],
+        [
+          230,
+          980
+        ],
+        [
+          230,
+          910
+        ],
+        [
+          200,
+          910
+        ]
+      ],
+      "pos": [
+        862.0,
+        755.0
+      ],
+      "call": false
+    },
+    {
+      "a": "s3",
+      "b": "q1",
+      "label": "",
+      "points": [
+        [
+          610,
+          640
+        ],
+        [
+          610,
+          880
+        ]
+      ],
+      "pos": null,
+      "call": true
+    },
+    {
+      "a": "s3",
+      "b": "q2",
+      "label": "",
+      "points": [
+        [
+          720,
+          620
+        ],
+        [
+          790,
+          620
+        ],
+        [
+          790,
+          920
+        ],
+        [
+          820,
+          920
+        ]
+      ],
+      "pos": null,
+      "call": true
+    },
+    {
+      "a": "t2",
+      "b": "q3",
+      "label": "",
+      "points": [
+        [
+          1460,
+          460
+        ],
+        [
+          1460,
+          560
+        ],
+        [
+          1380,
+          560
+        ],
+        [
+          1380,
+          880
+        ]
+      ],
+      "pos": null,
+      "call": true
+    },
+    {
+      "a": "t3",
+      "b": "q4",
+      "label": "",
+      "points": [
+        [
+          1740,
+          460
+        ],
+        [
+          1740,
+          490
+        ],
+        [
+          1710,
+          490
+        ],
+        [
+          1710,
+          880
+        ]
+      ],
+      "pos": null,
+      "call": true
+    }
+  ],
+  "notes": [
+    [
+      50,
+      1040,
+      [
+        "KH: khách hàng; DV: dịch vụ; PT: phụ tùng; GD: giao diện.",
+        "Quay lại giữ điều kiện và truy vấn lại. Lỗi HTTP: xem bảng đối chiếu."
+      ]
+    ]
+  ]
+}

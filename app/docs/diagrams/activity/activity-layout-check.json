@@ -1,0 +1,36 @@
+{
+  "catalog": {
+    "scope": "customer-catalog",
+    "nodes": 16,
+    "edges": 19,
+    "after": {
+      "proper_crossings": 3,
+      "overlap_length": 0,
+      "node_intersections": [],
+      "duplicate_endpoints": [],
+      "junction_touches": 0
+    },
+    "xml_and_utf8": true,
+    "clicks_from_display": true
+  },
+  "purchase": {
+    "scope": "report-analysis-flow",
+    "nodes": 51,
+    "edges": 61,
+    "after": {
+      "proper_crossings": 12,
+      "overlap_length": 0,
+      "node_intersections": [],
+      "duplicate_endpoints": [],
+      "junction_touches": 0
+    },
+    "xml_and_utf8": true,
+    "clicks_from_display": true,
+    "analysis_anchors": [
+      "P0011",
+      "P0428-P0437",
+      "P0745-P0844",
+      "P0889-P0962"
+    ]
+  }
+}

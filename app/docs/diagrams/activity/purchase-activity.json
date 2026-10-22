@@ -1,0 +1,2238 @@
+{
+  "title": "Biểu đồ thiết kế hoạt động modul nhân viên kho nhập phụ tùng",
+  "width": 3500,
+  "height": 3590,
+  "groups": [
+    {
+      "id": "home",
+      "x": 60,
+      "y": 160,
+      "w": 490,
+      "h": 340,
+      "title": "Xử lí tại warehouseHome.jsp",
+      "owner": ""
+    },
+    {
+      "id": "supplier",
+      "x": 760,
+      "y": 160,
+      "w": 680,
+      "h": 550,
+      "title": "Xử lí tại selectSupplier.jsp",
+      "owner": ""
+    },
+    {
+      "id": "newSupplier",
+      "x": 1690,
+      "y": 160,
+      "w": 680,
+      "h": 550,
+      "title": "Xử lí tại newSupplier.jsp",
+      "owner": ""
+    },
+    {
+      "id": "draft",
+      "x": 760,
+      "y": 1020,
+      "w": 1460,
+      "h": 1170,
+      "title": "Xử lí tại purchaseInvoice.jsp",
+      "owner": ""
+    },
+    {
+      "id": "newPart",
+      "x": 2680,
+      "y": 1020,
+      "w": 650,
+      "h": 650,
+      "title": "Xử lí tại newSparePart.jsp",
+      "owner": ""
+    },
+    {
+      "id": "confirmed",
+      "x": 760,
+      "y": 2520,
+      "w": 1160,
+      "h": 710,
+      "title": "Xử lí tại confirmedInvoice.jsp",
+      "owner": ""
+    },
+    {
+      "id": "print",
+      "x": 2440,
+      "y": 2520,
+      "w": 760,
+      "h": 640,
+      "title": "Xử lí tại printInvoice.jsp",
+      "owner": ""
+    }
+  ],
+  "nodes": [
+    {
+      "id": "start",
+      "x": 180,
+      "y": 90,
+      "w": 20,
+      "h": 20,
+      "label": "Bắt đầu",
+      "method": "",
+      "kind": "start"
+    },
+    {
+      "id": "end",
+      "x": 540,
+      "y": 3420,
+      "w": 20,
+      "h": 20,
+      "label": "Kết thúc",
+      "method": "",
+      "kind": "end"
+    },
+    {
+      "id": "h1",
+      "x": 80,
+      "y": 240,
+      "w": 230,
+      "h": 60,
+      "label": "Nhận thông tin NV",
+      "method": "",
+      "kind": "action"
+    },
+    {
+      "id": "hshow",
+      "x": 350,
+      "y": 370,
+      "w": 160,
+      "h": 60,
+      "label": "Hiển thị GD",
+      "method": "",
+      "kind": "display"
+    },
+    {
+      "id": "s1",
+      "x": 800,
+      "y": 240,
+      "w": 230,
+      "h": 60,
+      "label": "Nhận thông tin NV",
+      "method": "",
+      "kind": "action"
+    },
+    {
+      "id": "s2",
+      "x": 800,
+      "y": 410,
+      "w": 230,
+      "h": 60,
+      "label": "Nhận tên NCC",
+      "method": "",
+      "kind": "action"
+    },
+    {
+      "id": "s3",
+      "x": 800,
+      "y": 600,
+      "w": 230,
+      "h": 60,
+      "label": "Lấy thông tin NCC",
+      "method": "",
+      "kind": "action"
+    },
+    {
+      "id": "sshow",
+      "x": 1220,
+      "y": 600,
+      "w": 170,
+      "h": 60,
+      "label": "Hiển thị GD",
+      "method": "",
+      "kind": "display"
+    },
+    {
+      "id": "n1",
+      "x": 1730,
+      "y": 240,
+      "w": 240,
+      "h": 60,
+      "label": "Nhận thông tin NV",
+      "method": "",
+      "kind": "action"
+    },
+    {
+      "id": "nshow",
+      "x": 2140,
+      "y": 240,
+      "w": 170,
+      "h": 60,
+      "label": "Hiển thị GD",
+      "method": "",
+      "kind": "display"
+    },
+    {
+      "id": "n2",
+      "x": 1730,
+      "y": 570,
+      "w": 240,
+      "h": 60,
+      "label": "Nhận thông tin NCC",
+      "method": "",
+      "kind": "action"
+    },
+    {
+      "id": "n3",
+      "x": 2140,
+      "y": 570,
+      "w": 170,
+      "h": 60,
+      "label": "Lưu NCC",
+      "method": "",
+      "kind": "action"
+    },
+    {
+      "id": "d1",
+      "x": 800,
+      "y": 1100,
+      "w": 220,
+      "h": 60,
+      "label": "Nhận thông tin NV",
+      "method": "",
+      "kind": "action"
+    },
+    {
+      "id": "d2",
+      "x": 800,
+      "y": 1250,
+      "w": 220,
+      "h": 60,
+      "label": "Nhận thông tin NCC",
+      "method": "",
+      "kind": "action"
+    },
+    {
+      "id": "d3",
+      "x": 800,
+      "y": 1430,
+      "w": 220,
+      "h": 70,
+      "label": "Lấy thông tin\nNCC, NV",
+      "method": "",
+      "kind": "action"
+    },
+    {
+      "id": "d4",
+      "x": 1120,
+      "y": 1100,
+      "w": 240,
+      "h": 60,
+      "label": "Nhận tên PT",
+      "method": "",
+      "kind": "action"
+    },
+    {
+      "id": "d5",
+      "x": 1520,
+      "y": 1270,
+      "w": 220,
+      "h": 60,
+      "label": "Lấy thông tin PT",
+      "method": "",
+      "kind": "action"
+    },
+    {
+      "id": "dshow",
+      "x": 1390,
+      "y": 1480,
+      "w": 200,
+      "h": 80,
+      "label": "Hiển thị GD",
+      "method": "",
+      "kind": "display"
+    },
+    {
+      "id": "d6",
+      "x": 1900,
+      "y": 1430,
+      "w": 230,
+      "h": 60,
+      "label": "Lấy chi tiết PT",
+      "method": "",
+      "kind": "action"
+    },
+    {
+      "id": "d7",
+      "x": 1900,
+      "y": 1650,
+      "w": 230,
+      "h": 60,
+      "label": "Thêm PT vào HĐ",
+      "method": "",
+      "kind": "action"
+    },
+    {
+      "id": "d8",
+      "x": 1260,
+      "y": 1760,
+      "w": 220,
+      "h": 60,
+      "label": "Nhận lượng, giá",
+      "method": "",
+      "kind": "action"
+    },
+    {
+      "id": "d10",
+      "x": 800,
+      "y": 1760,
+      "w": 220,
+      "h": 60,
+      "label": "Nhận thông tin HĐ",
+      "method": "",
+      "kind": "action"
+    },
+    {
+      "id": "d9",
+      "x": 800,
+      "y": 1910,
+      "w": 220,
+      "h": 60,
+      "label": "Tính tổng tiền",
+      "method": "",
+      "kind": "action"
+    },
+    {
+      "id": "d11",
+      "x": 800,
+      "y": 2050,
+      "w": 220,
+      "h": 60,
+      "label": "Lưu HĐ",
+      "method": "",
+      "kind": "action"
+    },
+    {
+      "id": "cancel",
+      "x": 1900,
+      "y": 2090,
+      "w": 220,
+      "h": 60,
+      "label": "Hủy HĐ dự kiến",
+      "method": "",
+      "kind": "action"
+    },
+    {
+      "id": "p1",
+      "x": 2720,
+      "y": 1100,
+      "w": 230,
+      "h": 60,
+      "label": "Nhận thông tin NV",
+      "method": "",
+      "kind": "action"
+    },
+    {
+      "id": "p2",
+      "x": 2720,
+      "y": 1280,
+      "w": 230,
+      "h": 60,
+      "label": "Lấy thông tin nhóm PT",
+      "method": "",
+      "kind": "action"
+    },
+    {
+      "id": "pshow",
+      "x": 3080,
+      "y": 1280,
+      "w": 180,
+      "h": 60,
+      "label": "Hiển thị GD",
+      "method": "",
+      "kind": "display"
+    },
+    {
+      "id": "p3",
+      "x": 2720,
+      "y": 1520,
+      "w": 230,
+      "h": 60,
+      "label": "Nhận thông tin PT",
+      "method": "",
+      "kind": "action"
+    },
+    {
+      "id": "p4",
+      "x": 3080,
+      "y": 1520,
+      "w": 180,
+      "h": 60,
+      "label": "Lưu PT",
+      "method": "",
+      "kind": "action"
+    },
+    {
+      "id": "c1",
+      "x": 800,
+      "y": 2660,
+      "w": 230,
+      "h": 60,
+      "label": "Nhận thông tin HĐ",
+      "method": "",
+      "kind": "action"
+    },
+    {
+      "id": "c2",
+      "x": 1560,
+      "y": 2660,
+      "w": 230,
+      "h": 60,
+      "label": "Lấy thông tin HĐ",
+      "method": "",
+      "kind": "action"
+    },
+    {
+      "id": "cshow",
+      "x": 1560,
+      "y": 2800,
+      "w": 210,
+      "h": 60,
+      "label": "Hiển thị GD",
+      "method": "",
+      "kind": "display"
+    },
+    {
+      "id": "c3",
+      "x": 1540,
+      "y": 3070,
+      "w": 250,
+      "h": 60,
+      "label": "Nhận số tiền đã trả",
+      "method": "",
+      "kind": "action"
+    },
+    {
+      "id": "c4",
+      "x": 1160,
+      "y": 3070,
+      "w": 230,
+      "h": 60,
+      "label": "Lưu thanh toán",
+      "method": "",
+      "kind": "action"
+    },
+    {
+      "id": "c5",
+      "x": 800,
+      "y": 3070,
+      "w": 260,
+      "h": 60,
+      "label": "Thông báo thành công",
+      "method": "",
+      "kind": "action"
+    },
+    {
+      "id": "i1",
+      "x": 2480,
+      "y": 2660,
+      "w": 240,
+      "h": 60,
+      "label": "Nhận thông tin HĐ",
+      "method": "",
+      "kind": "action"
+    },
+    {
+      "id": "i2",
+      "x": 2480,
+      "y": 2800,
+      "w": 240,
+      "h": 60,
+      "label": "Lấy thông tin HĐ",
+      "method": "",
+      "kind": "action"
+    },
+    {
+      "id": "ishow",
+      "x": 2940,
+      "y": 2800,
+      "w": 180,
+      "h": 60,
+      "label": "Hiển thị GD",
+      "method": "",
+      "kind": "display"
+    },
+    {
+      "id": "i3",
+      "x": 2940,
+      "y": 3020,
+      "w": 180,
+      "h": 60,
+      "label": "In HĐ",
+      "method": "",
+      "kind": "action"
+    },
+    {
+      "id": "qs",
+      "x": 760,
+      "y": 800,
+      "w": 340,
+      "h": 80,
+      "label": "SupplierDAO4:",
+      "method": "findSuppliersByName()",
+      "kind": "callout"
+    },
+    {
+      "id": "qn",
+      "x": 2080,
+      "y": 800,
+      "w": 340,
+      "h": 80,
+      "label": "SupplierDAO4:",
+      "method": "addSupplier()",
+      "kind": "callout"
+    },
+    {
+      "id": "qinfo",
+      "x": 280,
+      "y": 1370,
+      "w": 340,
+      "h": 80,
+      "label": "SupplierDAO4:",
+      "method": "getSupplierDetails()",
+      "kind": "callout"
+    },
+    {
+      "id": "qstaff",
+      "x": 280,
+      "y": 1510,
+      "w": 340,
+      "h": 80,
+      "label": "WarehouseStaffDAO4:",
+      "method": "getWarehouseStaffDetails()",
+      "kind": "callout"
+    },
+    {
+      "id": "qpart",
+      "x": 1400,
+      "y": 860,
+      "w": 340,
+      "h": 80,
+      "label": "SparePartDAO4:",
+      "method": "findSparePartsByName()",
+      "kind": "callout"
+    },
+    {
+      "id": "qget",
+      "x": 2270,
+      "y": 1430,
+      "w": 340,
+      "h": 80,
+      "label": "SparePartDAO4:",
+      "method": "getSparePartDetails()",
+      "kind": "callout"
+    },
+    {
+      "id": "qsave",
+      "x": 800,
+      "y": 2320,
+      "w": 340,
+      "h": 80,
+      "label": "PurchaseInvoiceDAO4:",
+      "method": "savePurchaseInvoice()",
+      "kind": "callout"
+    },
+    {
+      "id": "qgroup",
+      "x": 2680,
+      "y": 1820,
+      "w": 340,
+      "h": 80,
+      "label": "SparePartCategoryDAO4:",
+      "method": "getActiveCategories()",
+      "kind": "callout"
+    },
+    {
+      "id": "qpnew",
+      "x": 3060,
+      "y": 1820,
+      "w": 340,
+      "h": 80,
+      "label": "SparePartDAO4:",
+      "method": "addSparePart()",
+      "kind": "callout"
+    },
+    {
+      "id": "qinvoice",
+      "x": 2010,
+      "y": 2600,
+      "w": 340,
+      "h": 80,
+      "label": "PurchaseInvoiceDAO4:",
+      "method": "getPurchaseInvoiceDetails()",
+      "kind": "callout"
+    },
+    {
+      "id": "qpayment",
+      "x": 1110,
+      "y": 3370,
+      "w": 340,
+      "h": 80,
+      "label": "PurchaseInvoiceDAO4:",
+      "method": "recordPayment()",
+      "kind": "callout"
+    }
+  ],
+  "edges": [
+    {
+      "a": "start",
+      "b": "h1",
+      "label": "",
+      "points": [
+        [
+          190,
+          110
+        ],
+        [
+          190,
+          140
+        ],
+        [
+          50,
+          140
+        ],
+        [
+          50,
+          210
+        ],
+        [
+          200,
+          210
+        ],
+        [
+          200,
+          240
+        ]
+      ],
+      "pos": null,
+      "call": false
+    },
+    {
+      "a": "h1",
+      "b": "hshow",
+      "label": "",
+      "points": [
+        [
+          310,
+          270
+        ],
+        [
+          340,
+          270
+        ],
+        [
+          340,
+          350
+        ],
+        [
+          320,
+          350
+        ],
+        [
+          320,
+          400
+        ],
+        [
+          350,
+          400
+        ]
+      ],
+      "pos": null,
+      "call": false
+    },
+    {
+      "a": "hshow",
+      "b": "s1",
+      "label": "[click nhập PT]",
+      "points": [
+        [
+          510,
+          400
+        ],
+        [
+          540,
+          400
+        ],
+        [
+          540,
+          270
+        ],
+        [
+          800,
+          270
+        ]
+      ],
+      "pos": [
+        412.0,
+        340.0
+      ],
+      "call": false
+    },
+    {
+      "a": "s1",
+      "b": "sshow",
+      "label": "[chưa tìm]",
+      "points": [
+        [
+          1030,
+          270
+        ],
+        [
+          1060,
+          270
+        ],
+        [
+          1060,
+          570
+        ],
+        [
+          1280,
+          570
+        ],
+        [
+          1280,
+          600
+        ]
+      ],
+      "pos": [
+        1072.0,
+        425.0
+      ],
+      "call": false
+    },
+    {
+      "a": "sshow",
+      "b": "s2",
+      "label": "[click tìm]",
+      "points": [
+        [
+          1330,
+          600
+        ],
+        [
+          1330,
+          380
+        ],
+        [
+          920,
+          380
+        ],
+        [
+          920,
+          410
+        ]
+      ],
+      "pos": [
+        1081.4,
+        370.0
+      ],
+      "call": false
+    },
+    {
+      "a": "s2",
+      "b": "s3",
+      "label": "",
+      "points": [
+        [
+          920,
+          470
+        ],
+        [
+          920,
+          600
+        ]
+      ],
+      "pos": null,
+      "call": false
+    },
+    {
+      "a": "s3",
+      "b": "sshow",
+      "label": "[lấy xong dữ liệu]",
+      "points": [
+        [
+          1030,
+          630
+        ],
+        [
+          1220,
+          630
+        ]
+      ],
+      "pos": [
+        1056.2,
+        620.0
+      ],
+      "call": false
+    },
+    {
+      "a": "sshow",
+      "b": "n1",
+      "label": "[click thêm mới]",
+      "points": [
+        [
+          1390,
+          630
+        ],
+        [
+          1420,
+          630
+        ],
+        [
+          1420,
+          270
+        ],
+        [
+          1730,
+          270
+        ]
+      ],
+      "pos": [
+        1432.0,
+        455.0
+      ],
+      "call": false
+    },
+    {
+      "a": "n1",
+      "b": "nshow",
+      "label": "",
+      "points": [
+        [
+          1970,
+          270
+        ],
+        [
+          2000,
+          270
+        ],
+        [
+          2000,
+          260
+        ],
+        [
+          2140,
+          260
+        ]
+      ],
+      "pos": null,
+      "call": false
+    },
+    {
+      "a": "nshow",
+      "b": "n2",
+      "label": "[click lưu]",
+      "points": [
+        [
+          2140,
+          280
+        ],
+        [
+          2000,
+          280
+        ],
+        [
+          2000,
+          590
+        ],
+        [
+          1970,
+          590
+        ]
+      ],
+      "pos": [
+        1900.8,
+        440.0
+      ],
+      "call": false
+    },
+    {
+      "a": "n2",
+      "b": "n3",
+      "label": "",
+      "points": [
+        [
+          1970,
+          610
+        ],
+        [
+          2000,
+          610
+        ],
+        [
+          2000,
+          600
+        ],
+        [
+          2140,
+          600
+        ]
+      ],
+      "pos": null,
+      "call": false
+    },
+    {
+      "a": "n3",
+      "b": "s3",
+      "label": "[lưu xong]",
+      "points": [
+        [
+          2200,
+          630
+        ],
+        [
+          2200,
+          780
+        ],
+        [
+          1120,
+          780
+        ],
+        [
+          1120,
+          900
+        ],
+        [
+          740,
+          900
+        ],
+        [
+          740,
+          630
+        ],
+        [
+          800,
+          630
+        ]
+      ],
+      "pos": [
+        648.0,
+        770.0
+      ],
+      "call": false
+    },
+    {
+      "a": "sshow",
+      "b": "d1",
+      "label": "[click 1 NCC]",
+      "points": [
+        [
+          1300,
+          660
+        ],
+        [
+          1300,
+          1070
+        ],
+        [
+          910,
+          1070
+        ],
+        [
+          910,
+          1100
+        ]
+      ],
+      "pos": [
+        1054.2,
+        1060.0
+      ],
+      "call": false
+    },
+    {
+      "a": "d1",
+      "b": "d2",
+      "label": "",
+      "points": [
+        [
+          910,
+          1160
+        ],
+        [
+          910,
+          1250
+        ]
+      ],
+      "pos": null,
+      "call": false
+    },
+    {
+      "a": "d2",
+      "b": "d3",
+      "label": "",
+      "points": [
+        [
+          910,
+          1310
+        ],
+        [
+          910,
+          1430
+        ]
+      ],
+      "pos": null,
+      "call": false
+    },
+    {
+      "a": "d3",
+      "b": "dshow",
+      "label": "[lấy xong dữ liệu]",
+      "points": [
+        [
+          1020,
+          1470
+        ],
+        [
+          1050,
+          1470
+        ],
+        [
+          1050,
+          1500
+        ],
+        [
+          1390,
+          1500
+        ]
+      ],
+      "pos": [
+        1151.2,
+        1490.0
+      ],
+      "call": false
+    },
+    {
+      "a": "dshow",
+      "b": "d4",
+      "label": "[click tìm]",
+      "points": [
+        [
+          1440,
+          1480
+        ],
+        [
+          1440,
+          1450
+        ],
+        [
+          1080,
+          1450
+        ],
+        [
+          1080,
+          1120
+        ],
+        [
+          1120,
+          1120
+        ]
+      ],
+      "pos": [
+        1216.4,
+        1440.0
+      ],
+      "call": false
+    },
+    {
+      "a": "d4",
+      "b": "d5",
+      "label": "",
+      "points": [
+        [
+          1360,
+          1130
+        ],
+        [
+          1390,
+          1130
+        ],
+        [
+          1390,
+          1300
+        ],
+        [
+          1520,
+          1300
+        ]
+      ],
+      "pos": null,
+      "call": false
+    },
+    {
+      "a": "d5",
+      "b": "dshow",
+      "label": "[lấy xong dữ liệu]",
+      "points": [
+        [
+          1630,
+          1330
+        ],
+        [
+          1630,
+          1360
+        ],
+        [
+          1400,
+          1360
+        ],
+        [
+          1400,
+          1080
+        ],
+        [
+          1070,
+          1080
+        ],
+        [
+          1070,
+          1520
+        ],
+        [
+          1390,
+          1520
+        ]
+      ],
+      "pos": [
+        1250.4,
+        1225.0
+      ],
+      "call": false
+    },
+    {
+      "a": "dshow",
+      "b": "d6",
+      "label": "[click 1 PT]",
+      "points": [
+        [
+          1590,
+          1510
+        ],
+        [
+          1620,
+          1510
+        ],
+        [
+          1620,
+          1400
+        ],
+        [
+          2020,
+          1400
+        ],
+        [
+          2020,
+          1430
+        ]
+      ],
+      "pos": [
+        1772.8,
+        1390.0
+      ],
+      "call": false
+    },
+    {
+      "a": "d6",
+      "b": "d7",
+      "label": "",
+      "points": [
+        [
+          2020,
+          1490
+        ],
+        [
+          2020,
+          1650
+        ]
+      ],
+      "pos": null,
+      "call": false
+    },
+    {
+      "a": "d7",
+      "b": "dshow",
+      "label": "[thêm xong]",
+      "points": [
+        [
+          1900,
+          1680
+        ],
+        [
+          1870,
+          1680
+        ],
+        [
+          1870,
+          1440
+        ],
+        [
+          1490,
+          1440
+        ],
+        [
+          1490,
+          1480
+        ]
+      ],
+      "pos": [
+        1636.4,
+        1430.0
+      ],
+      "call": false
+    },
+    {
+      "a": "dshow",
+      "b": "d8",
+      "label": "[nhập lượng, giá]",
+      "points": [
+        [
+          1440,
+          1560
+        ],
+        [
+          1440,
+          1590
+        ],
+        [
+          1330,
+          1590
+        ],
+        [
+          1330,
+          1760
+        ]
+      ],
+      "pos": [
+        1187.6,
+        1680.0
+      ],
+      "call": false
+    },
+    {
+      "a": "d8",
+      "b": "dshow",
+      "label": "[nhập xong]",
+      "points": [
+        [
+          1410,
+          1760
+        ],
+        [
+          1410,
+          1730
+        ],
+        [
+          1490,
+          1730
+        ],
+        [
+          1490,
+          1560
+        ]
+      ],
+      "pos": [
+        1390.8,
+        1650.0
+      ],
+      "call": false
+    },
+    {
+      "a": "dshow",
+      "b": "d10",
+      "label": "[click xác nhận]",
+      "points": [
+        [
+          1390,
+          1540
+        ],
+        [
+          780,
+          1540
+        ],
+        [
+          780,
+          1790
+        ],
+        [
+          800,
+          1790
+        ]
+      ],
+      "pos": [
+        644.8,
+        1670.0
+      ],
+      "call": false
+    },
+    {
+      "a": "d10",
+      "b": "d9",
+      "label": "[hợp lệ]",
+      "points": [
+        [
+          910,
+          1820
+        ],
+        [
+          910,
+          1910
+        ]
+      ],
+      "pos": [
+        832.4,
+        1870.0
+      ],
+      "call": false
+    },
+    {
+      "a": "d9",
+      "b": "d11",
+      "label": "",
+      "points": [
+        [
+          910,
+          1970
+        ],
+        [
+          910,
+          2050
+        ]
+      ],
+      "pos": null,
+      "call": false
+    },
+    {
+      "a": "d10",
+      "b": "dshow",
+      "label": "[chưa hợp lệ]",
+      "points": [
+        [
+          1020,
+          1790
+        ],
+        [
+          1050,
+          1790
+        ],
+        [
+          1050,
+          1840
+        ],
+        [
+          1630,
+          1840
+        ],
+        [
+          1630,
+          1450
+        ],
+        [
+          1540,
+          1450
+        ],
+        [
+          1540,
+          1480
+        ]
+      ],
+      "pos": [
+        1642.0,
+        1650.0
+      ],
+      "call": false
+    },
+    {
+      "a": "d11",
+      "b": "c1",
+      "label": "[lưu xong]",
+      "points": [
+        [
+          870,
+          2110
+        ],
+        [
+          870,
+          2140
+        ],
+        [
+          750,
+          2140
+        ],
+        [
+          750,
+          2630
+        ],
+        [
+          920,
+          2630
+        ],
+        [
+          920,
+          2660
+        ]
+      ],
+      "pos": [
+        658.0,
+        2390.0
+      ],
+      "call": false
+    },
+    {
+      "a": "dshow",
+      "b": "p1",
+      "label": "[click thêm PT]",
+      "points": [
+        [
+          1590,
+          1530
+        ],
+        [
+          1620,
+          1530
+        ],
+        [
+          1620,
+          1730
+        ],
+        [
+          2650,
+          1730
+        ],
+        [
+          2650,
+          1130
+        ],
+        [
+          2720,
+          1130
+        ]
+      ],
+      "pos": [
+        2077.0,
+        1754.0
+      ],
+      "call": false
+    },
+    {
+      "a": "p1",
+      "b": "p2",
+      "label": "",
+      "points": [
+        [
+          2840,
+          1160
+        ],
+        [
+          2840,
+          1280
+        ]
+      ],
+      "pos": null,
+      "call": false
+    },
+    {
+      "a": "p2",
+      "b": "pshow",
+      "label": "[lấy xong dữ liệu]",
+      "points": [
+        [
+          2950,
+          1310
+        ],
+        [
+          2980,
+          1310
+        ],
+        [
+          2980,
+          1300
+        ],
+        [
+          3080,
+          1300
+        ]
+      ],
+      "pos": [
+        2936.2,
+        1290.0
+      ],
+      "call": false
+    },
+    {
+      "a": "pshow",
+      "b": "p3",
+      "label": "[click lưu]",
+      "points": [
+        [
+          3080,
+          1320
+        ],
+        [
+          2980,
+          1320
+        ],
+        [
+          2980,
+          1540
+        ],
+        [
+          2950,
+          1540
+        ]
+      ],
+      "pos": [
+        2880.8,
+        1435.0
+      ],
+      "call": false
+    },
+    {
+      "a": "p3",
+      "b": "p4",
+      "label": "[hợp lệ]",
+      "points": [
+        [
+          2950,
+          1560
+        ],
+        [
+          2980,
+          1560
+        ],
+        [
+          2980,
+          1550
+        ],
+        [
+          3080,
+          1550
+        ]
+      ],
+      "pos": [
+        2997.2,
+        1540.0
+      ],
+      "call": false
+    },
+    {
+      "a": "p4",
+      "b": "d4",
+      "label": "[lưu xong]",
+      "points": [
+        [
+          3140,
+          1580
+        ],
+        [
+          3140,
+          1610
+        ],
+        [
+          3040,
+          1610
+        ],
+        [
+          3040,
+          1920
+        ],
+        [
+          3420,
+          1920
+        ],
+        [
+          3420,
+          1080
+        ],
+        [
+          1760,
+          1080
+        ],
+        [
+          1760,
+          1370
+        ],
+        [
+          1090,
+          1370
+        ],
+        [
+          1090,
+          1140
+        ],
+        [
+          1120,
+          1140
+        ]
+      ],
+      "pos": [
+        1102.0,
+        1260.0
+      ],
+      "call": false
+    },
+    {
+      "a": "dshow",
+      "b": "cancel",
+      "label": "[click hủy; đồng ý]",
+      "points": [
+        [
+          1540,
+          1560
+        ],
+        [
+          1540,
+          2180
+        ],
+        [
+          1970,
+          2180
+        ],
+        [
+          1970,
+          2150
+        ]
+      ],
+      "pos": [
+        1383.2,
+        1875.0
+      ],
+      "call": false
+    },
+    {
+      "a": "cancel",
+      "b": "end",
+      "label": "",
+      "points": [
+        [
+          2050,
+          2150
+        ],
+        [
+          2050,
+          2580
+        ],
+        [
+          550,
+          2580
+        ],
+        [
+          550,
+          3420
+        ]
+      ],
+      "pos": null,
+      "call": false
+    },
+    {
+      "a": "c1",
+      "b": "c2",
+      "label": "",
+      "points": [
+        [
+          1030,
+          2690
+        ],
+        [
+          1560,
+          2690
+        ]
+      ],
+      "pos": null,
+      "call": false
+    },
+    {
+      "a": "c2",
+      "b": "cshow",
+      "label": "[lấy xong dữ liệu]",
+      "points": [
+        [
+          1680,
+          2720
+        ],
+        [
+          1680,
+          2750
+        ],
+        [
+          1660,
+          2750
+        ],
+        [
+          1660,
+          2800
+        ]
+      ],
+      "pos": [
+        1510.4,
+        2780.0
+      ],
+      "call": false
+    },
+    {
+      "a": "cshow",
+      "b": "i1",
+      "label": "[click in HĐ]",
+      "points": [
+        [
+          1770,
+          2830
+        ],
+        [
+          2440,
+          2830
+        ],
+        [
+          2440,
+          2630
+        ],
+        [
+          2600,
+          2630
+        ],
+        [
+          2600,
+          2660
+        ]
+      ],
+      "pos": [
+        2054.2,
+        2820.0
+      ],
+      "call": false
+    },
+    {
+      "a": "i1",
+      "b": "i2",
+      "label": "",
+      "points": [
+        [
+          2600,
+          2720
+        ],
+        [
+          2600,
+          2800
+        ]
+      ],
+      "pos": null,
+      "call": false
+    },
+    {
+      "a": "i2",
+      "b": "ishow",
+      "label": "[lấy xong dữ liệu]",
+      "points": [
+        [
+          2720,
+          2830
+        ],
+        [
+          2940,
+          2830
+        ]
+      ],
+      "pos": [
+        2761.2,
+        2820.0
+      ],
+      "call": false
+    },
+    {
+      "a": "ishow",
+      "b": "i3",
+      "label": "[click in]",
+      "points": [
+        [
+          3030,
+          2860
+        ],
+        [
+          3030,
+          3020
+        ]
+      ],
+      "pos": [
+        2938.0,
+        2945.0
+      ],
+      "call": false
+    },
+    {
+      "a": "i3",
+      "b": "c1",
+      "label": "[in xong]",
+      "points": [
+        [
+          3030,
+          3080
+        ],
+        [
+          3030,
+          3470
+        ],
+        [
+          760,
+          3470
+        ],
+        [
+          760,
+          2690
+        ],
+        [
+          800,
+          2690
+        ]
+      ],
+      "pos": [
+        675.2,
+        3085.0
+      ],
+      "call": false
+    },
+    {
+      "a": "cshow",
+      "b": "c3",
+      "label": "[click đã thanh toán]",
+      "points": [
+        [
+          1660,
+          2860
+        ],
+        [
+          1660,
+          3070
+        ]
+      ],
+      "pos": [
+        1488.8,
+        2970.0
+      ],
+      "call": false
+    },
+    {
+      "a": "c3",
+      "b": "c4",
+      "label": "",
+      "points": [
+        [
+          1540,
+          3100
+        ],
+        [
+          1390,
+          3100
+        ]
+      ],
+      "pos": null,
+      "call": false
+    },
+    {
+      "a": "c4",
+      "b": "c1",
+      "label": "[ghi nhận xong]",
+      "points": [
+        [
+          1280,
+          3070
+        ],
+        [
+          1280,
+          2750
+        ],
+        [
+          920,
+          2750
+        ],
+        [
+          920,
+          2720
+        ]
+      ],
+      "pos": [
+        1042.0,
+        2740.0
+      ],
+      "call": false
+    },
+    {
+      "a": "cshow",
+      "b": "c5",
+      "label": "[đã thanh toán]",
+      "points": [
+        [
+          1560,
+          2830
+        ],
+        [
+          1090,
+          2830
+        ],
+        [
+          1090,
+          3100
+        ],
+        [
+          1060,
+          3100
+        ]
+      ],
+      "pos": [
+        962.0,
+        2970.0
+      ],
+      "call": false
+    },
+    {
+      "a": "c5",
+      "b": "end",
+      "label": "",
+      "points": [
+        [
+          800,
+          3100
+        ],
+        [
+          590,
+          3100
+        ],
+        [
+          590,
+          3430
+        ],
+        [
+          560,
+          3430
+        ]
+      ],
+      "pos": null,
+      "call": false
+    },
+    {
+      "a": "s3",
+      "b": "qs",
+      "label": "",
+      "points": [
+        [
+          920,
+          660
+        ],
+        [
+          920,
+          770
+        ],
+        [
+          930,
+          770
+        ],
+        [
+          930,
+          800
+        ]
+      ],
+      "pos": null,
+      "call": true
+    },
+    {
+      "a": "n3",
+      "b": "qn",
+      "label": "",
+      "points": [
+        [
+          2250,
+          630
+        ],
+        [
+          2250,
+          800
+        ]
+      ],
+      "pos": null,
+      "call": true
+    },
+    {
+      "a": "d3",
+      "b": "qinfo",
+      "label": "",
+      "points": [
+        [
+          800,
+          1450
+        ],
+        [
+          770,
+          1450
+        ],
+        [
+          770,
+          1340
+        ],
+        [
+          450,
+          1340
+        ],
+        [
+          450,
+          1370
+        ]
+      ],
+      "pos": null,
+      "call": true
+    },
+    {
+      "a": "d3",
+      "b": "qstaff",
+      "label": "",
+      "points": [
+        [
+          800,
+          1480
+        ],
+        [
+          770,
+          1480
+        ],
+        [
+          770,
+          1620
+        ],
+        [
+          450,
+          1620
+        ],
+        [
+          450,
+          1590
+        ]
+      ],
+      "pos": null,
+      "call": true
+    },
+    {
+      "a": "d5",
+      "b": "qpart",
+      "label": "",
+      "points": [
+        [
+          1630,
+          1270
+        ],
+        [
+          1630,
+          960
+        ],
+        [
+          1370,
+          960
+        ],
+        [
+          1370,
+          900
+        ],
+        [
+          1400,
+          900
+        ]
+      ],
+      "pos": null,
+      "call": true
+    },
+    {
+      "a": "d6",
+      "b": "qget",
+      "label": "",
+      "points": [
+        [
+          2130,
+          1460
+        ],
+        [
+          2160,
+          1460
+        ],
+        [
+          2160,
+          1410
+        ],
+        [
+          2640,
+          1410
+        ],
+        [
+          2640,
+          1470
+        ],
+        [
+          2610,
+          1470
+        ]
+      ],
+      "pos": null,
+      "call": true
+    },
+    {
+      "a": "d11",
+      "b": "qsave",
+      "label": "",
+      "points": [
+        [
+          950,
+          2110
+        ],
+        [
+          950,
+          2290
+        ],
+        [
+          970,
+          2290
+        ],
+        [
+          970,
+          2320
+        ]
+      ],
+      "pos": null,
+      "call": true
+    },
+    {
+      "a": "p2",
+      "b": "qgroup",
+      "label": "",
+      "points": [
+        [
+          2720,
+          1310
+        ],
+        [
+          2660,
+          1310
+        ],
+        [
+          2660,
+          1930
+        ],
+        [
+          2850,
+          1930
+        ],
+        [
+          2850,
+          1900
+        ]
+      ],
+      "pos": null,
+      "call": true
+    },
+    {
+      "a": "p4",
+      "b": "qpnew",
+      "label": "",
+      "points": [
+        [
+          3200,
+          1580
+        ],
+        [
+          3200,
+          1790
+        ],
+        [
+          3230,
+          1790
+        ],
+        [
+          3230,
+          1820
+        ]
+      ],
+      "pos": null,
+      "call": true
+    },
+    {
+      "a": "c2",
+      "b": "qinvoice",
+      "label": "",
+      "points": [
+        [
+          1790,
+          2690
+        ],
+        [
+          1820,
+          2690
+        ],
+        [
+          1820,
+          2640
+        ],
+        [
+          2010,
+          2640
+        ]
+      ],
+      "pos": null,
+      "call": true
+    },
+    {
+      "a": "i2",
+      "b": "qinvoice",
+      "label": "",
+      "points": [
+        [
+          2480,
+          2830
+        ],
+        [
+          2450,
+          2830
+        ],
+        [
+          2450,
+          2570
+        ],
+        [
+          2180,
+          2570
+        ],
+        [
+          2180,
+          2600
+        ]
+      ],
+      "pos": null,
+      "call": true
+    },
+    {
+      "a": "c4",
+      "b": "qpayment",
+      "label": "",
+      "points": [
+        [
+          1280,
+          3130
+        ],
+        [
+          1280,
+          3370
+        ]
+      ],
+      "pos": null,
+      "call": true
+    }
+  ],
+  "notes": [
+    [
+      60,
+      3540,
+      [
+        "NV: nhân viên kho; NCC: nhà cung cấp; PT: phụ tùng; HĐ: hóa đơn; GD: giao diện.",
+        "Phạm vi hình: luồng nhập theo đề 26, hai nhánh thêm mới và hủy HĐ dự kiến. Ngoại lệ khác: xem thuyết minh."
+      ]
+    ]
+  ]
+}
