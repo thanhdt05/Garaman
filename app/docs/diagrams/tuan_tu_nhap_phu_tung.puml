@@ -1,108 +1,278 @@
 @startuml
-skinparam style strictuml
-skinparam sequenceMessageAlign center
+skinparam monochrome true
 skinparam shadowing false
-skinparam roundcorner 5
+skinparam defaultFontName "Times New Roman"
+skinparam defaultFontSize 14
+skinparam sequenceMessageAlign center
+skinparam maxMessageSize 240
+skinparam ParticipantPadding 16
+skinparam responseMessageBelowArrow true
+hide footbox
 
-actor "Nhân viên kho" as NVKho
-boundary "purchaseInvoice.jsp" as UI_Draft
-boundary "confirmedInvoice.jsp" as UI_View
-boundary "printInvoice.jsp" as UI_Print
-control "PurchaseInvoiceServlet4" as Servlet
-participant "DraftStore4" as DraftStore
-participant "Validation4" as Validator
-participant "PurchaseInvoiceDAO4" as InvoiceDAO
-participant "SparePartDAO4" as PartDAO
-database "MySQL (JDBC Connection)" as DB
+title Biểu đồ tuần tự thiết kế modul nhân viên kho nhập phụ tùng
+actor "Nhân viên kho" as A
+actor "Nhà cung cấp" as NCC
+boundary "warehouseHome.jsp" as Home
+boundary "selectSupplier.jsp" as Select
+boundary "purchaseInvoice.jsp" as Draft
+boundary "confirmedInvoice.jsp" as View
+boundary "printInvoice.jsp" as Print
+control ": SupplierServlet4" as SC
+control ": PurchaseInvoiceServlet4" as C
+control ": SupplierDAO4" as SD
+control ": WarehouseStaffDAO4" as WD
+control ": SparePartDAO4" as PD
+control ": PurchaseInvoiceDAO4" as ID
+entity ": Supplier4" as S
+entity ": WarehouseStaff4" as W
+entity ": SparePart4" as P
+entity ": PurchaseInvoice4" as I
 
-title Biểu đồ tuần tự thiết kế - Modul Nhân viên kho xác nhận nhập phụ tùng & thanh toán
-
-== 1. Xác nhận hóa đơn nhập (Transaction an toàn) ==
-NVKho -> UI_Draft : Bấm "Xác nhận hóa đơn"
-UI_Draft -> Servlet : POST /warehouse/purchases/confirm (csrfToken, requestCode, draftVersion, mảng dòng)
-activate Servlet
-
-note over Servlet, DraftStore
-Khóa session ngắn: kiểm tra draftVersion, lưu input bằng
-saveLineInputsToDraft (hàm riêng), saveDraft,
-updateFormValues và incrementDraftVersion.
-end note
-Servlet -> DraftStore : beginConfirmation(session, requestCode, version)
-activate DraftStore
-DraftStore --> Servlet : PurchaseInvoice4 draft
-deactivate DraftStore
-
-Servlet -> Validator : validateQuantity(sl, unit)\nsoThapPhan(gia, ...)
-activate Validator
-Validator --> Servlet : OK (hợp lệ)
-deactivate Validator
-
-Servlet -> InvoiceDAO : savePurchaseInvoice(purchaseInvoice)
-activate InvoiceDAO
-
-InvoiceDAO -> DB : setAutoCommit(false)
-InvoiceDAO -> DB : SELECT ... FOR UPDATE\n[NCC, nhân viên, phụ tùng theo ID tăng dần]
-activate DB
-
-InvoiceDAO -> InvoiceDAO : insertInvoice(conn, purchaseInvoice)\n[INSERT tblPurchaseInvoice4]
-DB --> InvoiceDAO : invoiceId
-
-InvoiceDAO -> InvoiceDAO : insertInvoiceDetails(conn, invoiceId, sortedDetails)\n[executeBatch toàn bộ dòng, chốt sparePartNameSnapshot / unitSnapshot]
-loop Duyệt từng dòng phụ tùng để cộng tồn
-    InvoiceDAO -> PartDAO : increaseStockAfterPurchase(conn, sparePartId, quantity)
-    activate PartDAO
-    PartDAO -> DB : UPDATE tblSparePart4 SET stockQuantity = stockQuantity + ? WHERE id = ?
-    deactivate PartDAO
+A -> Home : 1: click nhập phụ tùng
+Home -> SC : 2: showSupplierSelection(request, response)
+activate SC
+SC -> Select : 3: gọi
+activate Select
+deactivate SC
+Select --> A : 4: hiển thị
+deactivate Select
+A -> Select : 5: nhập Hòa Phát; click Tìm kiếm
+Select -> SC : 6: searchSuppliers(request, response)
+activate SC
+SC -> SD : 7: gọi
+activate SD
+SD -> SD : 8: findSuppliersByName("Hòa Phát")
+activate SD
+SD -> S : 9: gọi
+activate S
+S -> S : 10: Supplier4()
+activate S
+deactivate S
+S --> SD : 11: trả về
+deactivate S
+SD --> SC : 12: trả về
+deactivate SD
+deactivate SD
+SC -> Select : 13: gọi
+activate Select
+deactivate SC
+Select --> A : 14: hiển thị
+deactivate Select
+A -> Select : 15: click chọn NCC1
+Select -> C : 16: startPurchase(request, response)
+activate C
+C -> SD : 17: gọi
+activate SD
+SD -> SD : 18: getSupplierDetails(supplierId)
+activate SD
+SD -> S : 19: gọi
+activate S
+S -> S : 20: Supplier4()
+activate S
+deactivate S
+S --> SD : 21: trả về
+deactivate S
+SD --> C : 22: trả về
+deactivate SD
+deactivate SD
+C -> WD : 23: gọi
+activate WD
+WD -> WD : 24: getWarehouseStaffDetails(warehouseStaffId)
+activate WD
+WD -> W : 25: gọi
+activate W
+W -> W : 26: WarehouseStaff4()
+activate W
+deactivate W
+W --> WD : 27: trả về
+deactivate W
+WD --> C : 28: trả về
+deactivate WD
+deactivate WD
+deactivate C
+C -> C : 29: showDraft(request, response)
+activate C
+C -> Draft : 30: gọi
+activate Draft
+deactivate C
+Draft --> A : 31: hiển thị
+deactivate Draft
+loop [lặp đến khi đủ phụ tùng cần nhập]
+A -> Draft : 32: nhập Lọc; click Tìm kiếm
+Draft -> C : 33: searchSpareParts(request, response)
+activate C
+deactivate C
+C -> C : 34: showDraft(request, response)
+activate C
+C -> PD : 35: gọi
+activate PD
+PD -> PD : 36: findSparePartsByName("Lọc", false)
+activate PD
+PD -> P : 37: gọi
+activate P
+P -> P : 38: SparePart4()
+activate P
+deactivate P
+P --> PD : 39: trả về
+deactivate P
+PD --> C : 40: trả về
+deactivate PD
+deactivate PD
+C -> Draft : 41: gọi
+activate Draft
+deactivate C
+Draft --> A : 42: hiển thị
+deactivate Draft
+A -> Draft : 43: click chọn PT1
+Draft -> C : 44: addInvoiceLine(request, response)
+activate C
+C -> PD : 45: gọi
+activate PD
+PD -> PD : 46: getSparePartDetails(sparePartId, false)
+activate PD
+PD -> P : 47: gọi
+activate P
+P -> P : 48: SparePart4()
+activate P
+deactivate P
+P --> PD : 49: trả về
+deactivate P
+PD --> C : 50: trả về
+deactivate PD
+deactivate PD
+deactivate C
+C -> C : 51: showDraft(request, response)
+activate C
+C -> Draft : 52: gọi
+activate Draft
+deactivate C
+Draft --> A : 53: hiển thị
+deactivate Draft
+A -> Draft : 54: nhập 10 cái; 80.000 đồng/cái
+Draft --> A : 55: hiển thị
 end
-
-InvoiceDAO -> DB : commit()
-deactivate DB
-
-InvoiceDAO --> Servlet : invoiceId
-deactivate InvoiceDAO
-
-Servlet -> DraftStore : removeDraft(session, requestCode)
-note over Servlet, DraftStore
-finally: endConfirmation(session, requestCode).
-Lỗi SQL hoặc validation: rollback trong DAO, giữ nháp để sửa.
-Retry đã lưu: findInvoiceIdByRequestCode trả ID cũ, không cộng tồn lần hai.
-end note
-Servlet --> UI_Draft : sendRedirect("/warehouse/purchases/view?id=" + invoiceId)
-deactivate Servlet
-
-== 2. Xem hóa đơn đã xác nhận ==
-UI_Draft -> Servlet : GET /warehouse/purchases/view?id=invoiceId
-activate Servlet
-Servlet -> InvoiceDAO : getPurchaseInvoiceDetails(invoiceId)
-activate InvoiceDAO
-InvoiceDAO --> Servlet : PurchaseInvoice4 (đầy đủ chi tiết, snapshot, người lập)
-deactivate InvoiceDAO
-Servlet -> UI_View : forward(req, resp)
-deactivate Servlet
-UI_View --> NVKho : Hiển thị hóa đơn ĐÃ XÁC NHẬN (chưa thanh toán)
-
-== 3. In chứng từ ==
-NVKho -> UI_View : Bấm "In hóa đơn"
-UI_View -> Servlet : GET /warehouse/purchases/print?id=invoiceId
-activate Servlet
-Servlet -> InvoiceDAO : getPurchaseInvoiceDetails(invoiceId)
-Servlet -> UI_Print : forward(req, resp)
-deactivate Servlet
-UI_Print --> NVKho : Hiển thị mẫu in A4 chuẩn (tồn kho không đổi)
-
-== 4. Ghi nhận thanh toán ==
-NVKho -> UI_View : Nhập đúng số tiền bằng tổng tiền, bấm "Đã thanh toán"
-UI_View -> Servlet : POST /warehouse/purchases/pay (id, amountPaid, csrfToken)
-activate Servlet
-
-Servlet -> InvoiceDAO : recordPayment(invoiceId, amount, currentUserId)
-activate InvoiceDAO
-InvoiceDAO -> InvoiceDAO : Kiểm tra: đúng người lập, trạng thái Chưa thanh toán, đúng tổng tiền
-InvoiceDAO -> DB : UPDATE tblPurchaseInvoice4 SET paymentStatus=?, paidAt=?
-InvoiceDAO --> Servlet : true (thành công)
-deactivate InvoiceDAO
-
-Servlet --> UI_View : sendRedirect("/warehouse/purchases/view?id=" + invoiceId)
-deactivate Servlet
-
+A -> Draft : 56: click Xác nhận
+Draft -> C : 57: confirmInvoice(request, response)
+activate C
+C -> ID : 58: gọi
+activate ID
+ID -> ID : 59: savePurchaseInvoice(purchaseInvoice)
+activate ID
+loop [với từng phụ tùng trong hóa đơn nhập]
+ID -> PD : 60: gọi
+activate PD
+PD -> PD : 61: increaseStockAfterPurchase(connection, sparePartId, quantity)
+activate PD
+PD --> ID : 62: trả về
+deactivate PD
+deactivate PD
+end
+ID --> C : 63: trả về
+deactivate ID
+deactivate ID
+deactivate C
+C -> C : 64: viewInvoice(request, response)
+activate C
+C -> ID : 65: gọi
+activate ID
+ID -> ID : 66: getPurchaseInvoiceDetails(invoiceId)
+activate ID
+ID -> I : 67: gọi
+activate I
+I -> I : 68: PurchaseInvoice4()
+activate I
+deactivate I
+I --> ID : 69: trả về
+deactivate I
+ID --> C : 70: trả về
+deactivate ID
+deactivate ID
+C -> View : 71: gọi
+activate View
+deactivate C
+View --> A : 72: hiển thị
+deactivate View
+A -> View : 73: click In hóa đơn
+View -> C : 74: printInvoice(request, response)
+activate C
+C -> ID : 75: gọi
+activate ID
+ID -> ID : 76: getPurchaseInvoiceDetails(invoiceId)
+activate ID
+ID -> I : 77: gọi
+activate I
+I -> I : 78: PurchaseInvoice4()
+activate I
+deactivate I
+I --> ID : 79: trả về
+deactivate I
+ID --> C : 80: trả về
+deactivate ID
+deactivate ID
+C -> Print : 81: gọi
+activate Print
+deactivate C
+Print --> A : 82: hiển thị
+deactivate Print
+A -> Print : 83: click In
+Print -> Print : 84: printInvoice()
+activate Print
+deactivate Print
+Print -> C : 85: viewInvoice(request, response)
+activate C
+C -> ID : 86: gọi
+activate ID
+ID -> ID : 87: getPurchaseInvoiceDetails(invoiceId)
+activate ID
+ID -> I : 88: gọi
+activate I
+I -> I : 89: PurchaseInvoice4()
+activate I
+deactivate I
+I --> ID : 90: trả về
+deactivate I
+ID --> C : 91: trả về
+deactivate ID
+deactivate ID
+C -> View : 92: gọi
+activate View
+deactivate C
+View --> A : 93: hiển thị
+deactivate View
+A -> NCC : 94: giao chứng từ; trả 800.000 đồng
+NCC -> NCC : 95: nhận chứng từ và tiền
+NCC -> A : 96: giao hóa đơn bán hàng
+A -> A : 97: tiếp nhận hóa đơn bán hàng
+A -> View : 98: nhập 800.000; click Đã thanh toán
+View -> C : 99: recordPayment(request, response)
+activate C
+C -> ID : 100: gọi
+activate ID
+ID -> ID : 101: recordPayment(invoiceId, amountPaid, currentWarehouseStaffId)
+activate ID
+ID --> C : 102: trả về
+deactivate ID
+deactivate ID
+deactivate C
+C -> C : 103: viewInvoice(request, response)
+activate C
+C -> ID : 104: gọi
+activate ID
+ID -> ID : 105: getPurchaseInvoiceDetails(invoiceId)
+activate ID
+ID -> I : 106: gọi
+activate I
+I -> I : 107: PurchaseInvoice4()
+activate I
+deactivate I
+I --> ID : 108: trả về
+deactivate I
+ID --> C : 109: trả về
+deactivate ID
+deactivate ID
+C -> View : 110: gọi
+activate View
+deactivate C
+View --> A : 111: thông báo thành công
+deactivate View
 @enduml

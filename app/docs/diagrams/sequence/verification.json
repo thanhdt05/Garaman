@@ -1,0 +1,19 @@
+{
+  "status": "PASS",
+  "diagrams": 2,
+  "scope": "success only",
+  "pdf_pages": {
+    "catalog-sequence.pdf": 1,
+    "purchase-sequence.pdf": 1
+  },
+  "messages": {
+    "tuan_tu_tra_cuu": 46,
+    "tuan_tu_nhap_phu_tung": 111
+  },
+  "methods_found_in_source": 23,
+  "checked_local_links": 27,
+  "root_source_hashes_unchanged": {
+    "26_B23DCCN764.docx": "d6d0f4b8af7c283686bcc54c3163d9d014976467b27312b58651e95b8740deda",
+    "BG HP TTTN 2 CNPM 2020 final.pdf": "416f0401a70297300419d3abe6a72c4d3d816635e4f58c4b6cc5cd52a865d389"
+  }
+}

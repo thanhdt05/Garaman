@@ -1,77 +1,125 @@
 @startuml
-skinparam style strictuml
-skinparam sequenceMessageAlign center
+skinparam monochrome true
 skinparam shadowing false
-skinparam roundcorner 5
+skinparam defaultFontName "Times New Roman"
+skinparam defaultFontSize 14
+skinparam sequenceMessageAlign center
+skinparam maxMessageSize 240
+skinparam ParticipantPadding 16
+skinparam responseMessageBelowArrow true
+hide footbox
 
-actor "Khách hàng" as Khach
-boundary "customerHome.jsp" as UI_Home
-boundary "catalogSearch.jsp" as UI_Search
-boundary "itemDetails.jsp" as UI_Detail
-control "CatalogServlet4" as Servlet
-participant "ServiceDAO4" as ServiceDAO
-participant "SparePartDAO4" as PartDAO
+title Biểu đồ tuần tự thiết kế modul tìm kiếm thông tin dịch vụ/phụ tùng
+actor "Khách hàng" as A
+boundary "customerHome.jsp" as Home
+boundary "catalogSearch.jsp" as Search
+boundary "itemDetails.jsp" as Detail
+control ": CatalogServlet4" as C
+control ": ServiceDAO4" as SD
+control ": SparePartDAO4" as PD
+entity ": Service4" as S
+entity ": SparePart4" as P
 
-title Biểu đồ tuần tự thiết kế - Modul Khách hàng tra cứu dịch vụ / phụ tùng
-
-== 1. Mở trang tra cứu ==
-Khach -> UI_Home : Bấm "Tra cứu dịch vụ & phụ tùng"
-UI_Home -> Servlet : GET /customer/catalog
-activate Servlet
-Servlet -> Servlet : showSearch(req, resp)
-Servlet -> UI_Search : forward(req, resp) [trạng thái chưa tìm]
-deactivate Servlet
-UI_Search --> Khach : Hiển thị ô nhập từ khóa tìm kiếm
-
-== 2. Tìm kiếm với từ khóa ==
-Khach -> UI_Search : Nhập từ khóa "lọc", bấm "Tìm kiếm"
-UI_Search -> Servlet : GET /customer/catalog?keyword=l%E1%BB%8Dc
-activate Servlet
-Servlet -> Servlet : searchCatalog(req, resp)
-
-alt Từ khóa hợp lệ
-    Servlet -> ServiceDAO : findServicesByName("lọc")
-    activate ServiceDAO
-    ServiceDAO --> Servlet : List<Service4> (DV1: Thay lọc dầu...)
-    deactivate ServiceDAO
-
-    Servlet -> PartDAO : findSparePartsByName("lọc", true)
-    activate PartDAO
-    PartDAO --> Servlet : List<SparePart4> (PT1: Lọc dầu AF-01...)
-    deactivate PartDAO
-
-    Servlet -> Servlet : req.setAttribute("services", dsDV)\nreq.setAttribute("spareParts", dsPT)
-    Servlet -> UI_Search : forward(req, resp)
-    UI_Search --> Khach : Hiển thị một bảng kết quả chung Dịch vụ & Phụ tùng
-else Từ khóa rỗng hoặc khoảng trắng
-    Servlet -> Servlet : req.setAttribute("errorMessage", "Vui lòng nhập từ khóa")
-    Servlet -> UI_Search : forward(req, resp)
-    UI_Search --> Khach : Báo lỗi yêu cầu nhập từ khóa
-end
-deactivate Servlet
-
-== 3. Xem chi tiết phụ tùng ==
-Khach -> UI_Search : Bấm "Chi tiết" phụ tùng PT1
-UI_Search -> Servlet : GET /customer/catalog/detail?id=1&itemType=part&keyword=l%E1%BB%8Dc&itemTypeFilter=all
-activate Servlet
-Servlet -> Servlet : viewDetails(req, resp)
-Servlet -> PartDAO : getSparePartDetails(1, true)
-activate PartDAO
-PartDAO --> Servlet : SparePart4 (kèm nhóm, thông số kỹ thuật, giá bán)
-deactivate PartDAO
-
-Servlet -> Servlet : req.setAttribute("sparePart", pt)\nreq.setAttribute("keyword", "lọc")
-Servlet -> UI_Detail : forward(req, resp)
-deactivate Servlet
-UI_Detail --> Khach : Hiển thị trang chi tiết phụ tùng và nút "Quay lại"
-
-== 4. Quay lại danh sách ==
-Khach -> UI_Detail : Bấm nút "Quay lại kết quả tìm kiếm"
-UI_Detail -> Servlet : GET /customer/catalog?keyword=l%E1%BB%8Dc&itemTypeFilter=all
-activate Servlet
-Servlet -> Servlet : searchCatalog(req, resp)
-Servlet -> UI_Search : forward(req, resp) [kết quả tra cứu cũ được giữ nguyên]
-deactivate Servlet
-UI_Search --> Khach : Hiển thị lại bảng kết quả với từ khóa "lọc"
-
+A -> Home : 1: click tìm thông tin
+Home -> C : 2: showSearch(request, response)
+activate C
+C -> Search : 3: gọi
+activate Search
+deactivate C
+Search --> A : 4: hiển thị
+deactivate Search
+A -> Search : 5: nhập lọc; click Tìm kiếm
+Search -> C : 6: searchCatalog(request, response)
+activate C
+C -> SD : 7: gọi
+activate SD
+SD -> SD : 8: findServicesByName("lọc")
+activate SD
+SD -> S : 9: gọi
+activate S
+S -> S : 10: Service4()
+activate S
+deactivate S
+S --> SD : 11: trả về
+deactivate S
+SD --> C : 12: trả về
+deactivate SD
+deactivate SD
+C -> PD : 13: gọi
+activate PD
+PD -> PD : 14: findSparePartsByName("lọc", true)
+activate PD
+PD -> P : 15: gọi
+activate P
+P -> P : 16: SparePart4()
+activate P
+deactivate P
+P --> PD : 17: trả về
+deactivate P
+PD --> C : 18: trả về
+deactivate PD
+deactivate PD
+C -> Search : 19: gọi
+activate Search
+deactivate C
+Search --> A : 20: hiển thị
+deactivate Search
+A -> Search : 21: click chọn PT1
+Search -> C : 22: viewDetails(request, response)
+activate C
+C -> PD : 23: gọi
+activate PD
+PD -> PD : 24: getSparePartDetails(sparePartId, true)
+activate PD
+PD -> P : 25: gọi
+activate P
+P -> P : 26: SparePart4()
+activate P
+deactivate P
+P --> PD : 27: trả về
+deactivate P
+PD --> C : 28: trả về
+deactivate PD
+deactivate PD
+C -> Detail : 29: gọi
+activate Detail
+deactivate C
+Detail --> A : 30: hiển thị
+deactivate Detail
+A -> Detail : 31: click Quay lại
+Detail -> C : 32: searchCatalog(request, response)
+activate C
+C -> SD : 33: gọi
+activate SD
+SD -> SD : 34: findServicesByName("lọc")
+activate SD
+SD -> S : 35: gọi
+activate S
+S -> S : 36: Service4()
+activate S
+deactivate S
+S --> SD : 37: trả về
+deactivate S
+SD --> C : 38: trả về
+deactivate SD
+deactivate SD
+C -> PD : 39: gọi
+activate PD
+PD -> PD : 40: findSparePartsByName("lọc", true)
+activate PD
+PD -> P : 41: gọi
+activate P
+P -> P : 42: SparePart4()
+activate P
+deactivate P
+P --> PD : 43: trả về
+deactivate P
+PD --> C : 44: trả về
+deactivate PD
+deactivate PD
+C -> Search : 45: gọi
+activate Search
+deactivate C
+Search --> A : 46: hiển thị
+deactivate Search
 @enduml

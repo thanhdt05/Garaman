@@ -1,0 +1,1712 @@
+[
+  {
+    "stem": "tuan_tu_tra_cuu",
+    "title": "Biểu đồ tuần tự thiết kế modul tìm kiếm thông tin dịch vụ/phụ tùng",
+    "participants": {
+      "A": [
+        "actor",
+        "Khách hàng"
+      ],
+      "Home": [
+        "boundary",
+        "customerHome.jsp"
+      ],
+      "Search": [
+        "boundary",
+        "catalogSearch.jsp"
+      ],
+      "Detail": [
+        "boundary",
+        "itemDetails.jsp"
+      ],
+      "C": [
+        "control",
+        "CatalogServlet4"
+      ],
+      "SD": [
+        "control",
+        "ServiceDAO4"
+      ],
+      "PD": [
+        "control",
+        "SparePartDAO4"
+      ],
+      "S": [
+        "entity",
+        "Service4"
+      ],
+      "P": [
+        "entity",
+        "SparePart4"
+      ]
+    },
+    "steps": [
+      {
+        "number": 1,
+        "src": "A",
+        "dst": "Home",
+        "label": "click tìm thông tin",
+        "text": "Tại trang customerHome.jsp, sau khi đăng nhập, khách hàng A click chọn chức năng tìm thông tin dịch vụ/phụ tùng.",
+        "kind": "Gọi",
+        "start": 0,
+        "stop": 0
+      },
+      {
+        "number": 2,
+        "src": "Home",
+        "dst": "C",
+        "label": "showSearch(request, response)",
+        "text": "Trang customerHome.jsp gọi hàm showSearch() của lớp CatalogServlet4 yêu cầu mở giao diện tìm kiếm thông tin dịch vụ/phụ tùng.",
+        "kind": "Gọi",
+        "start": 1,
+        "stop": 0
+      },
+      {
+        "number": 3,
+        "src": "C",
+        "dst": "Search",
+        "label": "gọi",
+        "text": "Lớp CatalogServlet4 chuyển dữ liệu và gọi trang catalogSearch.jsp.",
+        "kind": "Gọi",
+        "start": 1,
+        "stop": 1
+      },
+      {
+        "number": 4,
+        "src": "Search",
+        "dst": "A",
+        "label": "hiển thị",
+        "text": "Trang catalogSearch.jsp hiển thị ô nhập tên và nút Tìm kiếm cho khách hàng; chưa có danh sách kết quả.",
+        "kind": "Trả về",
+        "start": 0,
+        "stop": 1
+      },
+      {
+        "number": 5,
+        "src": "A",
+        "dst": "Search",
+        "label": "nhập lọc; click Tìm kiếm",
+        "text": "Khách hàng A nhập từ khóa “lọc” và click Tìm kiếm.",
+        "kind": "Gọi",
+        "start": 0,
+        "stop": 0
+      },
+      {
+        "number": 6,
+        "src": "Search",
+        "dst": "C",
+        "label": "searchCatalog(request, response)",
+        "text": "Trang catalogSearch.jsp gọi hàm searchCatalog() của lớp CatalogServlet4 yêu cầu tìm thông tin dịch vụ/phụ tùng theo từ khóa “lọc”.",
+        "kind": "Gọi",
+        "start": 1,
+        "stop": 0
+      },
+      {
+        "number": 7,
+        "src": "C",
+        "dst": "SD",
+        "label": "gọi",
+        "text": "Lớp CatalogServlet4 gọi lớp ServiceDAO4 yêu cầu tìm các dịch vụ đang cung cấp có tên chứa từ khóa “lọc”.",
+        "kind": "Gọi",
+        "start": 1,
+        "stop": 0
+      },
+      {
+        "number": 8,
+        "src": "SD",
+        "dst": "SD",
+        "label": "findServicesByName(\"lọc\")",
+        "text": "Lớp ServiceDAO4 gọi hàm findServicesByName().",
+        "kind": "Tự gọi",
+        "start": 1,
+        "stop": 0
+      },
+      {
+        "number": 9,
+        "src": "SD",
+        "dst": "S",
+        "label": "gọi",
+        "text": "Hàm findServicesByName() gọi lớp Service4 để đóng gói thông tin thực thể.",
+        "kind": "Gọi",
+        "start": 1,
+        "stop": 0
+      },
+      {
+        "number": 10,
+        "src": "S",
+        "dst": "S",
+        "label": "Service4()",
+        "text": "Lớp Service4 đóng gói thông tin thực thể.",
+        "kind": "Tự gọi",
+        "start": 1,
+        "stop": 0
+      },
+      {
+        "number": 11,
+        "src": "S",
+        "dst": "SD",
+        "label": "trả về",
+        "text": "Lớp Service4 trả kết quả lại cho hàm findServicesByName().",
+        "kind": "Trả về",
+        "start": 0,
+        "stop": 1
+      },
+      {
+        "number": 12,
+        "src": "SD",
+        "dst": "C",
+        "label": "trả về",
+        "text": "Hàm findServicesByName() trả danh sách dịch vụ lại cho lớp CatalogServlet4.",
+        "kind": "Trả về",
+        "start": 0,
+        "stop": 2
+      },
+      {
+        "number": 13,
+        "src": "C",
+        "dst": "PD",
+        "label": "gọi",
+        "text": "Lớp CatalogServlet4 gọi lớp SparePartDAO4 yêu cầu tìm các phụ tùng đang kinh doanh đã công bố có tên chứa từ khóa “lọc”.",
+        "kind": "Gọi",
+        "start": 1,
+        "stop": 0
+      },
+      {
+        "number": 14,
+        "src": "PD",
+        "dst": "PD",
+        "label": "findSparePartsByName(\"lọc\", true)",
+        "text": "Lớp SparePartDAO4 gọi hàm findSparePartsByName().",
+        "kind": "Tự gọi",
+        "start": 1,
+        "stop": 0
+      },
+      {
+        "number": 15,
+        "src": "PD",
+        "dst": "P",
+        "label": "gọi",
+        "text": "Hàm findSparePartsByName() gọi lớp SparePart4 để đóng gói thông tin thực thể.",
+        "kind": "Gọi",
+        "start": 1,
+        "stop": 0
+      },
+      {
+        "number": 16,
+        "src": "P",
+        "dst": "P",
+        "label": "SparePart4()",
+        "text": "Lớp SparePart4 đóng gói thông tin thực thể.",
+        "kind": "Tự gọi",
+        "start": 1,
+        "stop": 0
+      },
+      {
+        "number": 17,
+        "src": "P",
+        "dst": "PD",
+        "label": "trả về",
+        "text": "Lớp SparePart4 trả kết quả lại cho hàm findSparePartsByName().",
+        "kind": "Trả về",
+        "start": 0,
+        "stop": 1
+      },
+      {
+        "number": 18,
+        "src": "PD",
+        "dst": "C",
+        "label": "trả về",
+        "text": "Hàm findSparePartsByName() trả danh sách phụ tùng lại cho lớp CatalogServlet4.",
+        "kind": "Trả về",
+        "start": 0,
+        "stop": 2
+      },
+      {
+        "number": 19,
+        "src": "C",
+        "dst": "Search",
+        "label": "gọi",
+        "text": "Lớp CatalogServlet4 chuyển dữ liệu và gọi trang catalogSearch.jsp.",
+        "kind": "Gọi",
+        "start": 1,
+        "stop": 1
+      },
+      {
+        "number": 20,
+        "src": "Search",
+        "dst": "A",
+        "label": "hiển thị",
+        "text": "Trang catalogSearch.jsp hiển thị danh sách kết quả cho khách hàng, gồm mã, tên, loại và đơn giá.",
+        "kind": "Trả về",
+        "start": 0,
+        "stop": 1
+      },
+      {
+        "number": 21,
+        "src": "A",
+        "dst": "Search",
+        "label": "click chọn PT1",
+        "text": "Khách hàng A click chọn phụ tùng PT1.",
+        "kind": "Gọi",
+        "start": 0,
+        "stop": 0
+      },
+      {
+        "number": 22,
+        "src": "Search",
+        "dst": "C",
+        "label": "viewDetails(request, response)",
+        "text": "Trang catalogSearch.jsp gọi hàm viewDetails() của lớp CatalogServlet4 yêu cầu xem thông tin chi tiết phụ tùng PT1 đã chọn.",
+        "kind": "Gọi",
+        "start": 1,
+        "stop": 0
+      },
+      {
+        "number": 23,
+        "src": "C",
+        "dst": "PD",
+        "label": "gọi",
+        "text": "Lớp CatalogServlet4 gọi lớp SparePartDAO4 yêu cầu lấy thông tin chi tiết phụ tùng PT1 và nhóm phụ tùng tương ứng.",
+        "kind": "Gọi",
+        "start": 1,
+        "stop": 0
+      },
+      {
+        "number": 24,
+        "src": "PD",
+        "dst": "PD",
+        "label": "getSparePartDetails(sparePartId, true)",
+        "text": "Lớp SparePartDAO4 gọi hàm getSparePartDetails().",
+        "kind": "Tự gọi",
+        "start": 1,
+        "stop": 0
+      },
+      {
+        "number": 25,
+        "src": "PD",
+        "dst": "P",
+        "label": "gọi",
+        "text": "Hàm getSparePartDetails() gọi lớp SparePart4 để đóng gói thông tin thực thể.",
+        "kind": "Gọi",
+        "start": 1,
+        "stop": 0
+      },
+      {
+        "number": 26,
+        "src": "P",
+        "dst": "P",
+        "label": "SparePart4()",
+        "text": "Lớp SparePart4 đóng gói thông tin thực thể.",
+        "kind": "Tự gọi",
+        "start": 1,
+        "stop": 0
+      },
+      {
+        "number": 27,
+        "src": "P",
+        "dst": "PD",
+        "label": "trả về",
+        "text": "Lớp SparePart4 trả kết quả lại cho hàm getSparePartDetails().",
+        "kind": "Trả về",
+        "start": 0,
+        "stop": 1
+      },
+      {
+        "number": 28,
+        "src": "PD",
+        "dst": "C",
+        "label": "trả về",
+        "text": "Hàm getSparePartDetails() trả thông tin phụ tùng PT1 lại cho lớp CatalogServlet4.",
+        "kind": "Trả về",
+        "start": 0,
+        "stop": 2
+      },
+      {
+        "number": 29,
+        "src": "C",
+        "dst": "Detail",
+        "label": "gọi",
+        "text": "Lớp CatalogServlet4 chuyển dữ liệu và gọi trang itemDetails.jsp.",
+        "kind": "Gọi",
+        "start": 1,
+        "stop": 1
+      },
+      {
+        "number": 30,
+        "src": "Detail",
+        "dst": "A",
+        "label": "hiển thị",
+        "text": "Trang itemDetails.jsp hiển thị thông tin chi tiết phụ tùng PT1 và nút Quay lại cho khách hàng.",
+        "kind": "Trả về",
+        "start": 0,
+        "stop": 1
+      },
+      {
+        "number": 31,
+        "src": "A",
+        "dst": "Detail",
+        "label": "click Quay lại",
+        "text": "Khách hàng A click Quay lại.",
+        "kind": "Gọi",
+        "start": 0,
+        "stop": 0
+      },
+      {
+        "number": 32,
+        "src": "Detail",
+        "dst": "C",
+        "label": "searchCatalog(request, response)",
+        "text": "Trang itemDetails.jsp gọi hàm searchCatalog() của lớp CatalogServlet4 yêu cầu tìm lại thông tin theo từ khóa “lọc” và bộ lọc đã chọn.",
+        "kind": "Gọi",
+        "start": 1,
+        "stop": 0
+      },
+      {
+        "number": 33,
+        "src": "C",
+        "dst": "SD",
+        "label": "gọi",
+        "text": "Lớp CatalogServlet4 gọi lớp ServiceDAO4 yêu cầu tìm lại các dịch vụ theo từ khóa đã giữ.",
+        "kind": "Gọi",
+        "start": 1,
+        "stop": 0
+      },
+      {
+        "number": 34,
+        "src": "SD",
+        "dst": "SD",
+        "label": "findServicesByName(\"lọc\")",
+        "text": "Lớp ServiceDAO4 gọi hàm findServicesByName().",
+        "kind": "Tự gọi",
+        "start": 1,
+        "stop": 0
+      },
+      {
+        "number": 35,
+        "src": "SD",
+        "dst": "S",
+        "label": "gọi",
+        "text": "Hàm findServicesByName() gọi lớp Service4 để đóng gói thông tin thực thể.",
+        "kind": "Gọi",
+        "start": 1,
+        "stop": 0
+      },
+      {
+        "number": 36,
+        "src": "S",
+        "dst": "S",
+        "label": "Service4()",
+        "text": "Lớp Service4 đóng gói thông tin thực thể.",
+        "kind": "Tự gọi",
+        "start": 1,
+        "stop": 0
+      },
+      {
+        "number": 37,
+        "src": "S",
+        "dst": "SD",
+        "label": "trả về",
+        "text": "Lớp Service4 trả kết quả lại cho hàm findServicesByName().",
+        "kind": "Trả về",
+        "start": 0,
+        "stop": 1
+      },
+      {
+        "number": 38,
+        "src": "SD",
+        "dst": "C",
+        "label": "trả về",
+        "text": "Hàm findServicesByName() trả danh sách dịch vụ lại cho lớp CatalogServlet4.",
+        "kind": "Trả về",
+        "start": 0,
+        "stop": 2
+      },
+      {
+        "number": 39,
+        "src": "C",
+        "dst": "PD",
+        "label": "gọi",
+        "text": "Lớp CatalogServlet4 gọi lớp SparePartDAO4 yêu cầu tìm lại các phụ tùng theo từ khóa đã giữ.",
+        "kind": "Gọi",
+        "start": 1,
+        "stop": 0
+      },
+      {
+        "number": 40,
+        "src": "PD",
+        "dst": "PD",
+        "label": "findSparePartsByName(\"lọc\", true)",
+        "text": "Lớp SparePartDAO4 gọi hàm findSparePartsByName().",
+        "kind": "Tự gọi",
+        "start": 1,
+        "stop": 0
+      },
+      {
+        "number": 41,
+        "src": "PD",
+        "dst": "P",
+        "label": "gọi",
+        "text": "Hàm findSparePartsByName() gọi lớp SparePart4 để đóng gói thông tin thực thể.",
+        "kind": "Gọi",
+        "start": 1,
+        "stop": 0
+      },
+      {
+        "number": 42,
+        "src": "P",
+        "dst": "P",
+        "label": "SparePart4()",
+        "text": "Lớp SparePart4 đóng gói thông tin thực thể.",
+        "kind": "Tự gọi",
+        "start": 1,
+        "stop": 0
+      },
+      {
+        "number": 43,
+        "src": "P",
+        "dst": "PD",
+        "label": "trả về",
+        "text": "Lớp SparePart4 trả kết quả lại cho hàm findSparePartsByName().",
+        "kind": "Trả về",
+        "start": 0,
+        "stop": 1
+      },
+      {
+        "number": 44,
+        "src": "PD",
+        "dst": "C",
+        "label": "trả về",
+        "text": "Hàm findSparePartsByName() trả danh sách phụ tùng lại cho lớp CatalogServlet4.",
+        "kind": "Trả về",
+        "start": 0,
+        "stop": 2
+      },
+      {
+        "number": 45,
+        "src": "C",
+        "dst": "Search",
+        "label": "gọi",
+        "text": "Lớp CatalogServlet4 chuyển dữ liệu và gọi trang catalogSearch.jsp.",
+        "kind": "Gọi",
+        "start": 1,
+        "stop": 1
+      },
+      {
+        "number": 46,
+        "src": "Search",
+        "dst": "A",
+        "label": "hiển thị",
+        "text": "Trang catalogSearch.jsp hiển thị lại danh sách kết quả cho khách hàng, giữ từ khóa và bộ lọc đã chọn.",
+        "kind": "Trả về",
+        "start": 0,
+        "stop": 1
+      }
+    ],
+    "loops": [],
+    "source": "../tuan_tu_tra_cuu.puml"
+  },
+  {
+    "stem": "tuan_tu_nhap_phu_tung",
+    "title": "Biểu đồ tuần tự thiết kế modul nhân viên kho nhập phụ tùng",
+    "participants": {
+      "A": [
+        "actor",
+        "Nhân viên kho"
+      ],
+      "NCC": [
+        "actor",
+        "Nhà cung cấp"
+      ],
+      "Home": [
+        "boundary",
+        "warehouseHome.jsp"
+      ],
+      "Select": [
+        "boundary",
+        "selectSupplier.jsp"
+      ],
+      "Draft": [
+        "boundary",
+        "purchaseInvoice.jsp"
+      ],
+      "View": [
+        "boundary",
+        "confirmedInvoice.jsp"
+      ],
+      "Print": [
+        "boundary",
+        "printInvoice.jsp"
+      ],
+      "SC": [
+        "control",
+        "SupplierServlet4"
+      ],
+      "C": [
+        "control",
+        "PurchaseInvoiceServlet4"
+      ],
+      "SD": [
+        "control",
+        "SupplierDAO4"
+      ],
+      "WD": [
+        "control",
+        "WarehouseStaffDAO4"
+      ],
+      "PD": [
+        "control",
+        "SparePartDAO4"
+      ],
+      "ID": [
+        "control",
+        "PurchaseInvoiceDAO4"
+      ],
+      "S": [
+        "entity",
+        "Supplier4"
+      ],
+      "W": [
+        "entity",
+        "WarehouseStaff4"
+      ],
+      "P": [
+        "entity",
+        "SparePart4"
+      ],
+      "I": [
+        "entity",
+        "PurchaseInvoice4"
+      ]
+    },
+    "steps": [
+      {
+        "number": 1,
+        "src": "A",
+        "dst": "Home",
+        "label": "click nhập phụ tùng",
+        "text": "Tại trang warehouseHome.jsp, sau khi đăng nhập, nhân viên A click chọn chức năng nhập phụ tùng.",
+        "kind": "Gọi",
+        "start": 0,
+        "stop": 0
+      },
+      {
+        "number": 2,
+        "src": "Home",
+        "dst": "SC",
+        "label": "showSupplierSelection(request, response)",
+        "text": "Trang warehouseHome.jsp gọi hàm showSupplierSelection() của lớp SupplierServlet4 yêu cầu mở giao diện tìm và chọn nhà cung cấp.",
+        "kind": "Gọi",
+        "start": 1,
+        "stop": 0
+      },
+      {
+        "number": 3,
+        "src": "SC",
+        "dst": "Select",
+        "label": "gọi",
+        "text": "Lớp SupplierServlet4 chuyển dữ liệu và gọi trang selectSupplier.jsp.",
+        "kind": "Gọi",
+        "start": 1,
+        "stop": 1
+      },
+      {
+        "number": 4,
+        "src": "Select",
+        "dst": "A",
+        "label": "hiển thị",
+        "text": "Trang selectSupplier.jsp hiển thị ô nhập tên nhà cung cấp và nút Tìm kiếm cho nhân viên.",
+        "kind": "Trả về",
+        "start": 0,
+        "stop": 1
+      },
+      {
+        "number": 5,
+        "src": "A",
+        "dst": "Select",
+        "label": "nhập Hòa Phát; click Tìm kiếm",
+        "text": "Nhân viên A nhập “Hòa Phát” và click Tìm kiếm.",
+        "kind": "Gọi",
+        "start": 0,
+        "stop": 0
+      },
+      {
+        "number": 6,
+        "src": "Select",
+        "dst": "SC",
+        "label": "searchSuppliers(request, response)",
+        "text": "Trang selectSupplier.jsp gọi hàm searchSuppliers() của lớp SupplierServlet4 yêu cầu tìm nhà cung cấp theo tên “Hòa Phát”.",
+        "kind": "Gọi",
+        "start": 1,
+        "stop": 0
+      },
+      {
+        "number": 7,
+        "src": "SC",
+        "dst": "SD",
+        "label": "gọi",
+        "text": "Lớp SupplierServlet4 gọi lớp SupplierDAO4 yêu cầu tìm các nhà cung cấp đang hoạt động có tên chứa từ khóa “Hòa Phát”.",
+        "kind": "Gọi",
+        "start": 1,
+        "stop": 0
+      },
+      {
+        "number": 8,
+        "src": "SD",
+        "dst": "SD",
+        "label": "findSuppliersByName(\"Hòa Phát\")",
+        "text": "Lớp SupplierDAO4 gọi hàm findSuppliersByName().",
+        "kind": "Tự gọi",
+        "start": 1,
+        "stop": 0
+      },
+      {
+        "number": 9,
+        "src": "SD",
+        "dst": "S",
+        "label": "gọi",
+        "text": "Hàm findSuppliersByName() gọi lớp Supplier4 để đóng gói thông tin thực thể.",
+        "kind": "Gọi",
+        "start": 1,
+        "stop": 0
+      },
+      {
+        "number": 10,
+        "src": "S",
+        "dst": "S",
+        "label": "Supplier4()",
+        "text": "Lớp Supplier4 đóng gói thông tin thực thể.",
+        "kind": "Tự gọi",
+        "start": 1,
+        "stop": 0
+      },
+      {
+        "number": 11,
+        "src": "S",
+        "dst": "SD",
+        "label": "trả về",
+        "text": "Lớp Supplier4 trả kết quả lại cho hàm findSuppliersByName().",
+        "kind": "Trả về",
+        "start": 0,
+        "stop": 1
+      },
+      {
+        "number": 12,
+        "src": "SD",
+        "dst": "SC",
+        "label": "trả về",
+        "text": "Hàm findSuppliersByName() trả danh sách nhà cung cấp lại cho lớp SupplierServlet4.",
+        "kind": "Trả về",
+        "start": 0,
+        "stop": 2
+      },
+      {
+        "number": 13,
+        "src": "SC",
+        "dst": "Select",
+        "label": "gọi",
+        "text": "Lớp SupplierServlet4 chuyển dữ liệu và gọi trang selectSupplier.jsp.",
+        "kind": "Gọi",
+        "start": 1,
+        "stop": 1
+      },
+      {
+        "number": 14,
+        "src": "Select",
+        "dst": "A",
+        "label": "hiển thị",
+        "text": "Trang selectSupplier.jsp hiển thị danh sách nhà cung cấp cho nhân viên.",
+        "kind": "Trả về",
+        "start": 0,
+        "stop": 1
+      },
+      {
+        "number": 15,
+        "src": "A",
+        "dst": "Select",
+        "label": "click chọn NCC1",
+        "text": "Nhân viên A click chọn nhà cung cấp NCC1.",
+        "kind": "Gọi",
+        "start": 0,
+        "stop": 0
+      },
+      {
+        "number": 16,
+        "src": "Select",
+        "dst": "C",
+        "label": "startPurchase(request, response)",
+        "text": "Trang selectSupplier.jsp gọi hàm startPurchase() của lớp PurchaseInvoiceServlet4 yêu cầu lập hóa đơn nhập với nhà cung cấp NCC1 đã chọn. Mã nhân viên kho được lấy từ phiên đăng nhập.",
+        "kind": "Gọi",
+        "start": 1,
+        "stop": 0
+      },
+      {
+        "number": 17,
+        "src": "C",
+        "dst": "SD",
+        "label": "gọi",
+        "text": "Lớp PurchaseInvoiceServlet4 gọi lớp SupplierDAO4 yêu cầu lấy thông tin nhà cung cấp NCC1.",
+        "kind": "Gọi",
+        "start": 1,
+        "stop": 0
+      },
+      {
+        "number": 18,
+        "src": "SD",
+        "dst": "SD",
+        "label": "getSupplierDetails(supplierId)",
+        "text": "Lớp SupplierDAO4 gọi hàm getSupplierDetails().",
+        "kind": "Tự gọi",
+        "start": 1,
+        "stop": 0
+      },
+      {
+        "number": 19,
+        "src": "SD",
+        "dst": "S",
+        "label": "gọi",
+        "text": "Hàm getSupplierDetails() gọi lớp Supplier4 để đóng gói thông tin thực thể.",
+        "kind": "Gọi",
+        "start": 1,
+        "stop": 0
+      },
+      {
+        "number": 20,
+        "src": "S",
+        "dst": "S",
+        "label": "Supplier4()",
+        "text": "Lớp Supplier4 đóng gói thông tin thực thể.",
+        "kind": "Tự gọi",
+        "start": 1,
+        "stop": 0
+      },
+      {
+        "number": 21,
+        "src": "S",
+        "dst": "SD",
+        "label": "trả về",
+        "text": "Lớp Supplier4 trả kết quả lại cho hàm getSupplierDetails().",
+        "kind": "Trả về",
+        "start": 0,
+        "stop": 1
+      },
+      {
+        "number": 22,
+        "src": "SD",
+        "dst": "C",
+        "label": "trả về",
+        "text": "Hàm getSupplierDetails() trả thông tin nhà cung cấp NCC1 lại cho lớp PurchaseInvoiceServlet4.",
+        "kind": "Trả về",
+        "start": 0,
+        "stop": 2
+      },
+      {
+        "number": 23,
+        "src": "C",
+        "dst": "WD",
+        "label": "gọi",
+        "text": "Lớp PurchaseInvoiceServlet4 gọi lớp WarehouseStaffDAO4 yêu cầu lấy mã và họ tên nhân viên kho A.",
+        "kind": "Gọi",
+        "start": 1,
+        "stop": 0
+      },
+      {
+        "number": 24,
+        "src": "WD",
+        "dst": "WD",
+        "label": "getWarehouseStaffDetails(warehouseStaffId)",
+        "text": "Lớp WarehouseStaffDAO4 gọi hàm getWarehouseStaffDetails().",
+        "kind": "Tự gọi",
+        "start": 1,
+        "stop": 0
+      },
+      {
+        "number": 25,
+        "src": "WD",
+        "dst": "W",
+        "label": "gọi",
+        "text": "Hàm getWarehouseStaffDetails() gọi lớp WarehouseStaff4 để đóng gói thông tin thực thể.",
+        "kind": "Gọi",
+        "start": 1,
+        "stop": 0
+      },
+      {
+        "number": 26,
+        "src": "W",
+        "dst": "W",
+        "label": "WarehouseStaff4()",
+        "text": "Lớp WarehouseStaff4 đóng gói thông tin thực thể.",
+        "kind": "Tự gọi",
+        "start": 1,
+        "stop": 0
+      },
+      {
+        "number": 27,
+        "src": "W",
+        "dst": "WD",
+        "label": "trả về",
+        "text": "Lớp WarehouseStaff4 trả kết quả lại cho hàm getWarehouseStaffDetails().",
+        "kind": "Trả về",
+        "start": 0,
+        "stop": 1
+      },
+      {
+        "number": 28,
+        "src": "WD",
+        "dst": "C",
+        "label": "trả về",
+        "text": "Hàm getWarehouseStaffDetails() trả thông tin nhân viên kho A lại cho lớp PurchaseInvoiceServlet4.",
+        "kind": "Trả về",
+        "start": 0,
+        "stop": 2
+      },
+      {
+        "number": 29,
+        "src": "C",
+        "dst": "C",
+        "label": "showDraft(request, response)",
+        "text": "Sau khi tạo hóa đơn nhập dự kiến, lớp PurchaseInvoiceServlet4 thực hiện hàm showDraft() để hiển thị hóa đơn.",
+        "kind": "Tự gọi",
+        "start": 1,
+        "stop": 0,
+        "before_stop": 1
+      },
+      {
+        "number": 30,
+        "src": "C",
+        "dst": "Draft",
+        "label": "gọi",
+        "text": "Lớp PurchaseInvoiceServlet4 chuyển dữ liệu và gọi trang purchaseInvoice.jsp.",
+        "kind": "Gọi",
+        "start": 1,
+        "stop": 1
+      },
+      {
+        "number": 31,
+        "src": "Draft",
+        "dst": "A",
+        "label": "hiển thị",
+        "text": "Trang purchaseInvoice.jsp hiển thị thông tin nhà cung cấp NCC1, nhân viên A, ngày nhập hiện tại, ô tìm phụ tùng, bảng các dòng nhập đang trống, tổng tiền bằng 0 và nút Xác nhận cho nhân viên.",
+        "kind": "Trả về",
+        "start": 0,
+        "stop": 1
+      },
+      {
+        "number": 32,
+        "src": "A",
+        "dst": "Draft",
+        "label": "nhập Lọc; click Tìm kiếm",
+        "text": "Nhân viên A nhập “Lọc” và click Tìm kiếm.",
+        "kind": "Gọi",
+        "start": 0,
+        "stop": 0
+      },
+      {
+        "number": 33,
+        "src": "Draft",
+        "dst": "C",
+        "label": "searchSpareParts(request, response)",
+        "text": "Trang purchaseInvoice.jsp gọi hàm searchSpareParts() của lớp PurchaseInvoiceServlet4 yêu cầu tìm phụ tùng theo tên “Lọc”.",
+        "kind": "Gọi",
+        "start": 1,
+        "stop": 0
+      },
+      {
+        "number": 34,
+        "src": "C",
+        "dst": "C",
+        "label": "showDraft(request, response)",
+        "text": "Lớp PurchaseInvoiceServlet4 giữ dữ liệu các dòng đang nhập và thực hiện hàm showDraft() theo từ khóa vừa nhận.",
+        "kind": "Tự gọi",
+        "start": 1,
+        "stop": 0,
+        "before_stop": 1
+      },
+      {
+        "number": 35,
+        "src": "C",
+        "dst": "PD",
+        "label": "gọi",
+        "text": "Lớp PurchaseInvoiceServlet4 gọi lớp SparePartDAO4 yêu cầu tìm các phụ tùng chưa công bố hoặc đang kinh doanh có tên chứa từ khóa “Lọc”.",
+        "kind": "Gọi",
+        "start": 1,
+        "stop": 0
+      },
+      {
+        "number": 36,
+        "src": "PD",
+        "dst": "PD",
+        "label": "findSparePartsByName(\"Lọc\", false)",
+        "text": "Lớp SparePartDAO4 gọi hàm findSparePartsByName().",
+        "kind": "Tự gọi",
+        "start": 1,
+        "stop": 0
+      },
+      {
+        "number": 37,
+        "src": "PD",
+        "dst": "P",
+        "label": "gọi",
+        "text": "Hàm findSparePartsByName() gọi lớp SparePart4 để đóng gói thông tin thực thể.",
+        "kind": "Gọi",
+        "start": 1,
+        "stop": 0
+      },
+      {
+        "number": 38,
+        "src": "P",
+        "dst": "P",
+        "label": "SparePart4()",
+        "text": "Lớp SparePart4 đóng gói thông tin thực thể.",
+        "kind": "Tự gọi",
+        "start": 1,
+        "stop": 0
+      },
+      {
+        "number": 39,
+        "src": "P",
+        "dst": "PD",
+        "label": "trả về",
+        "text": "Lớp SparePart4 trả kết quả lại cho hàm findSparePartsByName().",
+        "kind": "Trả về",
+        "start": 0,
+        "stop": 1
+      },
+      {
+        "number": 40,
+        "src": "PD",
+        "dst": "C",
+        "label": "trả về",
+        "text": "Hàm findSparePartsByName() trả danh sách phụ tùng lại cho lớp PurchaseInvoiceServlet4.",
+        "kind": "Trả về",
+        "start": 0,
+        "stop": 2
+      },
+      {
+        "number": 41,
+        "src": "C",
+        "dst": "Draft",
+        "label": "gọi",
+        "text": "Lớp PurchaseInvoiceServlet4 chuyển dữ liệu và gọi trang purchaseInvoice.jsp.",
+        "kind": "Gọi",
+        "start": 1,
+        "stop": 1
+      },
+      {
+        "number": 42,
+        "src": "Draft",
+        "dst": "A",
+        "label": "hiển thị",
+        "text": "Trang purchaseInvoice.jsp hiển thị danh sách phụ tùng tìm được ngay trên hóa đơn, gồm mã, tên, đơn vị tính và hãng sản xuất cho nhân viên chọn.",
+        "kind": "Trả về",
+        "start": 0,
+        "stop": 1
+      },
+      {
+        "number": 43,
+        "src": "A",
+        "dst": "Draft",
+        "label": "click chọn PT1",
+        "text": "Nhân viên A click chọn phụ tùng PT1.",
+        "kind": "Gọi",
+        "start": 0,
+        "stop": 0
+      },
+      {
+        "number": 44,
+        "src": "Draft",
+        "dst": "C",
+        "label": "addInvoiceLine(request, response)",
+        "text": "Trang purchaseInvoice.jsp gọi hàm addInvoiceLine() của lớp PurchaseInvoiceServlet4 yêu cầu bổ sung phụ tùng PT1 vào hóa đơn nhập dự kiến.",
+        "kind": "Gọi",
+        "start": 1,
+        "stop": 0
+      },
+      {
+        "number": 45,
+        "src": "C",
+        "dst": "PD",
+        "label": "gọi",
+        "text": "Lớp PurchaseInvoiceServlet4 gọi lớp SparePartDAO4 yêu cầu lấy thông tin chi tiết phụ tùng PT1.",
+        "kind": "Gọi",
+        "start": 1,
+        "stop": 0
+      },
+      {
+        "number": 46,
+        "src": "PD",
+        "dst": "PD",
+        "label": "getSparePartDetails(sparePartId, false)",
+        "text": "Lớp SparePartDAO4 gọi hàm getSparePartDetails().",
+        "kind": "Tự gọi",
+        "start": 1,
+        "stop": 0
+      },
+      {
+        "number": 47,
+        "src": "PD",
+        "dst": "P",
+        "label": "gọi",
+        "text": "Hàm getSparePartDetails() gọi lớp SparePart4 để đóng gói thông tin thực thể.",
+        "kind": "Gọi",
+        "start": 1,
+        "stop": 0
+      },
+      {
+        "number": 48,
+        "src": "P",
+        "dst": "P",
+        "label": "SparePart4()",
+        "text": "Lớp SparePart4 đóng gói thông tin thực thể.",
+        "kind": "Tự gọi",
+        "start": 1,
+        "stop": 0
+      },
+      {
+        "number": 49,
+        "src": "P",
+        "dst": "PD",
+        "label": "trả về",
+        "text": "Lớp SparePart4 trả kết quả lại cho hàm getSparePartDetails().",
+        "kind": "Trả về",
+        "start": 0,
+        "stop": 1
+      },
+      {
+        "number": 50,
+        "src": "PD",
+        "dst": "C",
+        "label": "trả về",
+        "text": "Hàm getSparePartDetails() trả thông tin phụ tùng PT1 lại cho lớp PurchaseInvoiceServlet4.",
+        "kind": "Trả về",
+        "start": 0,
+        "stop": 2
+      },
+      {
+        "number": 51,
+        "src": "C",
+        "dst": "C",
+        "label": "showDraft(request, response)",
+        "text": "Lớp PurchaseInvoiceServlet4 bổ sung dòng PT1 vào hóa đơn nhập dự kiến, giữ dữ liệu các dòng đã nhập và thực hiện hàm showDraft() để hiển thị lại hóa đơn.",
+        "kind": "Tự gọi",
+        "start": 1,
+        "stop": 0,
+        "before_stop": 1
+      },
+      {
+        "number": 52,
+        "src": "C",
+        "dst": "Draft",
+        "label": "gọi",
+        "text": "Lớp PurchaseInvoiceServlet4 chuyển dữ liệu và gọi trang purchaseInvoice.jsp.",
+        "kind": "Gọi",
+        "start": 1,
+        "stop": 1
+      },
+      {
+        "number": 53,
+        "src": "Draft",
+        "dst": "A",
+        "label": "hiển thị",
+        "text": "Trang purchaseInvoice.jsp hiển thị dòng PT1 cho nhân viên; số lượng, đơn giá nhập và thành tiền ban đầu bằng 0.",
+        "kind": "Trả về",
+        "start": 0,
+        "stop": 1
+      },
+      {
+        "number": 54,
+        "src": "A",
+        "dst": "Draft",
+        "label": "nhập 10 cái; 80.000 đồng/cái",
+        "text": "Nhân viên A đối chiếu với nhà cung cấp, nhập số lượng 10 và đơn giá nhập 80.000 đồng/cái.",
+        "kind": "Gọi",
+        "start": 0,
+        "stop": 0
+      },
+      {
+        "number": 55,
+        "src": "Draft",
+        "dst": "A",
+        "label": "hiển thị",
+        "text": "Trang purchaseInvoice.jsp hiển thị dòng nhập, thành tiền và tổng tiền dự kiến 800.000 đồng cho nhân viên. (Lặp lại các bước từ 32 đến 55 cho đến khi hết phụ tùng muốn nhập.)",
+        "kind": "Trả về",
+        "start": 0,
+        "stop": 0
+      },
+      {
+        "number": 56,
+        "src": "A",
+        "dst": "Draft",
+        "label": "click Xác nhận",
+        "text": "Nhân viên A đối chiếu hàng thực nhận, chứng từ giao hàng và các dòng nhập, sau đó click Xác nhận.",
+        "kind": "Gọi",
+        "start": 0,
+        "stop": 0
+      },
+      {
+        "number": 57,
+        "src": "Draft",
+        "dst": "C",
+        "label": "confirmInvoice(request, response)",
+        "text": "Trang purchaseInvoice.jsp gọi hàm confirmInvoice() của lớp PurchaseInvoiceServlet4 yêu cầu xác nhận hóa đơn nhập. Hàm nhận dữ liệu các dòng nhập và kiểm tra hóa đơn có ít nhất một dòng, số lượng và đơn giá nhập hợp lệ.",
+        "kind": "Gọi",
+        "start": 1,
+        "stop": 0
+      },
+      {
+        "number": 58,
+        "src": "C",
+        "dst": "ID",
+        "label": "gọi",
+        "text": "Lớp PurchaseInvoiceServlet4 gọi lớp PurchaseInvoiceDAO4 yêu cầu lưu hóa đơn nhập cùng các dòng nhập.",
+        "kind": "Gọi",
+        "start": 1,
+        "stop": 0
+      },
+      {
+        "number": 59,
+        "src": "ID",
+        "dst": "ID",
+        "label": "savePurchaseInvoice(purchaseInvoice)",
+        "text": "Lớp PurchaseInvoiceDAO4 gọi hàm savePurchaseInvoice(); hàm lưu hóa đơn HN1, các dòng nhập, thời điểm xác nhận và trạng thái Chưa thanh toán; chốt tên nhà cung cấp, tên nhân viên lập, tên và đơn vị tính phụ tùng.",
+        "kind": "Tự gọi",
+        "start": 1,
+        "stop": 0
+      },
+      {
+        "number": 60,
+        "src": "ID",
+        "dst": "PD",
+        "label": "gọi",
+        "text": "Lớp PurchaseInvoiceDAO4 gọi lớp SparePartDAO4 yêu cầu tăng tồn kho theo dòng nhập của HN1.",
+        "kind": "Gọi",
+        "start": 1,
+        "stop": 0
+      },
+      {
+        "number": 61,
+        "src": "PD",
+        "dst": "PD",
+        "label": "increaseStockAfterPurchase(connection, sparePartId, quantity)",
+        "text": "Lớp SparePartDAO4 gọi hàm increaseStockAfterPurchase() với cùng Connection của transaction hóa đơn; hàm tăng tồn PT1 thêm 10 cái.",
+        "kind": "Tự gọi",
+        "start": 1,
+        "stop": 0
+      },
+      {
+        "number": 62,
+        "src": "PD",
+        "dst": "ID",
+        "label": "trả về",
+        "text": "Hàm increaseStockAfterPurchase() trả kết quả tăng tồn kho lại cho lớp PurchaseInvoiceDAO4.",
+        "kind": "Trả về",
+        "start": 0,
+        "stop": 2
+      },
+      {
+        "number": 63,
+        "src": "ID",
+        "dst": "C",
+        "label": "trả về",
+        "text": "Hàm savePurchaseInvoice() hoàn tất transaction và trả kết quả lưu thành công cùng mã HN1 lại cho lớp PurchaseInvoiceServlet4.",
+        "kind": "Trả về",
+        "start": 0,
+        "stop": 2
+      },
+      {
+        "number": 64,
+        "src": "C",
+        "dst": "C",
+        "label": "viewInvoice(request, response)",
+        "text": "Lớp PurchaseInvoiceServlet4 thực hiện hàm viewInvoice() để mở hóa đơn nhập HN1 đã xác nhận.",
+        "kind": "Tự gọi",
+        "start": 1,
+        "stop": 0,
+        "before_stop": 1
+      },
+      {
+        "number": 65,
+        "src": "C",
+        "dst": "ID",
+        "label": "gọi",
+        "text": "Lớp PurchaseInvoiceServlet4 gọi lớp PurchaseInvoiceDAO4 yêu cầu lấy thông tin hóa đơn HN1 cùng các dòng nhập và thông tin đã chốt.",
+        "kind": "Gọi",
+        "start": 1,
+        "stop": 0
+      },
+      {
+        "number": 66,
+        "src": "ID",
+        "dst": "ID",
+        "label": "getPurchaseInvoiceDetails(invoiceId)",
+        "text": "Lớp PurchaseInvoiceDAO4 gọi hàm getPurchaseInvoiceDetails().",
+        "kind": "Tự gọi",
+        "start": 1,
+        "stop": 0
+      },
+      {
+        "number": 67,
+        "src": "ID",
+        "dst": "I",
+        "label": "gọi",
+        "text": "Hàm getPurchaseInvoiceDetails() gọi lớp PurchaseInvoice4 để đóng gói thông tin thực thể.",
+        "kind": "Gọi",
+        "start": 1,
+        "stop": 0
+      },
+      {
+        "number": 68,
+        "src": "I",
+        "dst": "I",
+        "label": "PurchaseInvoice4()",
+        "text": "Lớp PurchaseInvoice4 đóng gói thông tin thực thể.",
+        "kind": "Tự gọi",
+        "start": 1,
+        "stop": 0
+      },
+      {
+        "number": 69,
+        "src": "I",
+        "dst": "ID",
+        "label": "trả về",
+        "text": "Lớp PurchaseInvoice4 trả kết quả lại cho hàm getPurchaseInvoiceDetails().",
+        "kind": "Trả về",
+        "start": 0,
+        "stop": 1
+      },
+      {
+        "number": 70,
+        "src": "ID",
+        "dst": "C",
+        "label": "trả về",
+        "text": "Hàm getPurchaseInvoiceDetails() trả thông tin hóa đơn HN1 lại cho lớp PurchaseInvoiceServlet4.",
+        "kind": "Trả về",
+        "start": 0,
+        "stop": 2
+      },
+      {
+        "number": 71,
+        "src": "C",
+        "dst": "View",
+        "label": "gọi",
+        "text": "Lớp PurchaseInvoiceServlet4 chuyển dữ liệu và gọi trang confirmedInvoice.jsp.",
+        "kind": "Gọi",
+        "start": 1,
+        "stop": 1
+      },
+      {
+        "number": 72,
+        "src": "View",
+        "dst": "A",
+        "label": "hiển thị",
+        "text": "Trang confirmedInvoice.jsp hiển thị HN1 đã xác nhận, các dòng nhập, tổng tiền 800.000 đồng, trạng thái Chưa thanh toán, nút In hóa đơn, ô Số tiền đã trả và nút Đã thanh toán cho nhân viên.",
+        "kind": "Trả về",
+        "start": 0,
+        "stop": 1
+      },
+      {
+        "number": 73,
+        "src": "A",
+        "dst": "View",
+        "label": "click In hóa đơn",
+        "text": "Nhân viên A click In hóa đơn.",
+        "kind": "Gọi",
+        "start": 0,
+        "stop": 0
+      },
+      {
+        "number": 74,
+        "src": "View",
+        "dst": "C",
+        "label": "printInvoice(request, response)",
+        "text": "Trang confirmedInvoice.jsp gọi hàm printInvoice() của lớp PurchaseInvoiceServlet4 yêu cầu lấy hóa đơn HN1 đã lưu để in.",
+        "kind": "Gọi",
+        "start": 1,
+        "stop": 0
+      },
+      {
+        "number": 75,
+        "src": "C",
+        "dst": "ID",
+        "label": "gọi",
+        "text": "Lớp PurchaseInvoiceServlet4 gọi lớp PurchaseInvoiceDAO4 yêu cầu lấy thông tin hóa đơn HN1 cùng các dòng nhập và thông tin đã chốt.",
+        "kind": "Gọi",
+        "start": 1,
+        "stop": 0
+      },
+      {
+        "number": 76,
+        "src": "ID",
+        "dst": "ID",
+        "label": "getPurchaseInvoiceDetails(invoiceId)",
+        "text": "Lớp PurchaseInvoiceDAO4 gọi hàm getPurchaseInvoiceDetails().",
+        "kind": "Tự gọi",
+        "start": 1,
+        "stop": 0
+      },
+      {
+        "number": 77,
+        "src": "ID",
+        "dst": "I",
+        "label": "gọi",
+        "text": "Hàm getPurchaseInvoiceDetails() gọi lớp PurchaseInvoice4 để đóng gói thông tin thực thể.",
+        "kind": "Gọi",
+        "start": 1,
+        "stop": 0
+      },
+      {
+        "number": 78,
+        "src": "I",
+        "dst": "I",
+        "label": "PurchaseInvoice4()",
+        "text": "Lớp PurchaseInvoice4 đóng gói thông tin thực thể.",
+        "kind": "Tự gọi",
+        "start": 1,
+        "stop": 0
+      },
+      {
+        "number": 79,
+        "src": "I",
+        "dst": "ID",
+        "label": "trả về",
+        "text": "Lớp PurchaseInvoice4 trả kết quả lại cho hàm getPurchaseInvoiceDetails().",
+        "kind": "Trả về",
+        "start": 0,
+        "stop": 1
+      },
+      {
+        "number": 80,
+        "src": "ID",
+        "dst": "C",
+        "label": "trả về",
+        "text": "Hàm getPurchaseInvoiceDetails() trả thông tin hóa đơn HN1 lại cho lớp PurchaseInvoiceServlet4.",
+        "kind": "Trả về",
+        "start": 0,
+        "stop": 2
+      },
+      {
+        "number": 81,
+        "src": "C",
+        "dst": "Print",
+        "label": "gọi",
+        "text": "Lớp PurchaseInvoiceServlet4 chuyển dữ liệu và gọi trang printInvoice.jsp.",
+        "kind": "Gọi",
+        "start": 1,
+        "stop": 1
+      },
+      {
+        "number": 82,
+        "src": "Print",
+        "dst": "A",
+        "label": "hiển thị",
+        "text": "Trang printInvoice.jsp hiển thị nội dung chứng từ HN1 và nút In cho nhân viên; chứng từ dùng các thông tin đã chốt khi xác nhận.",
+        "kind": "Trả về",
+        "start": 0,
+        "stop": 1
+      },
+      {
+        "number": 83,
+        "src": "A",
+        "dst": "Print",
+        "label": "click In",
+        "text": "Nhân viên A click In.",
+        "kind": "Gọi",
+        "start": 0,
+        "stop": 0
+      },
+      {
+        "number": 84,
+        "src": "Print",
+        "dst": "Print",
+        "label": "printInvoice()",
+        "text": "Trang printInvoice.jsp thực hiện in chứng từ HN1 bằng hàm printInvoice() trong print.js.",
+        "kind": "Tự gọi",
+        "start": 1,
+        "stop": 0
+      },
+      {
+        "number": 85,
+        "src": "Print",
+        "dst": "C",
+        "label": "viewInvoice(request, response)",
+        "text": "Trang printInvoice.jsp gọi hàm viewInvoice() của lớp PurchaseInvoiceServlet4 yêu cầu hiển thị lại hóa đơn HN1 sau khi đóng hộp thoại in.",
+        "kind": "Gọi",
+        "start": 1,
+        "stop": 0
+      },
+      {
+        "number": 86,
+        "src": "C",
+        "dst": "ID",
+        "label": "gọi",
+        "text": "Lớp PurchaseInvoiceServlet4 gọi lớp PurchaseInvoiceDAO4 yêu cầu lấy thông tin hóa đơn HN1 cùng các dòng nhập và thông tin đã chốt.",
+        "kind": "Gọi",
+        "start": 1,
+        "stop": 0
+      },
+      {
+        "number": 87,
+        "src": "ID",
+        "dst": "ID",
+        "label": "getPurchaseInvoiceDetails(invoiceId)",
+        "text": "Lớp PurchaseInvoiceDAO4 gọi hàm getPurchaseInvoiceDetails().",
+        "kind": "Tự gọi",
+        "start": 1,
+        "stop": 0
+      },
+      {
+        "number": 88,
+        "src": "ID",
+        "dst": "I",
+        "label": "gọi",
+        "text": "Hàm getPurchaseInvoiceDetails() gọi lớp PurchaseInvoice4 để đóng gói thông tin thực thể.",
+        "kind": "Gọi",
+        "start": 1,
+        "stop": 0
+      },
+      {
+        "number": 89,
+        "src": "I",
+        "dst": "I",
+        "label": "PurchaseInvoice4()",
+        "text": "Lớp PurchaseInvoice4 đóng gói thông tin thực thể.",
+        "kind": "Tự gọi",
+        "start": 1,
+        "stop": 0
+      },
+      {
+        "number": 90,
+        "src": "I",
+        "dst": "ID",
+        "label": "trả về",
+        "text": "Lớp PurchaseInvoice4 trả kết quả lại cho hàm getPurchaseInvoiceDetails().",
+        "kind": "Trả về",
+        "start": 0,
+        "stop": 1
+      },
+      {
+        "number": 91,
+        "src": "ID",
+        "dst": "C",
+        "label": "trả về",
+        "text": "Hàm getPurchaseInvoiceDetails() trả thông tin hóa đơn HN1 lại cho lớp PurchaseInvoiceServlet4.",
+        "kind": "Trả về",
+        "start": 0,
+        "stop": 2
+      },
+      {
+        "number": 92,
+        "src": "C",
+        "dst": "View",
+        "label": "gọi",
+        "text": "Lớp PurchaseInvoiceServlet4 chuyển dữ liệu và gọi trang confirmedInvoice.jsp.",
+        "kind": "Gọi",
+        "start": 1,
+        "stop": 1
+      },
+      {
+        "number": 93,
+        "src": "View",
+        "dst": "A",
+        "label": "hiển thị",
+        "text": "Trang confirmedInvoice.jsp hiển thị lại hóa đơn HN1 và tình trạng thanh toán hiện tại cho nhân viên.",
+        "kind": "Trả về",
+        "start": 0,
+        "stop": 1
+      },
+      {
+        "number": 94,
+        "src": "A",
+        "dst": "NCC",
+        "label": "giao chứng từ; trả 800.000 đồng",
+        "text": "Nhân viên A đối chiếu với nhà cung cấp, giao chứng từ và thực tế thanh toán đủ 800.000 đồng.",
+        "kind": "Gọi",
+        "start": 0,
+        "stop": 0
+      },
+      {
+        "number": 95,
+        "src": "NCC",
+        "dst": "NCC",
+        "label": "nhận chứng từ và tiền",
+        "text": "Nhà cung cấp nhận chứng từ đối chiếu và tiền thanh toán.",
+        "kind": "Tự gọi",
+        "start": 0,
+        "stop": 0
+      },
+      {
+        "number": 96,
+        "src": "NCC",
+        "dst": "A",
+        "label": "giao hóa đơn bán hàng",
+        "text": "Nhà cung cấp giao hóa đơn bán hàng cho gara.",
+        "kind": "Gọi",
+        "start": 0,
+        "stop": 0
+      },
+      {
+        "number": 97,
+        "src": "A",
+        "dst": "A",
+        "label": "tiếp nhận hóa đơn bán hàng",
+        "text": "Nhân viên A tiếp nhận hóa đơn bán hàng do nhà cung cấp lập.",
+        "kind": "Tự gọi",
+        "start": 0,
+        "stop": 0
+      },
+      {
+        "number": 98,
+        "src": "A",
+        "dst": "View",
+        "label": "nhập 800.000; click Đã thanh toán",
+        "text": "Nhân viên A nhập 800.000 đồng vào ô Số tiền đã trả và click Đã thanh toán.",
+        "kind": "Gọi",
+        "start": 0,
+        "stop": 0
+      },
+      {
+        "number": 99,
+        "src": "View",
+        "dst": "C",
+        "label": "recordPayment(request, response)",
+        "text": "Trang confirmedInvoice.jsp gọi hàm recordPayment() của lớp PurchaseInvoiceServlet4 yêu cầu ghi nhận thanh toán hóa đơn HN1. Mã nhân viên kho hiện tại được lấy từ phiên đăng nhập.",
+        "kind": "Gọi",
+        "start": 1,
+        "stop": 0
+      },
+      {
+        "number": 100,
+        "src": "C",
+        "dst": "ID",
+        "label": "gọi",
+        "text": "Lớp PurchaseInvoiceServlet4 gọi lớp PurchaseInvoiceDAO4 yêu cầu ghi nhận thanh toán hóa đơn HN1.",
+        "kind": "Gọi",
+        "start": 1,
+        "stop": 0
+      },
+      {
+        "number": 101,
+        "src": "ID",
+        "dst": "ID",
+        "label": "recordPayment(invoiceId, amountPaid, currentWarehouseStaffId)",
+        "text": "Lớp PurchaseInvoiceDAO4 gọi hàm recordPayment(); hàm kiểm tra quyền nhân viên kho hiện tại, HN1 chưa thanh toán và số tiền đã trả bằng tổng tiền; ghi nhận trạng thái Đã thanh toán, thời điểm thanh toán và người thực sự trả tiền, giữ nguyên người lập.",
+        "kind": "Tự gọi",
+        "start": 1,
+        "stop": 0
+      },
+      {
+        "number": 102,
+        "src": "ID",
+        "dst": "C",
+        "label": "trả về",
+        "text": "Hàm recordPayment() trả kết quả ghi nhận thanh toán thành công lại cho lớp PurchaseInvoiceServlet4.",
+        "kind": "Trả về",
+        "start": 0,
+        "stop": 2
+      },
+      {
+        "number": 103,
+        "src": "C",
+        "dst": "C",
+        "label": "viewInvoice(request, response)",
+        "text": "Lớp PurchaseInvoiceServlet4 thực hiện hàm viewInvoice() để hiển thị hóa đơn HN1 sau khi ghi nhận thanh toán.",
+        "kind": "Tự gọi",
+        "start": 1,
+        "stop": 0,
+        "before_stop": 1
+      },
+      {
+        "number": 104,
+        "src": "C",
+        "dst": "ID",
+        "label": "gọi",
+        "text": "Lớp PurchaseInvoiceServlet4 gọi lớp PurchaseInvoiceDAO4 yêu cầu lấy thông tin hóa đơn HN1 cùng các dòng nhập và thông tin đã chốt.",
+        "kind": "Gọi",
+        "start": 1,
+        "stop": 0
+      },
+      {
+        "number": 105,
+        "src": "ID",
+        "dst": "ID",
+        "label": "getPurchaseInvoiceDetails(invoiceId)",
+        "text": "Lớp PurchaseInvoiceDAO4 gọi hàm getPurchaseInvoiceDetails().",
+        "kind": "Tự gọi",
+        "start": 1,
+        "stop": 0
+      },
+      {
+        "number": 106,
+        "src": "ID",
+        "dst": "I",
+        "label": "gọi",
+        "text": "Hàm getPurchaseInvoiceDetails() gọi lớp PurchaseInvoice4 để đóng gói thông tin thực thể.",
+        "kind": "Gọi",
+        "start": 1,
+        "stop": 0
+      },
+      {
+        "number": 107,
+        "src": "I",
+        "dst": "I",
+        "label": "PurchaseInvoice4()",
+        "text": "Lớp PurchaseInvoice4 đóng gói thông tin thực thể.",
+        "kind": "Tự gọi",
+        "start": 1,
+        "stop": 0
+      },
+      {
+        "number": 108,
+        "src": "I",
+        "dst": "ID",
+        "label": "trả về",
+        "text": "Lớp PurchaseInvoice4 trả kết quả lại cho hàm getPurchaseInvoiceDetails().",
+        "kind": "Trả về",
+        "start": 0,
+        "stop": 1
+      },
+      {
+        "number": 109,
+        "src": "ID",
+        "dst": "C",
+        "label": "trả về",
+        "text": "Hàm getPurchaseInvoiceDetails() trả thông tin hóa đơn HN1 lại cho lớp PurchaseInvoiceServlet4.",
+        "kind": "Trả về",
+        "start": 0,
+        "stop": 2
+      },
+      {
+        "number": 110,
+        "src": "C",
+        "dst": "View",
+        "label": "gọi",
+        "text": "Lớp PurchaseInvoiceServlet4 chuyển dữ liệu và gọi trang confirmedInvoice.jsp.",
+        "kind": "Gọi",
+        "start": 1,
+        "stop": 1
+      },
+      {
+        "number": 111,
+        "src": "View",
+        "dst": "A",
+        "label": "thông báo thành công",
+        "text": "Trang confirmedInvoice.jsp hiển thị HN1 với trạng thái Đã thanh toán và thông báo ghi nhận thanh toán thành công cho nhân viên.",
+        "kind": "Trả về",
+        "start": 0,
+        "stop": 1
+      }
+    ],
+    "loops": [
+      {
+        "first": 32,
+        "last": 55,
+        "condition": "lặp đến khi đủ phụ tùng cần nhập"
+      },
+      {
+        "first": 60,
+        "last": 62,
+        "condition": "với từng phụ tùng trong hóa đơn nhập"
+      }
+    ],
+    "source": "../tuan_tu_nhap_phu_tung.puml"
+  }
+]

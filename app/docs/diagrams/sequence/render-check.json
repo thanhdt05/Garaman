@@ -1,0 +1,18 @@
+[
+  {
+    "file": "tuan_tu_tra_cuu.svg",
+    "width": 1458,
+    "height": 1929,
+    "messages": 46,
+    "pdf": "catalog-sequence.pdf",
+    "pdf_pages": 1
+  },
+  {
+    "file": "tuan_tu_nhap_phu_tung.svg",
+    "width": 3062,
+    "height": 4610,
+    "messages": 111,
+    "pdf": "purchase-sequence.pdf",
+    "pdf_pages": 1
+  }
+]
