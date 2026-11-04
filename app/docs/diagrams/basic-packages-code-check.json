@@ -1,0 +1,157 @@
+{
+  "status": "PASS",
+  "java_classes": 24,
+  "added_application_methods": 0,
+  "removed_methods_from_retained_classes": 0,
+  "removed_support_classes": 9,
+  "checks": [
+    {
+      "file": "app/src/main/java/controller/AuthServlet4.java",
+      "methods": 6,
+      "added_methods": [],
+      "removed_methods": []
+    },
+    {
+      "file": "app/src/main/java/controller/CatalogServlet4.java",
+      "methods": 5,
+      "added_methods": [],
+      "removed_methods": []
+    },
+    {
+      "file": "app/src/main/java/controller/HomeServlet4.java",
+      "methods": 2,
+      "added_methods": [],
+      "removed_methods": []
+    },
+    {
+      "file": "app/src/main/java/controller/PurchaseInvoiceServlet4.java",
+      "methods": 17,
+      "added_methods": [],
+      "removed_methods": []
+    },
+    {
+      "file": "app/src/main/java/controller/SparePartServlet4.java",
+      "methods": 5,
+      "added_methods": [],
+      "removed_methods": []
+    },
+    {
+      "file": "app/src/main/java/controller/SupplierServlet4.java",
+      "methods": 7,
+      "added_methods": [],
+      "removed_methods": []
+    },
+    {
+      "file": "app/src/main/java/dao/DAO.java",
+      "methods": 3,
+      "added_methods": [],
+      "removed_methods": []
+    },
+    {
+      "file": "app/src/main/java/dao/MemberDAO4.java",
+      "methods": 3,
+      "added_methods": [],
+      "removed_methods": []
+    },
+    {
+      "file": "app/src/main/java/dao/PurchaseInvoiceDAO4.java",
+      "methods": 9,
+      "added_methods": [],
+      "removed_methods": []
+    },
+    {
+      "file": "app/src/main/java/dao/ServiceDAO4.java",
+      "methods": 3,
+      "added_methods": [],
+      "removed_methods": []
+    },
+    {
+      "file": "app/src/main/java/dao/SparePartCategoryDAO4.java",
+      "methods": 3,
+      "added_methods": [],
+      "removed_methods": []
+    },
+    {
+      "file": "app/src/main/java/dao/SparePartDAO4.java",
+      "methods": 5,
+      "added_methods": [],
+      "removed_methods": []
+    },
+    {
+      "file": "app/src/main/java/dao/SupplierDAO4.java",
+      "methods": 4,
+      "added_methods": [],
+      "removed_methods": []
+    },
+    {
+      "file": "app/src/main/java/dao/WarehouseStaffDAO4.java",
+      "methods": 1,
+      "added_methods": [],
+      "removed_methods": []
+    },
+    {
+      "file": "app/src/main/java/model/Customer4.java",
+      "methods": 1,
+      "added_methods": [],
+      "removed_methods": []
+    },
+    {
+      "file": "app/src/main/java/model/Employee4.java",
+      "methods": 5,
+      "added_methods": [],
+      "removed_methods": []
+    },
+    {
+      "file": "app/src/main/java/model/Member4.java",
+      "methods": 21,
+      "added_methods": [],
+      "removed_methods": []
+    },
+    {
+      "file": "app/src/main/java/model/PurchaseInvoice4.java",
+      "methods": 25,
+      "added_methods": [],
+      "removed_methods": []
+    },
+    {
+      "file": "app/src/main/java/model/PurchaseInvoiceDetail4.java",
+      "methods": 15,
+      "added_methods": [],
+      "removed_methods": []
+    },
+    {
+      "file": "app/src/main/java/model/Service4.java",
+      "methods": 23,
+      "added_methods": [],
+      "removed_methods": []
+    },
+    {
+      "file": "app/src/main/java/model/SparePart4.java",
+      "methods": 29,
+      "added_methods": [],
+      "removed_methods": []
+    },
+    {
+      "file": "app/src/main/java/model/SparePartCategory4.java",
+      "methods": 9,
+      "added_methods": [],
+      "removed_methods": []
+    },
+    {
+      "file": "app/src/main/java/model/Supplier4.java",
+      "methods": 13,
+      "added_methods": [],
+      "removed_methods": []
+    },
+    {
+      "file": "app/src/main/java/model/WarehouseStaff4.java",
+      "methods": 1,
+      "added_methods": [],
+      "removed_methods": []
+    }
+  ],
+  "source_hashes": {
+    "26_B23DCCN764.docx": "8d41d0f56fc7f5b106d1b03b61ecc21996b361d4a33bdadae78fff5de1db41f1",
+    "BG HP TTTN 2 CNPM 2020 final.pdf": "416f0401a70297300419d3abe6a72c4d3d816635e4f58c4b6cc5cd52a865d389"
+  }
+}

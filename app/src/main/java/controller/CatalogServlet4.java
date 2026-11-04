@@ -1,11 +1,11 @@
 package controller;
 
+import model.Member4;
+
 import dao.ServiceDAO4;
 import dao.SparePartDAO4;
-import exception.ValidationException4;
 import model.Service4;
 import model.SparePart4;
-import util.Validation4;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -29,7 +29,35 @@ public class CatalogServlet4 extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
+        javax.servlet.http.HttpSession entrySession = request.getSession(true);
+        Member4 entryUser = (Member4) entrySession.getAttribute("currentUser4");
+
+        if (entryUser == null) {
+            response.sendRedirect(request.getContextPath() + "/login");
+            return;
+        }
+
+        if (!"Customer".equals(entryUser.getRole())) {
+            response.sendError(403, "Bạn không có quyền truy cập chức năng này");
+            return;
+        }
+
+        String csrfToken = (String) entrySession.getAttribute("csrfToken4");
+        if (csrfToken == null) {
+            byte[] tokenBytes = new byte[32];
+            new java.security.SecureRandom().nextBytes(tokenBytes);
+            csrfToken = java.util.Base64.getUrlEncoder().withoutPadding().encodeToString(tokenBytes);
+            entrySession.setAttribute("csrfToken4", csrfToken);
+        }
+        request.setAttribute("csrfToken", csrfToken);
+        request.setAttribute("currentUser", entryUser);
+        Object flashMessage = entrySession.getAttribute("flashMessage4");
+        entrySession.removeAttribute("flashMessage4");
+        if (flashMessage != null) request.setAttribute("flashMessage", flashMessage);
+
         String path = request.getServletPath();
         if ("/customer/catalog/detail".equals(path)) {
             viewDetails(request, response);
@@ -45,7 +73,7 @@ public class CatalogServlet4 extends HttpServlet {
     }
 
     public void showSearch(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    throws ServletException, IOException {
         String itemTypeFilter = request.getParameter("itemTypeFilter");
         if (itemTypeFilter == null || itemTypeFilter.trim().isEmpty()) {
             itemTypeFilter = "all";
@@ -61,7 +89,7 @@ public class CatalogServlet4 extends HttpServlet {
     }
 
     public void searchCatalog(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    throws ServletException, IOException {
         String itemTypeFilter = request.getParameter("itemTypeFilter");
         if (itemTypeFilter == null || itemTypeFilter.trim().isEmpty()) {
             itemTypeFilter = "all";
@@ -113,7 +141,7 @@ public class CatalogServlet4 extends HttpServlet {
     }
 
     public void viewDetails(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    throws ServletException, IOException {
         String idStr = request.getParameter("id");
         String itemType = request.getParameter("itemType");
         String keyword = request.getParameter("keyword");
@@ -130,8 +158,9 @@ public class CatalogServlet4 extends HttpServlet {
 
         int id;
         try {
-            id = Validation4.positiveId(idStr, "id");
-        } catch (ValidationException4 e) {
+            id = Integer.parseInt(idStr == null ? "" : idStr.trim());
+            if (id <= 0) throw new IllegalArgumentException("id: Mã định danh phải là số nguyên dương");
+        } catch (IllegalArgumentException e) {
             response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Mã định danh không hợp lệ: " + idStr);
             return;
         }

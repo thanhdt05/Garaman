@@ -35,7 +35,7 @@ public abstract class DAO {
         String envPass = System.getenv("GARAMAN_DB_PASSWORD");
 
         dbUrl = envUrl != null ? envUrl : props.getProperty("db.url",
-                "jdbc:mysql://localhost:3306/garaman4?useSSL=false&serverTimezone=Asia/Ho_Chi_Minh&characterEncoding=UTF-8&allowPublicKeyRetrieval=true");
+        "jdbc:mysql://localhost:3306/garaman4?useSSL=false&serverTimezone=Asia/Ho_Chi_Minh&characterEncoding=UTF-8&allowPublicKeyRetrieval=true");
         dbUser = envUser != null ? envUser : props.getProperty("db.user", "root");
         dbPassword = envPass != null ? envPass : props.getProperty("db.password", "root");
 
@@ -66,8 +66,8 @@ public abstract class DAO {
             return "%";
         }
         String escaped = trimmed.replace("\\", "\\\\")
-                                .replace("%", "\\%")
-                                .replace("_", "\\_");
+        .replace("%", "\\%")
+        .replace("_", "\\_");
         return "%" + escaped + "%";
     }
 }

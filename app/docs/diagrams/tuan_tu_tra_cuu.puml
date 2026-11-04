@@ -21,105 +21,78 @@ entity ": Service4" as S
 entity ": SparePart4" as P
 
 A -> Home : 1: click tìm thông tin
-Home -> C : 2: showSearch(request, response)
+Home -> C : 2: gọi
 activate C
-C -> Search : 3: gọi
+C -> C : 3: showSearch(request, response)
+activate C
+C -> Search : 4: gọi
 activate Search
 deactivate C
-Search --> A : 4: hiển thị
+deactivate C
+Search --> A : 5: hiển thị
 deactivate Search
-A -> Search : 5: nhập lọc; click Tìm kiếm
-Search -> C : 6: searchCatalog(request, response)
+A -> Search : 6: nhập lọc; click Tìm kiếm
+Search -> C : 7: gọi
 activate C
-C -> SD : 7: gọi
+C -> C : 8: searchCatalog(request, response)
+activate C
+C -> SD : 9: gọi
 activate SD
-SD -> SD : 8: findServicesByName("lọc")
+SD -> SD : 10: findServicesByName("lọc")
 activate SD
-SD -> S : 9: gọi
+SD -> S : 11: gọi
 activate S
-S -> S : 10: Service4()
+S -> S : 12: Service4()
 activate S
 deactivate S
-S --> SD : 11: trả về
+S --> SD : 13: trả về
 deactivate S
-SD --> C : 12: trả về
+SD --> C : 14: trả về
 deactivate SD
 deactivate SD
-C -> PD : 13: gọi
+C -> PD : 15: gọi
 activate PD
-PD -> PD : 14: findSparePartsByName("lọc", true)
+PD -> PD : 16: findSparePartsByName("lọc", true)
 activate PD
-PD -> P : 15: gọi
+PD -> P : 17: gọi
 activate P
-P -> P : 16: SparePart4()
+P -> P : 18: SparePart4()
 activate P
 deactivate P
-P --> PD : 17: trả về
+P --> PD : 19: trả về
 deactivate P
-PD --> C : 18: trả về
+PD --> C : 20: trả về
 deactivate PD
 deactivate PD
-C -> Search : 19: gọi
+C --> Search : 21: trả về
 activate Search
 deactivate C
-Search --> A : 20: hiển thị
+deactivate C
+Search --> A : 22: hiển thị
 deactivate Search
-A -> Search : 21: click chọn PT1
-Search -> C : 22: viewDetails(request, response)
+A -> Search : 23: click chọn PT1
+Search -> C : 24: gọi
 activate C
-C -> PD : 23: gọi
+C -> C : 25: viewDetails(request, response)
+activate C
+C -> PD : 26: gọi
 activate PD
-PD -> PD : 24: getSparePartDetails(sparePartId, true)
+PD -> PD : 27: getSparePartDetails(sparePartId, true)
 activate PD
-PD -> P : 25: gọi
+PD -> P : 28: gọi
 activate P
-P -> P : 26: SparePart4()
+P -> P : 29: SparePart4()
 activate P
 deactivate P
-P --> PD : 27: trả về
+P --> PD : 30: trả về
 deactivate P
-PD --> C : 28: trả về
+PD --> C : 31: trả về
 deactivate PD
 deactivate PD
-C -> Detail : 29: gọi
+C -> Detail : 32: gọi
 activate Detail
 deactivate C
-Detail --> A : 30: hiển thị
-deactivate Detail
-A -> Detail : 31: click Quay lại
-Detail -> C : 32: searchCatalog(request, response)
-activate C
-C -> SD : 33: gọi
-activate SD
-SD -> SD : 34: findServicesByName("lọc")
-activate SD
-SD -> S : 35: gọi
-activate S
-S -> S : 36: Service4()
-activate S
-deactivate S
-S --> SD : 37: trả về
-deactivate S
-SD --> C : 38: trả về
-deactivate SD
-deactivate SD
-C -> PD : 39: gọi
-activate PD
-PD -> PD : 40: findSparePartsByName("lọc", true)
-activate PD
-PD -> P : 41: gọi
-activate P
-P -> P : 42: SparePart4()
-activate P
-deactivate P
-P --> PD : 43: trả về
-deactivate P
-PD --> C : 44: trả về
-deactivate PD
-deactivate PD
-C -> Search : 45: gọi
-activate Search
 deactivate C
-Search --> A : 46: hiển thị
-deactivate Search
+Detail --> A : 33: hiển thị
+deactivate Detail
 @enduml

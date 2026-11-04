@@ -1,9 +1,6 @@
 package dao;
 
-import exception.ValidationException4;
 import model.*;
-import util.AppConstants4;
-import util.Validation4;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -25,7 +22,7 @@ public class PurchaseInvoiceDAO4 extends DAO {
 
         String sql = "SELECT id FROM tblPurchaseInvoice4 WHERE requestCode = ? AND tblEmployee4id = ?";
         try (Connection connection = getConnection();
-             PreparedStatement ps = connection.prepareStatement(sql)) {
+        PreparedStatement ps = connection.prepareStatement(sql)) {
             ps.setString(1, requestCode.trim());
             ps.setInt(2, warehouseStaffId);
             try (ResultSet rs = ps.executeQuery()) {
@@ -37,9 +34,9 @@ public class PurchaseInvoiceDAO4 extends DAO {
         return null;
     }
 
-    public int savePurchaseInvoice(PurchaseInvoice4 purchaseInvoice) throws SQLException, ValidationException4 {
+    public int savePurchaseInvoice(PurchaseInvoice4 purchaseInvoice) throws SQLException, IllegalArgumentException {
         if (purchaseInvoice == null) {
-            throw new ValidationException4("purchaseInvoice", "Hóa đơn nhập không được null");
+            throw new IllegalArgumentException("purchaseInvoice: Hóa đơn nhập không được null");
         }
 
         // 1. Kiểm tra id cũ trước nếu đã từng lưu mã này
@@ -51,7 +48,58 @@ public class PurchaseInvoiceDAO4 extends DAO {
         }
 
         // 2. Validate dữ liệu cơ bản
-        Validation4.validatePurchaseInvoice(purchaseInvoice);
+        {
+            if (purchaseInvoice == null) {
+                throw new IllegalArgumentException("purchaseInvoice: Hóa đơn nhập không được null");
+            }
+            if (purchaseInvoice.getSupplier() == null || purchaseInvoice.getSupplier().getId() <= 0) {
+                throw new IllegalArgumentException("supplier: Hóa đơn phải gắn với nhà cung cấp hợp lệ");
+            }
+            if (purchaseInvoice.getWarehouseStaff() == null || purchaseInvoice.getWarehouseStaff().getId() <= 0) {
+                throw new IllegalArgumentException("warehouseStaff: Hóa đơn phải có thông tin nhân viên kho lập hợp lệ");
+            }
+            if (purchaseInvoice.getInvoiceDetails() == null || purchaseInvoice.getInvoiceDetails().isEmpty()) {
+                throw new IllegalArgumentException("invoiceDetail: Hóa đơn nhập phải có ít nhất một dòng phụ tùng");
+            }
+
+            java.util.Set<Integer> partIds = new java.util.HashSet<>();
+            for (PurchaseInvoiceDetail4 invoiceDetail : purchaseInvoice.getInvoiceDetails()) {
+                if (invoiceDetail.getSparePart() == null || invoiceDetail.getSparePart().getId() <= 0) {
+                    throw new IllegalArgumentException("partId: Chi tiết dòng nhập thiếu thông tin phụ tùng");
+                }
+                int pid = invoiceDetail.getSparePart().getId();
+                if (partIds.contains(pid)) {
+                    throw new IllegalArgumentException("partId: Phụ tùng bị trùng lặp trong hóa đơn: " + pid);
+                }
+                partIds.add(pid);
+
+                if (invoiceDetail.getQuantity() == null || invoiceDetail.getQuantity().compareTo(BigDecimal.ZERO) <= 0) {
+                    throw new IllegalArgumentException("quantity_" + pid + ": Số lượng nhập phải lớn hơn 0");
+                }
+                if (invoiceDetail.getPurchaseUnitPrice() == null || invoiceDetail.getPurchaseUnitPrice().compareTo(BigDecimal.ZERO) <= 0) {
+                    throw new IllegalArgumentException("purchaseUnitPrice_" + pid + ": Đơn giá nhập phải lớn hơn 0");
+                }
+
+                {
+                    if (invoiceDetail.getQuantity() == null) {
+                        throw new IllegalArgumentException("quantity: Số lượng không được để trống");
+                    }
+                    if (invoiceDetail.getQuantity().compareTo(BigDecimal.ZERO) <= 0) {
+                        throw new IllegalArgumentException("quantity: Số lượng phải lớn hơn 0");
+                    }
+
+                    if ("Cái".equals((invoiceDetail.getSparePart().getUnit())) || "Chiếc".equals((invoiceDetail.getSparePart().getUnit())) || "Bộ".equals((invoiceDetail.getSparePart().getUnit()))) {
+                        if (invoiceDetail.getQuantity().stripTrailingZeros().scale() > 0) {
+                            throw new IllegalArgumentException("quantity: Đơn vị " + (invoiceDetail.getSparePart().getUnit()) + " phải có số lượng nguyên");
+                        }
+                    } else if ("Lít".equals((invoiceDetail.getSparePart().getUnit()))) {
+                        if (invoiceDetail.getQuantity().scale() > 3) {
+                            throw new IllegalArgumentException("quantity: Đơn vị Lít chỉ cho phép tối đa 3 chữ số thập phân");
+                        }
+                    }
+                }
+            }
+        }
 
         // 3. Mở Connection và thực hiện Transaction với khóa thứ tự:
         // Supplier -> Employee -> SparePart (part id tăng dần)
@@ -71,30 +119,28 @@ public class PurchaseInvoiceDAO4 extends DAO {
                 ps.setInt(1, supplierId);
                 try (ResultSet rs = ps.executeQuery()) {
                     if (!rs.next()) {
-                        throw new ValidationException4("supplier", "Nhà cung cấp không tồn tại");
+                        throw new IllegalArgumentException("supplier: Nhà cung cấp không tồn tại");
                     }
-                    if (!AppConstants4.SUPPLIER_STATUS_ACTIVE.equals(rs.getString("status"))) {
-                        throw new ValidationException4("supplier", "Nhà cung cấp đã ngừng hoạt động");
+                    if (!"Đang hoạt động".equals(rs.getString("status"))) {
+                        throw new IllegalArgumentException("supplier: Nhà cung cấp đã ngừng hoạt động");
                     }
                     lockedSupplierName = rs.getString("name");
                 }
             }
 
             // Khóa Nhân viên
-            String lockEmpSql = "SELECT m.id, m.fullName, m.accountStatus, e.position, e.employmentStatus " +
-                                "FROM tblMember4 m " +
-                                "JOIN tblEmployee4 e ON m.id = e.tblMember4id " +
-                                "WHERE m.id = ? FOR UPDATE";
+            String lockEmpSql = "SELECT m.id, m.fullName, m.role, m.accountStatus, e.position, e.employmentStatus FROM tblMember4 m JOIN tblEmployee4 e ON m.id = e.tblMember4id WHERE m.id = ? FOR UPDATE";
             String lockedEmployeeName;
             try (PreparedStatement ps = connection.prepareStatement(lockEmpSql)) {
                 ps.setInt(1, employeeId);
                 try (ResultSet rs = ps.executeQuery()) {
                     if (!rs.next()) {
-                        throw new ValidationException4("warehouseStaff", "Nhân viên không tồn tại");
+                        throw new IllegalArgumentException("warehouseStaff: Nhân viên không tồn tại");
                     }
-                    if (!AppConstants4.ACCOUNT_STATUS_ACTIVE.equals(rs.getString("accountStatus")) ||
-                        !AppConstants4.EMPLOYMENT_STATUS_ACTIVE.equals(rs.getString("employmentStatus"))) {
-                        throw new ValidationException4("warehouseStaff", "Tài khoản nhân viên không hoạt động hoặc đã ngừng làm việc");
+                    if (!"WarehouseStaff".equals(rs.getString("role"))
+                            || !"Hoạt động".equals(rs.getString("accountStatus"))
+                            || !"Đang làm việc".equals(rs.getString("employmentStatus"))) {
+                        throw new IllegalArgumentException("warehouseStaff: Tài khoản hiện tại không có quyền xác nhận nhập phụ tùng");
                     }
                     lockedEmployeeName = rs.getString("fullName");
                 }
@@ -112,16 +158,33 @@ public class PurchaseInvoiceDAO4 extends DAO {
                     ps.setInt(1, pid);
                     try (ResultSet rs = ps.executeQuery()) {
                         if (!rs.next()) {
-                            throw new ValidationException4("sparePart", "Phụ tùng ID " + pid + " không tồn tại");
+                            throw new IllegalArgumentException("sparePart: Phụ tùng ID " + pid + " không tồn tại");
                         }
                         String status = rs.getString("status");
-                        if (AppConstants4.PART_STATUS_DISCONTINUED.equals(status)) {
-                            throw new ValidationException4("sparePart", "Phụ tùng '" + rs.getString("name") + "' đã ngừng kinh doanh");
+                        if ("Ngừng kinh doanh".equals(status)) {
+                            throw new IllegalArgumentException("sparePart: Phụ tùng '" + rs.getString("name") + "' đã ngừng kinh doanh");
                         }
                         // Chốt thông tin áp dụng từ DB
                         detail.setSparePartNameSnapshot(rs.getString("name"));
                         detail.setUnitSnapshot(rs.getString("unit"));
-                        Validation4.validateQuantity(detail.getQuantity(), detail.getUnitSnapshot());
+                        {
+                            if (detail.getQuantity() == null) {
+                                throw new IllegalArgumentException("quantity: Số lượng không được để trống");
+                            }
+                            if (detail.getQuantity().compareTo(BigDecimal.ZERO) <= 0) {
+                                throw new IllegalArgumentException("quantity: Số lượng phải lớn hơn 0");
+                            }
+
+                            if ("Cái".equals((detail.getUnitSnapshot())) || "Chiếc".equals((detail.getUnitSnapshot())) || "Bộ".equals((detail.getUnitSnapshot()))) {
+                                if (detail.getQuantity().stripTrailingZeros().scale() > 0) {
+                                    throw new IllegalArgumentException("quantity: Đơn vị " + (detail.getUnitSnapshot()) + " phải có số lượng nguyên");
+                                }
+                            } else if ("Lít".equals((detail.getUnitSnapshot()))) {
+                                if (detail.getQuantity().scale() > 3) {
+                                    throw new IllegalArgumentException("quantity: Đơn vị Lít chỉ cho phép tối đa 3 chữ số thập phân");
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -131,10 +194,10 @@ public class PurchaseInvoiceDAO4 extends DAO {
             purchaseInvoice.setWarehouseStaffNameSnapshot(lockedEmployeeName);
 
             // Gán thời điểm server thống nhất
-            LocalDateTime now = LocalDateTime.now(AppConstants4.APP_ZONE);
+            LocalDateTime now = LocalDateTime.now(java.time.ZoneId.of("Asia/Ho_Chi_Minh"));
             purchaseInvoice.setPurchaseDate(now);
             purchaseInvoice.setConfirmedAt(now);
-            purchaseInvoice.setPaymentStatus(AppConstants4.INVOICE_STATUS_UNPAID);
+            purchaseInvoice.setPaymentStatus("Chưa thanh toán");
             purchaseInvoice.setPaidAt(null);
 
             // INSERT Header
@@ -153,7 +216,7 @@ public class PurchaseInvoiceDAO4 extends DAO {
             connection.commit();
             return invoiceId;
 
-        } catch (ValidationException4 e) {
+        } catch (IllegalArgumentException e) {
             if (connection != null) {
                 try { connection.rollback(); } catch (SQLException ignored) { }
             }
@@ -189,12 +252,10 @@ public class PurchaseInvoiceDAO4 extends DAO {
             return null;
         }
 
-        String sql = "SELECT id, requestCode, purchaseDate, confirmedAt, paymentStatus, paidAt, " +
-                     "       tblSupplier4id, tblEmployee4id, supplierNameSnapshot, warehouseStaffNameSnapshot " +
-                     "FROM tblPurchaseInvoice4 WHERE id = ?";
+        String sql = "SELECT id, requestCode, purchaseDate, confirmedAt, paymentStatus, paidAt,        tblSupplier4id, tblEmployee4id, supplierNameSnapshot, warehouseStaffNameSnapshot FROM tblPurchaseInvoice4 WHERE id = ?";
 
         try (Connection connection = getConnection();
-             PreparedStatement ps = connection.prepareStatement(sql)) {
+        PreparedStatement ps = connection.prepareStatement(sql)) {
             ps.setInt(1, invoiceId);
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
@@ -214,16 +275,22 @@ public class PurchaseInvoiceDAO4 extends DAO {
             return list;
         }
 
-        String sql = "SELECT id, requestCode, purchaseDate, confirmedAt, paymentStatus, paidAt, " +
-                     "       tblSupplier4id, tblEmployee4id, supplierNameSnapshot, warehouseStaffNameSnapshot " +
-                     "FROM tblPurchaseInvoice4 " +
-                     "WHERE tblEmployee4id = ? AND paymentStatus = ? " +
-                     "ORDER BY confirmedAt DESC";
+        // Hóa đơn chưa trả là công việc chung của gara, không lọc theo người lập.
+        // Tham số giữ nguyên, dùng để kiểm tra quyền của nhân viên kho đang xem.
+        String sql = "SELECT id, requestCode, purchaseDate, confirmedAt, paymentStatus, paidAt, "
+                + "tblSupplier4id, tblEmployee4id, supplierNameSnapshot, warehouseStaffNameSnapshot "
+                + "FROM tblPurchaseInvoice4 WHERE paymentStatus = ? AND EXISTS ("
+                + "SELECT 1 FROM tblMember4 m JOIN tblEmployee4 e ON e.tblMember4id = m.id "
+                + "WHERE m.id = ? AND m.role = ? AND m.accountStatus = ? AND e.employmentStatus = ?) "
+                + "ORDER BY confirmedAt DESC, id DESC";
 
         try (Connection connection = getConnection();
-             PreparedStatement ps = connection.prepareStatement(sql)) {
-            ps.setInt(1, warehouseStaffId);
-            ps.setString(2, AppConstants4.INVOICE_STATUS_UNPAID);
+        PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setString(1, "Chưa thanh toán");
+            ps.setInt(2, warehouseStaffId);
+            ps.setString(3, "WarehouseStaff");
+            ps.setString(4, "Hoạt động");
+            ps.setString(5, "Đang làm việc");
 
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
@@ -237,12 +304,15 @@ public class PurchaseInvoiceDAO4 extends DAO {
     }
 
     public boolean recordPayment(int invoiceId, BigDecimal amountPaid, int currentWarehouseStaffId)
-            throws SQLException, ValidationException4 {
+    throws SQLException, IllegalArgumentException {
         if (invoiceId <= 0) {
-            throw new ValidationException4("id", "Mã hóa đơn không hợp lệ");
+            throw new IllegalArgumentException("id: Mã hóa đơn không hợp lệ");
         }
         if (amountPaid == null || amountPaid.compareTo(BigDecimal.ZERO) <= 0) {
-            throw new ValidationException4("amountPaid", "Số tiền thanh toán phải lớn hơn 0");
+            throw new IllegalArgumentException("amountPaid: Số tiền thanh toán phải lớn hơn 0");
+        }
+        if (currentWarehouseStaffId <= 0) {
+            throw new IllegalArgumentException("permission: Nhân viên kho hiện tại không hợp lệ");
         }
 
         Connection connection = null;
@@ -251,29 +321,39 @@ public class PurchaseInvoiceDAO4 extends DAO {
             connection.setAutoCommit(false);
             connection.setTransactionIsolation(Connection.TRANSACTION_READ_COMMITTED);
 
-            String lockSql = "SELECT id, paymentStatus, tblEmployee4id, paidAt " +
-                             "FROM tblPurchaseInvoice4 WHERE id = ? FOR UPDATE";
+            // Lấy người thực sự trả tiền từ tài khoản trong CSDL, không từ dữ liệu form.
+            // Kiểm tra và khóa nhân viên trước hóa đơn trong cùng transaction.
+            String staffSql = "SELECT m.fullName, m.role, m.accountStatus, e.employmentStatus "
+                    + "FROM tblMember4 m JOIN tblEmployee4 e ON e.tblMember4id = m.id "
+                    + "WHERE m.id = ? FOR UPDATE";
+            String paidByName;
+            try (PreparedStatement ps = connection.prepareStatement(staffSql)) {
+                ps.setInt(1, currentWarehouseStaffId);
+                try (ResultSet rs = ps.executeQuery()) {
+                    if (!rs.next() || !"WarehouseStaff".equals(rs.getString("role"))
+                            || !"Hoạt động".equals(rs.getString("accountStatus"))
+                            || !"Đang làm việc".equals(rs.getString("employmentStatus"))) {
+                        throw new IllegalArgumentException("permission: Tài khoản hiện tại không có quyền ghi nhận thanh toán");
+                    }
+                    paidByName = rs.getString("fullName");
+                }
+            }
+
+            String lockSql = "SELECT paymentStatus FROM tblPurchaseInvoice4 WHERE id = ? FOR UPDATE";
 
             String currentStatus;
-            int creatorId;
             try (PreparedStatement ps = connection.prepareStatement(lockSql)) {
                 ps.setInt(1, invoiceId);
                 try (ResultSet rs = ps.executeQuery()) {
                     if (!rs.next()) {
-                        throw new ValidationException4("id", "Không tìm thấy hóa đơn nhập số: " + invoiceId);
+                        throw new IllegalArgumentException("id: Không tìm thấy hóa đơn nhập số: " + invoiceId);
                     }
                     currentStatus = rs.getString("paymentStatus");
-                    creatorId = rs.getInt("tblEmployee4id");
                 }
             }
 
-            // Quyền: chỉ người lập hóa đơn mới được thanh toán
-            if (creatorId != currentWarehouseStaffId) {
-                throw new ValidationException4("permission", "Chỉ nhân viên đã lập hóa đơn mới có quyền thực hiện thanh toán");
-            }
-
             // Nếu đã thanh toán: idempotent trả false, giữ nguyên thời điểm
-            if (AppConstants4.INVOICE_STATUS_PAID.equals(currentStatus)) {
+            if ("Đã thanh toán".equals(currentStatus)) {
                 connection.commit();
                 return false;
             }
@@ -285,25 +365,28 @@ public class PurchaseInvoiceDAO4 extends DAO {
                 total = total.add(d.calculateLineAmount());
             }
 
-            if (amountPaid.setScale(2, RoundingMode.HALF_UP).compareTo(total) != 0) {
-                throw new ValidationException4("amountPaid", "Số tiền thanh toán (" + amountPaid +
-                        " đ) không khớp với tổng tiền hóa đơn (" + total + " đ)");
+            if (amountPaid.compareTo(total) != 0) {
+                throw new IllegalArgumentException("amountPaid: Số tiền thanh toán (" + amountPaid +
+                " đ) không khớp với tổng tiền hóa đơn (" + total + " đ)");
             }
 
             // Cập nhật trạng thái thanh toán
-            LocalDateTime now = LocalDateTime.now(AppConstants4.APP_ZONE);
-            String updateSql = "UPDATE tblPurchaseInvoice4 SET paymentStatus = ?, paidAt = ? WHERE id = ?";
+            LocalDateTime now = LocalDateTime.now(java.time.ZoneId.of("Asia/Ho_Chi_Minh")).withNano(0);
+            String updateSql = "UPDATE tblPurchaseInvoice4 SET paymentStatus = ?, paidAt = ?, "
+                    + "paidByEmployee4id = ?, paidByNameSnapshot = ? WHERE id = ?";
             try (PreparedStatement ps = connection.prepareStatement(updateSql)) {
-                ps.setString(1, AppConstants4.INVOICE_STATUS_PAID);
+                ps.setString(1, "Đã thanh toán");
                 ps.setTimestamp(2, Timestamp.valueOf(now));
-                ps.setInt(3, invoiceId);
+                ps.setInt(3, currentWarehouseStaffId);
+                ps.setString(4, paidByName);
+                ps.setInt(5, invoiceId);
                 ps.executeUpdate();
             }
 
             connection.commit();
             return true;
 
-        } catch (SQLException | ValidationException4 e) {
+        } catch (SQLException | IllegalArgumentException e) {
             if (connection != null) {
                 try {
                     connection.rollback();
@@ -323,10 +406,7 @@ public class PurchaseInvoiceDAO4 extends DAO {
     }
 
     private int insertInvoice(Connection connection, PurchaseInvoice4 purchaseInvoice) throws SQLException {
-        String sql = "INSERT INTO tblPurchaseInvoice4 " +
-                     " (requestCode, purchaseDate, confirmedAt, paymentStatus, paidAt, " +
-                     "  tblSupplier4id, tblEmployee4id, supplierNameSnapshot, warehouseStaffNameSnapshot) " +
-                     "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO tblPurchaseInvoice4  (requestCode, purchaseDate, confirmedAt, paymentStatus, paidAt,   tblSupplier4id, tblEmployee4id, supplierNameSnapshot, warehouseStaffNameSnapshot) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         try (PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             ps.setString(1, purchaseInvoice.getRequestCode());
@@ -351,10 +431,8 @@ public class PurchaseInvoiceDAO4 extends DAO {
     }
 
     private void insertInvoiceDetails(Connection connection, int invoiceId, List<PurchaseInvoiceDetail4> invoiceDetails)
-            throws SQLException {
-        String sql = "INSERT INTO tblPurchaseInvoiceDetail4 " +
-                     " (quantity, purchaseUnitPrice, tblPurchaseInvoice4id, tblSparePart4id, sparePartNameSnapshot, unitSnapshot) " +
-                     "VALUES (?, ?, ?, ?, ?, ?)";
+    throws SQLException {
+        String sql = "INSERT INTO tblPurchaseInvoiceDetail4  (quantity, purchaseUnitPrice, tblPurchaseInvoice4id, tblSparePart4id, sparePartNameSnapshot, unitSnapshot) VALUES (?, ?, ?, ?, ?, ?)";
 
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
             for (PurchaseInvoiceDetail4 invoiceDetail : invoiceDetails) {
@@ -372,10 +450,7 @@ public class PurchaseInvoiceDAO4 extends DAO {
 
     private List<PurchaseInvoiceDetail4> getInvoiceDetails(Connection connection, int invoiceId) throws SQLException {
         List<PurchaseInvoiceDetail4> list = new ArrayList<>();
-        String sql = "SELECT id, quantity, purchaseUnitPrice, tblSparePart4id, sparePartNameSnapshot, unitSnapshot " +
-                     "FROM tblPurchaseInvoiceDetail4 " +
-                     "WHERE tblPurchaseInvoice4id = ? " +
-                     "ORDER BY id ASC";
+        String sql = "SELECT id, quantity, purchaseUnitPrice, tblSparePart4id, sparePartNameSnapshot, unitSnapshot FROM tblPurchaseInvoiceDetail4 WHERE tblPurchaseInvoice4id = ? ORDER BY id ASC";
 
         try (PreparedStatement ps = connection.prepareStatement(sql)) {
             ps.setInt(1, invoiceId);

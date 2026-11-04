@@ -68,3 +68,16 @@ SELECT
 FROM tblPurchaseInvoice4
 WHERE (paymentStatus = 'Chưa thanh toán' AND paidAt IS NOT NULL)
    OR (paymentStatus = 'Đã thanh toán' AND paidAt IS NULL);
+
+-- 6. Kiểm tra mã và tên người thực sự trả; không nhầm với tblEmployee4id của người lập
+SELECT id AS invoiceId, tblEmployee4id AS createdByEmployee4id,
+       paidByEmployee4id, paidByNameSnapshot, paymentStatus, paidAt
+FROM tblPurchaseInvoice4
+WHERE (paidByEmployee4id IS NULL AND paidByNameSnapshot IS NOT NULL)
+   OR (paidByEmployee4id IS NOT NULL AND paidByNameSnapshot IS NULL)
+   OR (paymentStatus = 'Chưa thanh toán' AND paidByEmployee4id IS NOT NULL);
+
+-- Hóa đơn lịch sử đã trả nhưng không có người trả: hiển thị để rà soát, không tự suy đoán
+SELECT id AS legacyPaidInvoiceId, paidAt
+FROM tblPurchaseInvoice4
+WHERE paymentStatus = 'Đã thanh toán' AND paidByEmployee4id IS NULL;

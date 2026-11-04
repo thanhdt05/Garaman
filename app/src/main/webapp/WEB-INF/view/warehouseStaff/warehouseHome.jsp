@@ -28,9 +28,9 @@
   <img src="<c:url value='/assets/images/part.svg'/>" alt="Minh họa phụ tùng ô tô">
 </section>
 
-<c:if test="${not empty unpaidInvoices}">
+<c:if test="${activeNav == 'unpaid'}">
   <div class="section-title" style="margin-top: 28px;">
-    <h2>Hóa đơn chưa thanh toán của bạn</h2>
+    <h2>Hóa đơn nhập chưa thanh toán của gara</h2>
     <span class="summary-label"><c:out value="${unpaidInvoices.size()}" /> hóa đơn chờ xử lý</span>
   </div>
 
@@ -47,6 +47,9 @@
         </tr>
       </thead>
       <tbody>
+        <c:if test="${empty unpaidInvoices}">
+          <tr><td colspan="6" class="empty-state">Không có hóa đơn nhập chưa thanh toán.</td></tr>
+        </c:if>
         <c:forEach var="invoice" items="${unpaidInvoices}">
           <tr>
             <td><strong>HN<c:out value="${invoice.id}" /></strong></td>

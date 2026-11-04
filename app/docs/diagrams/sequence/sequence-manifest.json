@@ -55,8 +55,8 @@
         "number": 2,
         "src": "Home",
         "dst": "C",
-        "label": "showSearch(request, response)",
-        "text": "Trang customerHome.jsp gọi hàm showSearch() của lớp CatalogServlet4 yêu cầu mở giao diện tìm kiếm thông tin dịch vụ/phụ tùng.",
+        "label": "gọi",
+        "text": "Trang customerHome.jsp gọi lớp CatalogServlet4 yêu cầu mở giao diện tìm kiếm thông tin dịch vụ/phụ tùng.",
         "kind": "Gọi",
         "start": 1,
         "stop": 0
@@ -64,15 +64,26 @@
       {
         "number": 3,
         "src": "C",
+        "dst": "C",
+        "label": "showSearch(request, response)",
+        "text": "Lớp CatalogServlet4 gọi hàm showSearch().",
+        "kind": "Tự gọi",
+        "start": 1,
+        "stop": 0
+      },
+      {
+        "number": 4,
+        "src": "C",
         "dst": "Search",
         "label": "gọi",
         "text": "Lớp CatalogServlet4 chuyển dữ liệu và gọi trang catalogSearch.jsp.",
         "kind": "Gọi",
         "start": 1,
-        "stop": 1
+        "stop": 2,
+        "requester": "Home"
       },
       {
-        "number": 4,
+        "number": 5,
         "src": "Search",
         "dst": "A",
         "label": "hiển thị",
@@ -82,7 +93,7 @@
         "stop": 1
       },
       {
-        "number": 5,
+        "number": 6,
         "src": "A",
         "dst": "Search",
         "label": "nhập lọc; click Tìm kiếm",
@@ -92,17 +103,27 @@
         "stop": 0
       },
       {
-        "number": 6,
+        "number": 7,
         "src": "Search",
         "dst": "C",
-        "label": "searchCatalog(request, response)",
-        "text": "Trang catalogSearch.jsp gọi hàm searchCatalog() của lớp CatalogServlet4 yêu cầu tìm thông tin dịch vụ/phụ tùng theo từ khóa “lọc”.",
+        "label": "gọi",
+        "text": "Trang catalogSearch.jsp gọi lớp CatalogServlet4 yêu cầu tìm thông tin dịch vụ/phụ tùng theo từ khóa “lọc”.",
         "kind": "Gọi",
         "start": 1,
         "stop": 0
       },
       {
-        "number": 7,
+        "number": 8,
+        "src": "C",
+        "dst": "C",
+        "label": "searchCatalog(request, response)",
+        "text": "Lớp CatalogServlet4 gọi hàm searchCatalog().",
+        "kind": "Tự gọi",
+        "start": 1,
+        "stop": 0
+      },
+      {
+        "number": 9,
         "src": "C",
         "dst": "SD",
         "label": "gọi",
@@ -112,7 +133,7 @@
         "stop": 0
       },
       {
-        "number": 8,
+        "number": 10,
         "src": "SD",
         "dst": "SD",
         "label": "findServicesByName(\"lọc\")",
@@ -122,7 +143,7 @@
         "stop": 0
       },
       {
-        "number": 9,
+        "number": 11,
         "src": "SD",
         "dst": "S",
         "label": "gọi",
@@ -132,7 +153,7 @@
         "stop": 0
       },
       {
-        "number": 10,
+        "number": 12,
         "src": "S",
         "dst": "S",
         "label": "Service4()",
@@ -142,7 +163,7 @@
         "stop": 0
       },
       {
-        "number": 11,
+        "number": 13,
         "src": "S",
         "dst": "SD",
         "label": "trả về",
@@ -152,7 +173,7 @@
         "stop": 1
       },
       {
-        "number": 12,
+        "number": 14,
         "src": "SD",
         "dst": "C",
         "label": "trả về",
@@ -162,7 +183,7 @@
         "stop": 2
       },
       {
-        "number": 13,
+        "number": 15,
         "src": "C",
         "dst": "PD",
         "label": "gọi",
@@ -172,7 +193,7 @@
         "stop": 0
       },
       {
-        "number": 14,
+        "number": 16,
         "src": "PD",
         "dst": "PD",
         "label": "findSparePartsByName(\"lọc\", true)",
@@ -182,7 +203,7 @@
         "stop": 0
       },
       {
-        "number": 15,
+        "number": 17,
         "src": "PD",
         "dst": "P",
         "label": "gọi",
@@ -192,7 +213,7 @@
         "stop": 0
       },
       {
-        "number": 16,
+        "number": 18,
         "src": "P",
         "dst": "P",
         "label": "SparePart4()",
@@ -202,7 +223,7 @@
         "stop": 0
       },
       {
-        "number": 17,
+        "number": 19,
         "src": "P",
         "dst": "PD",
         "label": "trả về",
@@ -212,7 +233,7 @@
         "stop": 1
       },
       {
-        "number": 18,
+        "number": 20,
         "src": "PD",
         "dst": "C",
         "label": "trả về",
@@ -222,17 +243,18 @@
         "stop": 2
       },
       {
-        "number": 19,
+        "number": 21,
         "src": "C",
         "dst": "Search",
-        "label": "gọi",
-        "text": "Lớp CatalogServlet4 chuyển dữ liệu và gọi trang catalogSearch.jsp.",
-        "kind": "Gọi",
+        "label": "trả về",
+        "text": "Hàm searchCatalog() trả danh sách dịch vụ và phụ tùng tìm được lại cho trang catalogSearch.jsp.",
+        "kind": "Trả về",
         "start": 1,
-        "stop": 1
+        "stop": 2,
+        "requester": "Search"
       },
       {
-        "number": 20,
+        "number": 22,
         "src": "Search",
         "dst": "A",
         "label": "hiển thị",
@@ -242,7 +264,7 @@
         "stop": 1
       },
       {
-        "number": 21,
+        "number": 23,
         "src": "A",
         "dst": "Search",
         "label": "click chọn PT1",
@@ -252,17 +274,27 @@
         "stop": 0
       },
       {
-        "number": 22,
+        "number": 24,
         "src": "Search",
         "dst": "C",
-        "label": "viewDetails(request, response)",
-        "text": "Trang catalogSearch.jsp gọi hàm viewDetails() của lớp CatalogServlet4 yêu cầu xem thông tin chi tiết phụ tùng PT1 đã chọn.",
+        "label": "gọi",
+        "text": "Trang catalogSearch.jsp gọi lớp CatalogServlet4 yêu cầu xem thông tin chi tiết phụ tùng PT1 đã chọn.",
         "kind": "Gọi",
         "start": 1,
         "stop": 0
       },
       {
-        "number": 23,
+        "number": 25,
+        "src": "C",
+        "dst": "C",
+        "label": "viewDetails(request, response)",
+        "text": "Lớp CatalogServlet4 gọi hàm viewDetails().",
+        "kind": "Tự gọi",
+        "start": 1,
+        "stop": 0
+      },
+      {
+        "number": 26,
         "src": "C",
         "dst": "PD",
         "label": "gọi",
@@ -272,7 +304,7 @@
         "stop": 0
       },
       {
-        "number": 24,
+        "number": 27,
         "src": "PD",
         "dst": "PD",
         "label": "getSparePartDetails(sparePartId, true)",
@@ -282,7 +314,7 @@
         "stop": 0
       },
       {
-        "number": 25,
+        "number": 28,
         "src": "PD",
         "dst": "P",
         "label": "gọi",
@@ -292,7 +324,7 @@
         "stop": 0
       },
       {
-        "number": 26,
+        "number": 29,
         "src": "P",
         "dst": "P",
         "label": "SparePart4()",
@@ -302,7 +334,7 @@
         "stop": 0
       },
       {
-        "number": 27,
+        "number": 30,
         "src": "P",
         "dst": "PD",
         "label": "trả về",
@@ -312,7 +344,7 @@
         "stop": 1
       },
       {
-        "number": 28,
+        "number": 31,
         "src": "PD",
         "dst": "C",
         "label": "trả về",
@@ -322,181 +354,22 @@
         "stop": 2
       },
       {
-        "number": 29,
+        "number": 32,
         "src": "C",
         "dst": "Detail",
         "label": "gọi",
         "text": "Lớp CatalogServlet4 chuyển dữ liệu và gọi trang itemDetails.jsp.",
         "kind": "Gọi",
         "start": 1,
-        "stop": 1
+        "stop": 2,
+        "requester": "Search"
       },
       {
-        "number": 30,
+        "number": 33,
         "src": "Detail",
         "dst": "A",
         "label": "hiển thị",
         "text": "Trang itemDetails.jsp hiển thị thông tin chi tiết phụ tùng PT1 và nút Quay lại cho khách hàng.",
-        "kind": "Trả về",
-        "start": 0,
-        "stop": 1
-      },
-      {
-        "number": 31,
-        "src": "A",
-        "dst": "Detail",
-        "label": "click Quay lại",
-        "text": "Khách hàng A click Quay lại.",
-        "kind": "Gọi",
-        "start": 0,
-        "stop": 0
-      },
-      {
-        "number": 32,
-        "src": "Detail",
-        "dst": "C",
-        "label": "searchCatalog(request, response)",
-        "text": "Trang itemDetails.jsp gọi hàm searchCatalog() của lớp CatalogServlet4 yêu cầu tìm lại thông tin theo từ khóa “lọc” và bộ lọc đã chọn.",
-        "kind": "Gọi",
-        "start": 1,
-        "stop": 0
-      },
-      {
-        "number": 33,
-        "src": "C",
-        "dst": "SD",
-        "label": "gọi",
-        "text": "Lớp CatalogServlet4 gọi lớp ServiceDAO4 yêu cầu tìm lại các dịch vụ theo từ khóa đã giữ.",
-        "kind": "Gọi",
-        "start": 1,
-        "stop": 0
-      },
-      {
-        "number": 34,
-        "src": "SD",
-        "dst": "SD",
-        "label": "findServicesByName(\"lọc\")",
-        "text": "Lớp ServiceDAO4 gọi hàm findServicesByName().",
-        "kind": "Tự gọi",
-        "start": 1,
-        "stop": 0
-      },
-      {
-        "number": 35,
-        "src": "SD",
-        "dst": "S",
-        "label": "gọi",
-        "text": "Hàm findServicesByName() gọi lớp Service4 để đóng gói thông tin thực thể.",
-        "kind": "Gọi",
-        "start": 1,
-        "stop": 0
-      },
-      {
-        "number": 36,
-        "src": "S",
-        "dst": "S",
-        "label": "Service4()",
-        "text": "Lớp Service4 đóng gói thông tin thực thể.",
-        "kind": "Tự gọi",
-        "start": 1,
-        "stop": 0
-      },
-      {
-        "number": 37,
-        "src": "S",
-        "dst": "SD",
-        "label": "trả về",
-        "text": "Lớp Service4 trả kết quả lại cho hàm findServicesByName().",
-        "kind": "Trả về",
-        "start": 0,
-        "stop": 1
-      },
-      {
-        "number": 38,
-        "src": "SD",
-        "dst": "C",
-        "label": "trả về",
-        "text": "Hàm findServicesByName() trả danh sách dịch vụ lại cho lớp CatalogServlet4.",
-        "kind": "Trả về",
-        "start": 0,
-        "stop": 2
-      },
-      {
-        "number": 39,
-        "src": "C",
-        "dst": "PD",
-        "label": "gọi",
-        "text": "Lớp CatalogServlet4 gọi lớp SparePartDAO4 yêu cầu tìm lại các phụ tùng theo từ khóa đã giữ.",
-        "kind": "Gọi",
-        "start": 1,
-        "stop": 0
-      },
-      {
-        "number": 40,
-        "src": "PD",
-        "dst": "PD",
-        "label": "findSparePartsByName(\"lọc\", true)",
-        "text": "Lớp SparePartDAO4 gọi hàm findSparePartsByName().",
-        "kind": "Tự gọi",
-        "start": 1,
-        "stop": 0
-      },
-      {
-        "number": 41,
-        "src": "PD",
-        "dst": "P",
-        "label": "gọi",
-        "text": "Hàm findSparePartsByName() gọi lớp SparePart4 để đóng gói thông tin thực thể.",
-        "kind": "Gọi",
-        "start": 1,
-        "stop": 0
-      },
-      {
-        "number": 42,
-        "src": "P",
-        "dst": "P",
-        "label": "SparePart4()",
-        "text": "Lớp SparePart4 đóng gói thông tin thực thể.",
-        "kind": "Tự gọi",
-        "start": 1,
-        "stop": 0
-      },
-      {
-        "number": 43,
-        "src": "P",
-        "dst": "PD",
-        "label": "trả về",
-        "text": "Lớp SparePart4 trả kết quả lại cho hàm findSparePartsByName().",
-        "kind": "Trả về",
-        "start": 0,
-        "stop": 1
-      },
-      {
-        "number": 44,
-        "src": "PD",
-        "dst": "C",
-        "label": "trả về",
-        "text": "Hàm findSparePartsByName() trả danh sách phụ tùng lại cho lớp CatalogServlet4.",
-        "kind": "Trả về",
-        "start": 0,
-        "stop": 2
-      },
-      {
-        "number": 45,
-        "src": "C",
-        "dst": "Search",
-        "label": "gọi",
-        "text": "Lớp CatalogServlet4 chuyển dữ liệu và gọi trang catalogSearch.jsp.",
-        "kind": "Gọi",
-        "start": 1,
-        "stop": 1
-      },
-      {
-        "number": 46,
-        "src": "Search",
-        "dst": "A",
-        "label": "hiển thị",
-        "text": "Trang catalogSearch.jsp hiển thị lại danh sách kết quả cho khách hàng, giữ từ khóa và bộ lọc đã chọn.",
         "kind": "Trả về",
         "start": 0,
         "stop": 1
@@ -512,10 +385,6 @@
       "A": [
         "actor",
         "Nhân viên kho"
-      ],
-      "NCC": [
-        "actor",
-        "Nhà cung cấp"
       ],
       "Home": [
         "boundary",
@@ -593,8 +462,8 @@
         "number": 2,
         "src": "Home",
         "dst": "SC",
-        "label": "showSupplierSelection(request, response)",
-        "text": "Trang warehouseHome.jsp gọi hàm showSupplierSelection() của lớp SupplierServlet4 yêu cầu mở giao diện tìm và chọn nhà cung cấp.",
+        "label": "gọi",
+        "text": "Trang warehouseHome.jsp gọi lớp SupplierServlet4 yêu cầu mở giao diện tìm và chọn nhà cung cấp.",
         "kind": "Gọi",
         "start": 1,
         "stop": 0
@@ -602,15 +471,26 @@
       {
         "number": 3,
         "src": "SC",
+        "dst": "SC",
+        "label": "showSupplierSelection(request, response)",
+        "text": "Lớp SupplierServlet4 gọi hàm showSupplierSelection().",
+        "kind": "Tự gọi",
+        "start": 1,
+        "stop": 0
+      },
+      {
+        "number": 4,
+        "src": "SC",
         "dst": "Select",
         "label": "gọi",
         "text": "Lớp SupplierServlet4 chuyển dữ liệu và gọi trang selectSupplier.jsp.",
         "kind": "Gọi",
         "start": 1,
-        "stop": 1
+        "stop": 2,
+        "requester": "Home"
       },
       {
-        "number": 4,
+        "number": 5,
         "src": "Select",
         "dst": "A",
         "label": "hiển thị",
@@ -620,7 +500,7 @@
         "stop": 1
       },
       {
-        "number": 5,
+        "number": 6,
         "src": "A",
         "dst": "Select",
         "label": "nhập Hòa Phát; click Tìm kiếm",
@@ -630,17 +510,27 @@
         "stop": 0
       },
       {
-        "number": 6,
+        "number": 7,
         "src": "Select",
         "dst": "SC",
-        "label": "searchSuppliers(request, response)",
-        "text": "Trang selectSupplier.jsp gọi hàm searchSuppliers() của lớp SupplierServlet4 yêu cầu tìm nhà cung cấp theo tên “Hòa Phát”.",
+        "label": "gọi",
+        "text": "Trang selectSupplier.jsp gọi lớp SupplierServlet4 yêu cầu tìm nhà cung cấp theo tên “Hòa Phát”.",
         "kind": "Gọi",
         "start": 1,
         "stop": 0
       },
       {
-        "number": 7,
+        "number": 8,
+        "src": "SC",
+        "dst": "SC",
+        "label": "searchSuppliers(request, response)",
+        "text": "Lớp SupplierServlet4 gọi hàm searchSuppliers().",
+        "kind": "Tự gọi",
+        "start": 1,
+        "stop": 0
+      },
+      {
+        "number": 9,
         "src": "SC",
         "dst": "SD",
         "label": "gọi",
@@ -650,7 +540,7 @@
         "stop": 0
       },
       {
-        "number": 8,
+        "number": 10,
         "src": "SD",
         "dst": "SD",
         "label": "findSuppliersByName(\"Hòa Phát\")",
@@ -660,7 +550,7 @@
         "stop": 0
       },
       {
-        "number": 9,
+        "number": 11,
         "src": "SD",
         "dst": "S",
         "label": "gọi",
@@ -670,7 +560,7 @@
         "stop": 0
       },
       {
-        "number": 10,
+        "number": 12,
         "src": "S",
         "dst": "S",
         "label": "Supplier4()",
@@ -680,7 +570,7 @@
         "stop": 0
       },
       {
-        "number": 11,
+        "number": 13,
         "src": "S",
         "dst": "SD",
         "label": "trả về",
@@ -690,7 +580,7 @@
         "stop": 1
       },
       {
-        "number": 12,
+        "number": 14,
         "src": "SD",
         "dst": "SC",
         "label": "trả về",
@@ -700,17 +590,18 @@
         "stop": 2
       },
       {
-        "number": 13,
+        "number": 15,
         "src": "SC",
         "dst": "Select",
-        "label": "gọi",
-        "text": "Lớp SupplierServlet4 chuyển dữ liệu và gọi trang selectSupplier.jsp.",
-        "kind": "Gọi",
+        "label": "trả về",
+        "text": "Hàm searchSuppliers() trả danh sách nhà cung cấp tìm được lại cho trang selectSupplier.jsp.",
+        "kind": "Trả về",
         "start": 1,
-        "stop": 1
+        "stop": 2,
+        "requester": "Select"
       },
       {
-        "number": 14,
+        "number": 16,
         "src": "Select",
         "dst": "A",
         "label": "hiển thị",
@@ -720,7 +611,7 @@
         "stop": 1
       },
       {
-        "number": 15,
+        "number": 17,
         "src": "A",
         "dst": "Select",
         "label": "click chọn NCC1",
@@ -730,17 +621,27 @@
         "stop": 0
       },
       {
-        "number": 16,
+        "number": 18,
         "src": "Select",
         "dst": "C",
-        "label": "startPurchase(request, response)",
-        "text": "Trang selectSupplier.jsp gọi hàm startPurchase() của lớp PurchaseInvoiceServlet4 yêu cầu lập hóa đơn nhập với nhà cung cấp NCC1 đã chọn. Mã nhân viên kho được lấy từ phiên đăng nhập.",
+        "label": "gọi",
+        "text": "Trang selectSupplier.jsp gọi lớp PurchaseInvoiceServlet4 yêu cầu lập hóa đơn nhập với nhà cung cấp NCC1 đã chọn.",
         "kind": "Gọi",
         "start": 1,
         "stop": 0
       },
       {
-        "number": 17,
+        "number": 19,
+        "src": "C",
+        "dst": "C",
+        "label": "startPurchase(request, response)",
+        "text": "Lớp PurchaseInvoiceServlet4 gọi hàm startPurchase(). Mã nhân viên kho được lấy từ phiên đăng nhập.",
+        "kind": "Tự gọi",
+        "start": 1,
+        "stop": 0
+      },
+      {
+        "number": 20,
         "src": "C",
         "dst": "SD",
         "label": "gọi",
@@ -750,7 +651,7 @@
         "stop": 0
       },
       {
-        "number": 18,
+        "number": 21,
         "src": "SD",
         "dst": "SD",
         "label": "getSupplierDetails(supplierId)",
@@ -760,7 +661,7 @@
         "stop": 0
       },
       {
-        "number": 19,
+        "number": 22,
         "src": "SD",
         "dst": "S",
         "label": "gọi",
@@ -770,7 +671,7 @@
         "stop": 0
       },
       {
-        "number": 20,
+        "number": 23,
         "src": "S",
         "dst": "S",
         "label": "Supplier4()",
@@ -780,7 +681,7 @@
         "stop": 0
       },
       {
-        "number": 21,
+        "number": 24,
         "src": "S",
         "dst": "SD",
         "label": "trả về",
@@ -790,7 +691,7 @@
         "stop": 1
       },
       {
-        "number": 22,
+        "number": 25,
         "src": "SD",
         "dst": "C",
         "label": "trả về",
@@ -800,7 +701,7 @@
         "stop": 2
       },
       {
-        "number": 23,
+        "number": 26,
         "src": "C",
         "dst": "WD",
         "label": "gọi",
@@ -810,7 +711,7 @@
         "stop": 0
       },
       {
-        "number": 24,
+        "number": 27,
         "src": "WD",
         "dst": "WD",
         "label": "getWarehouseStaffDetails(warehouseStaffId)",
@@ -820,7 +721,7 @@
         "stop": 0
       },
       {
-        "number": 25,
+        "number": 28,
         "src": "WD",
         "dst": "W",
         "label": "gọi",
@@ -830,7 +731,7 @@
         "stop": 0
       },
       {
-        "number": 26,
+        "number": 29,
         "src": "W",
         "dst": "W",
         "label": "WarehouseStaff4()",
@@ -840,7 +741,7 @@
         "stop": 0
       },
       {
-        "number": 27,
+        "number": 30,
         "src": "W",
         "dst": "WD",
         "label": "trả về",
@@ -850,7 +751,7 @@
         "stop": 1
       },
       {
-        "number": 28,
+        "number": 31,
         "src": "WD",
         "dst": "C",
         "label": "trả về",
@@ -860,7 +761,7 @@
         "stop": 2
       },
       {
-        "number": 29,
+        "number": 32,
         "src": "C",
         "dst": "C",
         "label": "showDraft(request, response)",
@@ -868,20 +769,21 @@
         "kind": "Tự gọi",
         "start": 1,
         "stop": 0,
-        "before_stop": 1
+        "before_stop": 2
       },
       {
-        "number": 30,
+        "number": 33,
         "src": "C",
         "dst": "Draft",
         "label": "gọi",
         "text": "Lớp PurchaseInvoiceServlet4 chuyển dữ liệu và gọi trang purchaseInvoice.jsp.",
         "kind": "Gọi",
         "start": 1,
-        "stop": 1
+        "stop": 1,
+        "requester": "Select"
       },
       {
-        "number": 31,
+        "number": 34,
         "src": "Draft",
         "dst": "A",
         "label": "hiển thị",
@@ -891,7 +793,7 @@
         "stop": 1
       },
       {
-        "number": 32,
+        "number": 35,
         "src": "A",
         "dst": "Draft",
         "label": "nhập Lọc; click Tìm kiếm",
@@ -901,28 +803,38 @@
         "stop": 0
       },
       {
-        "number": 33,
+        "number": 36,
         "src": "Draft",
         "dst": "C",
-        "label": "searchSpareParts(request, response)",
-        "text": "Trang purchaseInvoice.jsp gọi hàm searchSpareParts() của lớp PurchaseInvoiceServlet4 yêu cầu tìm phụ tùng theo tên “Lọc”.",
+        "label": "gọi",
+        "text": "Trang purchaseInvoice.jsp gọi lớp PurchaseInvoiceServlet4 yêu cầu tìm phụ tùng theo tên “Lọc”.",
         "kind": "Gọi",
         "start": 1,
         "stop": 0
       },
       {
-        "number": 34,
+        "number": 37,
+        "src": "C",
+        "dst": "C",
+        "label": "searchSpareParts(request, response)",
+        "text": "Lớp PurchaseInvoiceServlet4 gọi hàm searchSpareParts().",
+        "kind": "Tự gọi",
+        "start": 1,
+        "stop": 0
+      },
+      {
+        "number": 38,
         "src": "C",
         "dst": "C",
         "label": "showDraft(request, response)",
-        "text": "Lớp PurchaseInvoiceServlet4 giữ dữ liệu các dòng đang nhập và thực hiện hàm showDraft() theo từ khóa vừa nhận.",
+        "text": "Sau chuyển hướng, lớp PurchaseInvoiceServlet4 thực hiện hàm showDraft() để lấy dữ liệu hóa đơn dự kiến và xử lí tìm phụ tùng theo từ khóa đã nhập.",
         "kind": "Tự gọi",
         "start": 1,
         "stop": 0,
-        "before_stop": 1
+        "before_stop": 2
       },
       {
-        "number": 35,
+        "number": 39,
         "src": "C",
         "dst": "PD",
         "label": "gọi",
@@ -932,7 +844,7 @@
         "stop": 0
       },
       {
-        "number": 36,
+        "number": 40,
         "src": "PD",
         "dst": "PD",
         "label": "findSparePartsByName(\"Lọc\", false)",
@@ -942,7 +854,7 @@
         "stop": 0
       },
       {
-        "number": 37,
+        "number": 41,
         "src": "PD",
         "dst": "P",
         "label": "gọi",
@@ -952,7 +864,7 @@
         "stop": 0
       },
       {
-        "number": 38,
+        "number": 42,
         "src": "P",
         "dst": "P",
         "label": "SparePart4()",
@@ -962,7 +874,7 @@
         "stop": 0
       },
       {
-        "number": 39,
+        "number": 43,
         "src": "P",
         "dst": "PD",
         "label": "trả về",
@@ -972,7 +884,7 @@
         "stop": 1
       },
       {
-        "number": 40,
+        "number": 44,
         "src": "PD",
         "dst": "C",
         "label": "trả về",
@@ -982,47 +894,58 @@
         "stop": 2
       },
       {
-        "number": 41,
+        "number": 45,
         "src": "C",
         "dst": "Draft",
-        "label": "gọi",
-        "text": "Lớp PurchaseInvoiceServlet4 chuyển dữ liệu và gọi trang purchaseInvoice.jsp.",
-        "kind": "Gọi",
+        "label": "trả về",
+        "text": "Hàm showDraft() trả danh sách phụ tùng tìm được cùng dữ liệu hóa đơn đang lập lại cho trang purchaseInvoice.jsp.",
+        "kind": "Trả về",
         "start": 1,
-        "stop": 1
+        "stop": 1,
+        "requester": "Draft"
       },
       {
-        "number": 42,
+        "number": 46,
         "src": "Draft",
         "dst": "A",
         "label": "hiển thị",
-        "text": "Trang purchaseInvoice.jsp hiển thị danh sách phụ tùng tìm được ngay trên hóa đơn, gồm mã, tên, đơn vị tính và hãng sản xuất cho nhân viên chọn.",
+        "text": "Trang purchaseInvoice.jsp hiển thị bảng danh sách phụ tùng tìm được ngay trên hóa đơn, gồm Mã, Tên phụ tùng, Đơn vị tính, Hãng sản xuất và nút Chọn ở từng dòng.",
         "kind": "Trả về",
         "start": 0,
         "stop": 1
       },
       {
-        "number": 43,
+        "number": 47,
         "src": "A",
         "dst": "Draft",
-        "label": "click chọn PT1",
-        "text": "Nhân viên A click chọn phụ tùng PT1.",
+        "label": "click Chọn tại dòng PT1",
+        "text": "Nhân viên A click nút Chọn tại dòng phụ tùng PT1 trong bảng kết quả tìm kiếm.",
         "kind": "Gọi",
         "start": 0,
         "stop": 0
       },
       {
-        "number": 44,
+        "number": 48,
         "src": "Draft",
         "dst": "C",
-        "label": "addInvoiceLine(request, response)",
-        "text": "Trang purchaseInvoice.jsp gọi hàm addInvoiceLine() của lớp PurchaseInvoiceServlet4 yêu cầu bổ sung phụ tùng PT1 vào hóa đơn nhập dự kiến.",
+        "label": "gọi",
+        "text": "Trang purchaseInvoice.jsp gọi lớp PurchaseInvoiceServlet4 yêu cầu bổ sung phụ tùng PT1 vào hóa đơn nhập dự kiến.",
         "kind": "Gọi",
         "start": 1,
         "stop": 0
       },
       {
-        "number": 45,
+        "number": 49,
+        "src": "C",
+        "dst": "C",
+        "label": "addInvoiceLine(request, response)",
+        "text": "Lớp PurchaseInvoiceServlet4 gọi hàm addInvoiceLine().",
+        "kind": "Tự gọi",
+        "start": 1,
+        "stop": 0
+      },
+      {
+        "number": 50,
         "src": "C",
         "dst": "PD",
         "label": "gọi",
@@ -1032,7 +955,7 @@
         "stop": 0
       },
       {
-        "number": 46,
+        "number": 51,
         "src": "PD",
         "dst": "PD",
         "label": "getSparePartDetails(sparePartId, false)",
@@ -1042,7 +965,7 @@
         "stop": 0
       },
       {
-        "number": 47,
+        "number": 52,
         "src": "PD",
         "dst": "P",
         "label": "gọi",
@@ -1052,7 +975,7 @@
         "stop": 0
       },
       {
-        "number": 48,
+        "number": 53,
         "src": "P",
         "dst": "P",
         "label": "SparePart4()",
@@ -1062,7 +985,7 @@
         "stop": 0
       },
       {
-        "number": 49,
+        "number": 54,
         "src": "P",
         "dst": "PD",
         "label": "trả về",
@@ -1072,7 +995,7 @@
         "stop": 1
       },
       {
-        "number": 50,
+        "number": 55,
         "src": "PD",
         "dst": "C",
         "label": "trả về",
@@ -1082,7 +1005,7 @@
         "stop": 2
       },
       {
-        "number": 51,
+        "number": 56,
         "src": "C",
         "dst": "C",
         "label": "showDraft(request, response)",
@@ -1090,20 +1013,21 @@
         "kind": "Tự gọi",
         "start": 1,
         "stop": 0,
-        "before_stop": 1
+        "before_stop": 2
       },
       {
-        "number": 52,
+        "number": 57,
         "src": "C",
         "dst": "Draft",
-        "label": "gọi",
-        "text": "Lớp PurchaseInvoiceServlet4 chuyển dữ liệu và gọi trang purchaseInvoice.jsp.",
-        "kind": "Gọi",
+        "label": "trả về",
+        "text": "Hàm showDraft() trả hóa đơn dự kiến sau khi bổ sung dòng PT1 lại cho trang purchaseInvoice.jsp.",
+        "kind": "Trả về",
         "start": 1,
-        "stop": 1
+        "stop": 1,
+        "requester": "Draft"
       },
       {
-        "number": 53,
+        "number": 58,
         "src": "Draft",
         "dst": "A",
         "label": "hiển thị",
@@ -1113,7 +1037,7 @@
         "stop": 1
       },
       {
-        "number": 54,
+        "number": 59,
         "src": "A",
         "dst": "Draft",
         "label": "nhập 10 cái; 80.000 đồng/cái",
@@ -1123,17 +1047,17 @@
         "stop": 0
       },
       {
-        "number": 55,
+        "number": 60,
         "src": "Draft",
         "dst": "A",
         "label": "hiển thị",
-        "text": "Trang purchaseInvoice.jsp hiển thị dòng nhập, thành tiền và tổng tiền dự kiến 800.000 đồng cho nhân viên. (Lặp lại các bước từ 32 đến 55 cho đến khi hết phụ tùng muốn nhập.)",
+        "text": "Trang purchaseInvoice.jsp hiển thị dòng nhập, thành tiền và tổng tiền dự kiến 800.000 đồng cho nhân viên. (Lặp lại các bước từ 35 đến 60 cho đến khi hết phụ tùng muốn nhập.)",
         "kind": "Trả về",
         "start": 0,
         "stop": 0
       },
       {
-        "number": 56,
+        "number": 61,
         "src": "A",
         "dst": "Draft",
         "label": "click Xác nhận",
@@ -1143,17 +1067,27 @@
         "stop": 0
       },
       {
-        "number": 57,
+        "number": 62,
         "src": "Draft",
         "dst": "C",
-        "label": "confirmInvoice(request, response)",
-        "text": "Trang purchaseInvoice.jsp gọi hàm confirmInvoice() của lớp PurchaseInvoiceServlet4 yêu cầu xác nhận hóa đơn nhập. Hàm nhận dữ liệu các dòng nhập và kiểm tra hóa đơn có ít nhất một dòng, số lượng và đơn giá nhập hợp lệ.",
+        "label": "gọi",
+        "text": "Trang purchaseInvoice.jsp gọi lớp PurchaseInvoiceServlet4 yêu cầu xác nhận hóa đơn nhập.",
         "kind": "Gọi",
         "start": 1,
         "stop": 0
       },
       {
-        "number": 58,
+        "number": 63,
+        "src": "C",
+        "dst": "C",
+        "label": "confirmInvoice(request, response)",
+        "text": "Lớp PurchaseInvoiceServlet4 gọi hàm confirmInvoice(). Hàm nhận dữ liệu các dòng nhập và kiểm tra hóa đơn có ít nhất một dòng, số lượng và đơn giá nhập hợp lệ.",
+        "kind": "Tự gọi",
+        "start": 1,
+        "stop": 0
+      },
+      {
+        "number": 64,
         "src": "C",
         "dst": "ID",
         "label": "gọi",
@@ -1163,7 +1097,7 @@
         "stop": 0
       },
       {
-        "number": 59,
+        "number": 65,
         "src": "ID",
         "dst": "ID",
         "label": "savePurchaseInvoice(purchaseInvoice)",
@@ -1173,7 +1107,7 @@
         "stop": 0
       },
       {
-        "number": 60,
+        "number": 66,
         "src": "ID",
         "dst": "PD",
         "label": "gọi",
@@ -1183,7 +1117,7 @@
         "stop": 0
       },
       {
-        "number": 61,
+        "number": 67,
         "src": "PD",
         "dst": "PD",
         "label": "increaseStockAfterPurchase(connection, sparePartId, quantity)",
@@ -1193,7 +1127,7 @@
         "stop": 0
       },
       {
-        "number": 62,
+        "number": 68,
         "src": "PD",
         "dst": "ID",
         "label": "trả về",
@@ -1203,7 +1137,7 @@
         "stop": 2
       },
       {
-        "number": 63,
+        "number": 69,
         "src": "ID",
         "dst": "C",
         "label": "trả về",
@@ -1213,7 +1147,7 @@
         "stop": 2
       },
       {
-        "number": 64,
+        "number": 70,
         "src": "C",
         "dst": "C",
         "label": "viewInvoice(request, response)",
@@ -1221,10 +1155,10 @@
         "kind": "Tự gọi",
         "start": 1,
         "stop": 0,
-        "before_stop": 1
+        "before_stop": 2
       },
       {
-        "number": 65,
+        "number": 71,
         "src": "C",
         "dst": "ID",
         "label": "gọi",
@@ -1234,7 +1168,7 @@
         "stop": 0
       },
       {
-        "number": 66,
+        "number": 72,
         "src": "ID",
         "dst": "ID",
         "label": "getPurchaseInvoiceDetails(invoiceId)",
@@ -1244,7 +1178,7 @@
         "stop": 0
       },
       {
-        "number": 67,
+        "number": 73,
         "src": "ID",
         "dst": "I",
         "label": "gọi",
@@ -1254,7 +1188,7 @@
         "stop": 0
       },
       {
-        "number": 68,
+        "number": 74,
         "src": "I",
         "dst": "I",
         "label": "PurchaseInvoice4()",
@@ -1264,7 +1198,7 @@
         "stop": 0
       },
       {
-        "number": 69,
+        "number": 75,
         "src": "I",
         "dst": "ID",
         "label": "trả về",
@@ -1274,7 +1208,7 @@
         "stop": 1
       },
       {
-        "number": 70,
+        "number": 76,
         "src": "ID",
         "dst": "C",
         "label": "trả về",
@@ -1284,17 +1218,18 @@
         "stop": 2
       },
       {
-        "number": 71,
+        "number": 77,
         "src": "C",
         "dst": "View",
         "label": "gọi",
         "text": "Lớp PurchaseInvoiceServlet4 chuyển dữ liệu và gọi trang confirmedInvoice.jsp.",
         "kind": "Gọi",
         "start": 1,
-        "stop": 1
+        "stop": 1,
+        "requester": "Draft"
       },
       {
-        "number": 72,
+        "number": 78,
         "src": "View",
         "dst": "A",
         "label": "hiển thị",
@@ -1304,7 +1239,7 @@
         "stop": 1
       },
       {
-        "number": 73,
+        "number": 79,
         "src": "A",
         "dst": "View",
         "label": "click In hóa đơn",
@@ -1314,17 +1249,27 @@
         "stop": 0
       },
       {
-        "number": 74,
+        "number": 80,
         "src": "View",
         "dst": "C",
-        "label": "printInvoice(request, response)",
-        "text": "Trang confirmedInvoice.jsp gọi hàm printInvoice() của lớp PurchaseInvoiceServlet4 yêu cầu lấy hóa đơn HN1 đã lưu để in.",
+        "label": "gọi",
+        "text": "Trang confirmedInvoice.jsp gọi lớp PurchaseInvoiceServlet4 yêu cầu lấy hóa đơn HN1 đã lưu để in.",
         "kind": "Gọi",
         "start": 1,
         "stop": 0
       },
       {
-        "number": 75,
+        "number": 81,
+        "src": "C",
+        "dst": "C",
+        "label": "printInvoice(request, response)",
+        "text": "Lớp PurchaseInvoiceServlet4 gọi hàm printInvoice().",
+        "kind": "Tự gọi",
+        "start": 1,
+        "stop": 0
+      },
+      {
+        "number": 82,
         "src": "C",
         "dst": "ID",
         "label": "gọi",
@@ -1334,7 +1279,7 @@
         "stop": 0
       },
       {
-        "number": 76,
+        "number": 83,
         "src": "ID",
         "dst": "ID",
         "label": "getPurchaseInvoiceDetails(invoiceId)",
@@ -1344,7 +1289,7 @@
         "stop": 0
       },
       {
-        "number": 77,
+        "number": 84,
         "src": "ID",
         "dst": "I",
         "label": "gọi",
@@ -1354,7 +1299,7 @@
         "stop": 0
       },
       {
-        "number": 78,
+        "number": 85,
         "src": "I",
         "dst": "I",
         "label": "PurchaseInvoice4()",
@@ -1364,7 +1309,7 @@
         "stop": 0
       },
       {
-        "number": 79,
+        "number": 86,
         "src": "I",
         "dst": "ID",
         "label": "trả về",
@@ -1374,7 +1319,7 @@
         "stop": 1
       },
       {
-        "number": 80,
+        "number": 87,
         "src": "ID",
         "dst": "C",
         "label": "trả về",
@@ -1384,17 +1329,18 @@
         "stop": 2
       },
       {
-        "number": 81,
+        "number": 88,
         "src": "C",
         "dst": "Print",
         "label": "gọi",
         "text": "Lớp PurchaseInvoiceServlet4 chuyển dữ liệu và gọi trang printInvoice.jsp.",
         "kind": "Gọi",
         "start": 1,
-        "stop": 1
+        "stop": 2,
+        "requester": "View"
       },
       {
-        "number": 82,
+        "number": 89,
         "src": "Print",
         "dst": "A",
         "label": "hiển thị",
@@ -1404,37 +1350,37 @@
         "stop": 1
       },
       {
-        "number": 83,
+        "number": 90,
         "src": "A",
         "dst": "Print",
         "label": "click In",
-        "text": "Nhân viên A click In.",
+        "text": "Nhân viên A click In để mở hộp thoại in của trình duyệt và thực hiện in chứng từ HN1.",
         "kind": "Gọi",
         "start": 0,
         "stop": 0
       },
       {
-        "number": 84,
-        "src": "Print",
-        "dst": "Print",
-        "label": "printInvoice()",
-        "text": "Trang printInvoice.jsp thực hiện in chứng từ HN1 bằng hàm printInvoice() trong print.js.",
-        "kind": "Tự gọi",
-        "start": 1,
-        "stop": 0
-      },
-      {
-        "number": 85,
+        "number": 91,
         "src": "Print",
         "dst": "C",
-        "label": "viewInvoice(request, response)",
-        "text": "Trang printInvoice.jsp gọi hàm viewInvoice() của lớp PurchaseInvoiceServlet4 yêu cầu hiển thị lại hóa đơn HN1 sau khi đóng hộp thoại in.",
+        "label": "gọi",
+        "text": "Trang printInvoice.jsp gọi lớp PurchaseInvoiceServlet4 yêu cầu hiển thị lại hóa đơn HN1 sau khi đóng hộp thoại in.",
         "kind": "Gọi",
         "start": 1,
         "stop": 0
       },
       {
-        "number": 86,
+        "number": 92,
+        "src": "C",
+        "dst": "C",
+        "label": "viewInvoice(request, response)",
+        "text": "Lớp PurchaseInvoiceServlet4 gọi hàm viewInvoice().",
+        "kind": "Tự gọi",
+        "start": 1,
+        "stop": 0
+      },
+      {
+        "number": 93,
         "src": "C",
         "dst": "ID",
         "label": "gọi",
@@ -1444,7 +1390,7 @@
         "stop": 0
       },
       {
-        "number": 87,
+        "number": 94,
         "src": "ID",
         "dst": "ID",
         "label": "getPurchaseInvoiceDetails(invoiceId)",
@@ -1454,7 +1400,7 @@
         "stop": 0
       },
       {
-        "number": 88,
+        "number": 95,
         "src": "ID",
         "dst": "I",
         "label": "gọi",
@@ -1464,7 +1410,7 @@
         "stop": 0
       },
       {
-        "number": 89,
+        "number": 96,
         "src": "I",
         "dst": "I",
         "label": "PurchaseInvoice4()",
@@ -1474,7 +1420,7 @@
         "stop": 0
       },
       {
-        "number": 90,
+        "number": 97,
         "src": "I",
         "dst": "ID",
         "label": "trả về",
@@ -1484,7 +1430,7 @@
         "stop": 1
       },
       {
-        "number": 91,
+        "number": 98,
         "src": "ID",
         "dst": "C",
         "label": "trả về",
@@ -1494,17 +1440,18 @@
         "stop": 2
       },
       {
-        "number": 92,
+        "number": 99,
         "src": "C",
         "dst": "View",
         "label": "gọi",
         "text": "Lớp PurchaseInvoiceServlet4 chuyển dữ liệu và gọi trang confirmedInvoice.jsp.",
         "kind": "Gọi",
         "start": 1,
-        "stop": 1
+        "stop": 2,
+        "requester": "Print"
       },
       {
-        "number": 93,
+        "number": 100,
         "src": "View",
         "dst": "A",
         "label": "hiển thị",
@@ -1514,67 +1461,37 @@
         "stop": 1
       },
       {
-        "number": 94,
-        "src": "A",
-        "dst": "NCC",
-        "label": "giao chứng từ; trả 800.000 đồng",
-        "text": "Nhân viên A đối chiếu với nhà cung cấp, giao chứng từ và thực tế thanh toán đủ 800.000 đồng.",
-        "kind": "Gọi",
-        "start": 0,
-        "stop": 0
-      },
-      {
-        "number": 95,
-        "src": "NCC",
-        "dst": "NCC",
-        "label": "nhận chứng từ và tiền",
-        "text": "Nhà cung cấp nhận chứng từ đối chiếu và tiền thanh toán.",
-        "kind": "Tự gọi",
-        "start": 0,
-        "stop": 0
-      },
-      {
-        "number": 96,
-        "src": "NCC",
-        "dst": "A",
-        "label": "giao hóa đơn bán hàng",
-        "text": "Nhà cung cấp giao hóa đơn bán hàng cho gara.",
-        "kind": "Gọi",
-        "start": 0,
-        "stop": 0
-      },
-      {
-        "number": 97,
-        "src": "A",
-        "dst": "A",
-        "label": "tiếp nhận hóa đơn bán hàng",
-        "text": "Nhân viên A tiếp nhận hóa đơn bán hàng do nhà cung cấp lập.",
-        "kind": "Tự gọi",
-        "start": 0,
-        "stop": 0
-      },
-      {
-        "number": 98,
+        "number": 101,
         "src": "A",
         "dst": "View",
         "label": "nhập 800.000; click Đã thanh toán",
-        "text": "Nhân viên A nhập 800.000 đồng vào ô Số tiền đã trả và click Đã thanh toán.",
+        "text": "Sau khi đối chiếu, giao chứng từ, thực tế thanh toán đủ 800.000 đồng cho nhà cung cấp và tiếp nhận hóa đơn bán hàng, nhân viên A nhập 800.000 đồng vào ô Số tiền đã trả và click Đã thanh toán.",
         "kind": "Gọi",
         "start": 0,
         "stop": 0
       },
       {
-        "number": 99,
+        "number": 102,
         "src": "View",
         "dst": "C",
-        "label": "recordPayment(request, response)",
-        "text": "Trang confirmedInvoice.jsp gọi hàm recordPayment() của lớp PurchaseInvoiceServlet4 yêu cầu ghi nhận thanh toán hóa đơn HN1. Mã nhân viên kho hiện tại được lấy từ phiên đăng nhập.",
+        "label": "gọi",
+        "text": "Trang confirmedInvoice.jsp gọi lớp PurchaseInvoiceServlet4 yêu cầu ghi nhận thanh toán hóa đơn HN1.",
         "kind": "Gọi",
         "start": 1,
         "stop": 0
       },
       {
-        "number": 100,
+        "number": 103,
+        "src": "C",
+        "dst": "C",
+        "label": "recordPayment(request, response)",
+        "text": "Lớp PurchaseInvoiceServlet4 gọi hàm recordPayment(). Mã nhân viên kho hiện tại được lấy từ phiên đăng nhập.",
+        "kind": "Tự gọi",
+        "start": 1,
+        "stop": 0
+      },
+      {
+        "number": 104,
         "src": "C",
         "dst": "ID",
         "label": "gọi",
@@ -1584,7 +1501,7 @@
         "stop": 0
       },
       {
-        "number": 101,
+        "number": 105,
         "src": "ID",
         "dst": "ID",
         "label": "recordPayment(invoiceId, amountPaid, currentWarehouseStaffId)",
@@ -1594,7 +1511,7 @@
         "stop": 0
       },
       {
-        "number": 102,
+        "number": 106,
         "src": "ID",
         "dst": "C",
         "label": "trả về",
@@ -1604,7 +1521,7 @@
         "stop": 2
       },
       {
-        "number": 103,
+        "number": 107,
         "src": "C",
         "dst": "C",
         "label": "viewInvoice(request, response)",
@@ -1612,10 +1529,10 @@
         "kind": "Tự gọi",
         "start": 1,
         "stop": 0,
-        "before_stop": 1
+        "before_stop": 2
       },
       {
-        "number": 104,
+        "number": 108,
         "src": "C",
         "dst": "ID",
         "label": "gọi",
@@ -1625,7 +1542,7 @@
         "stop": 0
       },
       {
-        "number": 105,
+        "number": 109,
         "src": "ID",
         "dst": "ID",
         "label": "getPurchaseInvoiceDetails(invoiceId)",
@@ -1635,7 +1552,7 @@
         "stop": 0
       },
       {
-        "number": 106,
+        "number": 110,
         "src": "ID",
         "dst": "I",
         "label": "gọi",
@@ -1645,7 +1562,7 @@
         "stop": 0
       },
       {
-        "number": 107,
+        "number": 111,
         "src": "I",
         "dst": "I",
         "label": "PurchaseInvoice4()",
@@ -1655,7 +1572,7 @@
         "stop": 0
       },
       {
-        "number": 108,
+        "number": 112,
         "src": "I",
         "dst": "ID",
         "label": "trả về",
@@ -1665,7 +1582,7 @@
         "stop": 1
       },
       {
-        "number": 109,
+        "number": 113,
         "src": "ID",
         "dst": "C",
         "label": "trả về",
@@ -1675,17 +1592,18 @@
         "stop": 2
       },
       {
-        "number": 110,
+        "number": 114,
         "src": "C",
         "dst": "View",
-        "label": "gọi",
-        "text": "Lớp PurchaseInvoiceServlet4 chuyển dữ liệu và gọi trang confirmedInvoice.jsp.",
-        "kind": "Gọi",
+        "label": "trả về",
+        "text": "Hàm viewInvoice() trả hóa đơn HN1 đã cập nhật thanh toán cùng thông báo thành công lại cho trang confirmedInvoice.jsp.",
+        "kind": "Trả về",
         "start": 1,
-        "stop": 1
+        "stop": 1,
+        "requester": "View"
       },
       {
-        "number": 111,
+        "number": 115,
         "src": "View",
         "dst": "A",
         "label": "thông báo thành công",
@@ -1697,13 +1615,13 @@
     ],
     "loops": [
       {
-        "first": 32,
-        "last": 55,
+        "first": 35,
+        "last": 60,
         "condition": "lặp đến khi đủ phụ tùng cần nhập"
       },
       {
-        "first": 60,
-        "last": 62,
+        "first": 66,
+        "last": 68,
         "condition": "với từng phụ tùng trong hóa đơn nhập"
       }
     ],

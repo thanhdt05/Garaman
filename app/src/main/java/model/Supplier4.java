@@ -1,7 +1,6 @@
 package model;
 
 import java.io.Serializable;
-import util.AppConstants4;
 
 public class Supplier4 implements Serializable {
     private static final long serialVersionUID = 2L;
@@ -11,7 +10,7 @@ public class Supplier4 implements Serializable {
     private String address;
     private String phoneNumber;
     private String email;
-    private String status = AppConstants4.SUPPLIER_STATUS_ACTIVE;
+    private String status = "Đang hoạt động";
 
     public Supplier4() {
     }

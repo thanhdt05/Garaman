@@ -120,6 +120,8 @@ CREATE TABLE IF NOT EXISTS `tblPurchaseInvoice4` (
     `confirmedAt` DATETIME NOT NULL,
     `paymentStatus` VARCHAR(30) NOT NULL DEFAULT 'Chưa thanh toán',
     `paidAt` DATETIME NULL,
+    `paidByEmployee4id` INT NULL,
+    `paidByNameSnapshot` VARCHAR(255) NULL,
     `tblSupplier4id` INT NOT NULL,
     `tblEmployee4id` INT NOT NULL,
     `requestCode` CHAR(36) NOT NULL,
@@ -131,8 +133,16 @@ CREATE TABLE IF NOT EXISTS `tblPurchaseInvoice4` (
         (`paymentStatus` = 'Chưa thanh toán' AND `paidAt` IS NULL)
         OR (`paymentStatus` = 'Đã thanh toán' AND `paidAt` IS NOT NULL)
     ),
+    -- Cho phép hồ sơ cũ đã trả nhưng không biết người trả để NULL cả hai cột.
+    -- recordPayment luôn ghi đủ mã và tên người thực sự trả cho giao dịch mới.
+    CONSTRAINT `chk_purchase_invoice_paidBy` CHECK (
+        (`paidByEmployee4id` IS NULL AND `paidByNameSnapshot` IS NULL)
+        OR (`paymentStatus` = 'Đã thanh toán' AND `paidByEmployee4id` IS NOT NULL
+            AND `paidByNameSnapshot` IS NOT NULL AND CHAR_LENGTH(TRIM(`paidByNameSnapshot`)) > 0)
+    ),
     CONSTRAINT `fk_purchase_inv_supplier` FOREIGN KEY (`tblSupplier4id`) REFERENCES `tblSupplier4` (`id`) ON DELETE RESTRICT,
-    CONSTRAINT `fk_purchase_inv_employee` FOREIGN KEY (`tblEmployee4id`) REFERENCES `tblEmployee4` (`tblMember4id`) ON DELETE RESTRICT
+    CONSTRAINT `fk_purchase_inv_employee` FOREIGN KEY (`tblEmployee4id`) REFERENCES `tblEmployee4` (`tblMember4id`) ON DELETE RESTRICT,
+    CONSTRAINT `fk_purchase_inv_paid_by` FOREIGN KEY (`paidByEmployee4id`) REFERENCES `tblEmployee4` (`tblMember4id`) ON DELETE RESTRICT
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- 9. Bảng chi tiết hóa đơn nhập (PurchaseInvoiceDetail)

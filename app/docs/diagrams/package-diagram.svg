@@ -1,0 +1,220 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1940" height="1740" viewBox="0 0 1940 1740">
+<title>Biểu đồ thiết kế gói GaraMan</title>
+<desc>Package hình thư mục chứa Class UML ba ngăn cho JSP, Servlet, DAO và model. Các ngăn thuộc tính và phương thức không liệt kê thành viên ở mức biểu đồ gói.</desc>
+<rect width="1940" height="1740" fill="white"/>
+<g id="package-view" data-uml-type="Package" fill="white" stroke="black" stroke-width="1.5">
+<path d="M 60 72 V 40 H 250 V 72 H 1880 V 510 H 60 Z M 60 72 H 1880"/>
+<text x="75" y="64" font-family="Arial" font-size="22" fill="black" stroke="none">view</text></g>
+<g id="package-member" data-uml-type="Package" fill="white" stroke="black" stroke-width="1.5">
+<path d="M 90 142 V 110 H 250 V 142 H 270 V 190 H 90 Z M 90 142 H 270"/>
+<text x="105" y="134" font-family="Arial" font-size="22" fill="black" stroke="none">member</text></g>
+<g id="package-manager" data-uml-type="Package" fill="white" stroke="black" stroke-width="1.5">
+<path d="M 295 142 V 110 H 455 V 142 H 475 V 190 H 295 Z M 295 142 H 475"/>
+<text x="310" y="134" font-family="Arial" font-size="22" fill="black" stroke="none">manager</text></g>
+<g id="package-salesStaff" data-uml-type="Package" fill="white" stroke="black" stroke-width="1.5">
+<path d="M 500 142 V 110 H 660 V 142 H 680 V 190 H 500 Z M 500 142 H 680"/>
+<text x="515" y="134" font-family="Arial" font-size="22" fill="black" stroke="none">salesStaff</text></g>
+<g id="package-customer" data-uml-type="Package" fill="white" stroke="black" stroke-width="1.5">
+<path d="M 705 142 V 110 H 895 V 142 H 1045 V 410 H 705 Z M 705 142 H 1045"/>
+<text x="720" y="134" font-family="Arial" font-size="22" fill="black" stroke="none">customer</text></g>
+<g id="element-customerHome.jsp" data-uml-type="Class" fill="#86CFE9" stroke="black" stroke-width="1.2">
+<rect x="725.0" y="170" width="300.0" height="64"/>
+<path d="M 725.0 204 H 1025.0 M 725.0 219 H 1025.0" fill="none"/>
+<text x="875.0" y="195" text-anchor="middle" font-family="Arial" font-size="19" font-weight="bold" fill="black" stroke="none">customerHome.jsp</text></g>
+<g id="element-catalogSearch.jsp" data-uml-type="Class" fill="#86CFE9" stroke="black" stroke-width="1.2">
+<rect x="725.0" y="242" width="300.0" height="64"/>
+<path d="M 725.0 276 H 1025.0 M 725.0 291 H 1025.0" fill="none"/>
+<text x="875.0" y="267" text-anchor="middle" font-family="Arial" font-size="19" font-weight="bold" fill="black" stroke="none">catalogSearch.jsp</text></g>
+<g id="element-itemDetails.jsp" data-uml-type="Class" fill="#86CFE9" stroke="black" stroke-width="1.2">
+<rect x="725.0" y="314" width="300.0" height="64"/>
+<path d="M 725.0 348 H 1025.0 M 725.0 363 H 1025.0" fill="none"/>
+<text x="875.0" y="339" text-anchor="middle" font-family="Arial" font-size="19" font-weight="bold" fill="black" stroke="none">itemDetails.jsp</text></g>
+<g id="package-warehouseStaff" data-uml-type="Package" fill="white" stroke="black" stroke-width="1.5">
+<path d="M 1070 142 V 110 H 1260 V 142 H 1850 V 480 H 1070 Z M 1070 142 H 1850"/>
+<text x="1085" y="134" font-family="Arial" font-size="22" fill="black" stroke="none">warehouseStaff</text></g>
+<g id="element-warehouseHome.jsp" data-uml-type="Class" fill="#86CFE9" stroke="black" stroke-width="1.2">
+<rect x="1090.0" y="170" width="361.0" height="64"/>
+<path d="M 1090.0 204 H 1451.0 M 1090.0 219 H 1451.0" fill="none"/>
+<text x="1270.5" y="195" text-anchor="middle" font-family="Arial" font-size="19" font-weight="bold" fill="black" stroke="none">warehouseHome.jsp</text></g>
+<g id="element-selectSupplier.jsp" data-uml-type="Class" fill="#86CFE9" stroke="black" stroke-width="1.2">
+<rect x="1090.0" y="242" width="361.0" height="64"/>
+<path d="M 1090.0 276 H 1451.0 M 1090.0 291 H 1451.0" fill="none"/>
+<text x="1270.5" y="267" text-anchor="middle" font-family="Arial" font-size="19" font-weight="bold" fill="black" stroke="none">selectSupplier.jsp</text></g>
+<g id="element-newSupplier.jsp" data-uml-type="Class" fill="#86CFE9" stroke="black" stroke-width="1.2">
+<rect x="1090.0" y="314" width="361.0" height="64"/>
+<path d="M 1090.0 348 H 1451.0 M 1090.0 363 H 1451.0" fill="none"/>
+<text x="1270.5" y="339" text-anchor="middle" font-family="Arial" font-size="19" font-weight="bold" fill="black" stroke="none">newSupplier.jsp</text></g>
+<g id="element-purchaseInvoice.jsp" data-uml-type="Class" fill="#86CFE9" stroke="black" stroke-width="1.2">
+<rect x="1090.0" y="386" width="361.0" height="64"/>
+<path d="M 1090.0 420 H 1451.0 M 1090.0 435 H 1451.0" fill="none"/>
+<text x="1270.5" y="411" text-anchor="middle" font-family="Arial" font-size="19" font-weight="bold" fill="black" stroke="none">purchaseInvoice.jsp</text></g>
+<g id="element-newSparePart.jsp" data-uml-type="Class" fill="#86CFE9" stroke="black" stroke-width="1.2">
+<rect x="1469.0" y="170" width="361.0" height="64"/>
+<path d="M 1469.0 204 H 1830.0 M 1469.0 219 H 1830.0" fill="none"/>
+<text x="1649.5" y="195" text-anchor="middle" font-family="Arial" font-size="19" font-weight="bold" fill="black" stroke="none">newSparePart.jsp</text></g>
+<g id="element-confirmedInvoice.jsp" data-uml-type="Class" fill="#86CFE9" stroke="black" stroke-width="1.2">
+<rect x="1469.0" y="242" width="361.0" height="64"/>
+<path d="M 1469.0 276 H 1830.0 M 1469.0 291 H 1830.0" fill="none"/>
+<text x="1649.5" y="267" text-anchor="middle" font-family="Arial" font-size="19" font-weight="bold" fill="black" stroke="none">confirmedInvoice.jsp</text></g>
+<g id="element-printInvoice.jsp" data-uml-type="Class" fill="#86CFE9" stroke="black" stroke-width="1.2">
+<rect x="1469.0" y="314" width="361.0" height="64"/>
+<path d="M 1469.0 348 H 1830.0 M 1469.0 363 H 1830.0" fill="none"/>
+<text x="1649.5" y="339" text-anchor="middle" font-family="Arial" font-size="19" font-weight="bold" fill="black" stroke="none">printInvoice.jsp</text></g>
+<g id="package-controller" data-uml-type="Package" fill="white" stroke="black" stroke-width="1.5">
+<path d="M 60 672 V 640 H 250 V 672 H 540 V 990 H 60 Z M 60 672 H 540"/>
+<text x="75" y="664" font-family="Arial" font-size="22" fill="black" stroke="none">controller</text></g>
+<g id="element-CatalogServlet4" data-uml-type="Class" fill="#86CFE9" stroke="black" stroke-width="1.2">
+<rect x="80.0" y="700" width="440.0" height="64"/>
+<path d="M 80.0 734 H 520.0 M 80.0 749 H 520.0" fill="none"/>
+<text x="300.0" y="725" text-anchor="middle" font-family="Arial" font-size="19" font-weight="bold" fill="black" stroke="none">CatalogServlet4</text></g>
+<g id="element-SupplierServlet4" data-uml-type="Class" fill="#86CFE9" stroke="black" stroke-width="1.2">
+<rect x="80.0" y="772" width="440.0" height="64"/>
+<path d="M 80.0 806 H 520.0 M 80.0 821 H 520.0" fill="none"/>
+<text x="300.0" y="797" text-anchor="middle" font-family="Arial" font-size="19" font-weight="bold" fill="black" stroke="none">SupplierServlet4</text></g>
+<g id="element-SparePartServlet4" data-uml-type="Class" fill="#86CFE9" stroke="black" stroke-width="1.2">
+<rect x="80.0" y="844" width="440.0" height="64"/>
+<path d="M 80.0 878 H 520.0 M 80.0 893 H 520.0" fill="none"/>
+<text x="300.0" y="869" text-anchor="middle" font-family="Arial" font-size="19" font-weight="bold" fill="black" stroke="none">SparePartServlet4</text></g>
+<g id="element-PurchaseInvoiceServlet4" data-uml-type="Class" fill="#86CFE9" stroke="black" stroke-width="1.2">
+<rect x="80.0" y="916" width="440.0" height="64"/>
+<path d="M 80.0 950 H 520.0 M 80.0 965 H 520.0" fill="none"/>
+<text x="300.0" y="941" text-anchor="middle" font-family="Arial" font-size="19" font-weight="bold" fill="black" stroke="none">PurchaseInvoiceServlet4</text></g>
+<g id="package-dao" data-uml-type="Package" fill="white" stroke="black" stroke-width="1.5">
+<path d="M 60 1112 V 1080 H 250 V 1112 H 540 V 1690 H 60 Z M 60 1112 H 540"/>
+<text x="75" y="1104" font-family="Arial" font-size="22" fill="black" stroke="none">dao</text></g>
+<g id="element-DAO" data-uml-type="Class" fill="#86CFE9" stroke="black" stroke-width="1.2">
+<rect x="80.0" y="1140" width="440.0" height="64"/>
+<path d="M 80.0 1174 H 520.0 M 80.0 1189 H 520.0" fill="none"/>
+<text x="300.0" y="1165" text-anchor="middle" font-family="Arial" font-size="19" font-weight="bold" font-style="italic" fill="black" stroke="none">DAO</text></g>
+<g id="element-ServiceDAO4" data-uml-type="Class" fill="#86CFE9" stroke="black" stroke-width="1.2">
+<rect x="80.0" y="1212" width="440.0" height="64"/>
+<path d="M 80.0 1246 H 520.0 M 80.0 1261 H 520.0" fill="none"/>
+<text x="300.0" y="1237" text-anchor="middle" font-family="Arial" font-size="19" font-weight="bold" fill="black" stroke="none">ServiceDAO4</text></g>
+<g id="element-SparePartDAO4" data-uml-type="Class" fill="#86CFE9" stroke="black" stroke-width="1.2">
+<rect x="80.0" y="1284" width="440.0" height="64"/>
+<path d="M 80.0 1318 H 520.0 M 80.0 1333 H 520.0" fill="none"/>
+<text x="300.0" y="1309" text-anchor="middle" font-family="Arial" font-size="19" font-weight="bold" fill="black" stroke="none">SparePartDAO4</text></g>
+<g id="element-SupplierDAO4" data-uml-type="Class" fill="#86CFE9" stroke="black" stroke-width="1.2">
+<rect x="80.0" y="1356" width="440.0" height="64"/>
+<path d="M 80.0 1390 H 520.0 M 80.0 1405 H 520.0" fill="none"/>
+<text x="300.0" y="1381" text-anchor="middle" font-family="Arial" font-size="19" font-weight="bold" fill="black" stroke="none">SupplierDAO4</text></g>
+<g id="element-WarehouseStaffDAO4" data-uml-type="Class" fill="#86CFE9" stroke="black" stroke-width="1.2">
+<rect x="80.0" y="1428" width="440.0" height="64"/>
+<path d="M 80.0 1462 H 520.0 M 80.0 1477 H 520.0" fill="none"/>
+<text x="300.0" y="1453" text-anchor="middle" font-family="Arial" font-size="19" font-weight="bold" fill="black" stroke="none">WarehouseStaffDAO4</text></g>
+<g id="element-SparePartCategoryDAO4" data-uml-type="Class" fill="#86CFE9" stroke="black" stroke-width="1.2">
+<rect x="80.0" y="1500" width="440.0" height="64"/>
+<path d="M 80.0 1534 H 520.0 M 80.0 1549 H 520.0" fill="none"/>
+<text x="300.0" y="1525" text-anchor="middle" font-family="Arial" font-size="19" font-weight="bold" fill="black" stroke="none">SparePartCategoryDAO4</text></g>
+<g id="element-PurchaseInvoiceDAO4" data-uml-type="Class" fill="#86CFE9" stroke="black" stroke-width="1.2">
+<rect x="80.0" y="1572" width="440.0" height="64"/>
+<path d="M 80.0 1606 H 520.0 M 80.0 1621 H 520.0" fill="none"/>
+<text x="300.0" y="1597" text-anchor="middle" font-family="Arial" font-size="19" font-weight="bold" fill="black" stroke="none">PurchaseInvoiceDAO4</text></g>
+<g id="package-model" data-uml-type="Package" fill="white" stroke="black" stroke-width="1.5">
+<path d="M 1000 672 V 640 H 1190 V 672 H 1880 V 1310 H 1000 Z M 1000 672 H 1880"/>
+<text x="1015" y="664" font-family="Arial" font-size="22" fill="black" stroke="none">model</text></g>
+<g id="element-Member4" data-uml-type="Class" fill="#86CFE9" stroke="black" stroke-width="1.2">
+<rect x="1020.0" y="700" width="268.0" height="64"/>
+<path d="M 1020.0 734 H 1288.0 M 1020.0 749 H 1288.0" fill="none"/>
+<text x="1154.0" y="725" text-anchor="middle" font-family="Arial" font-size="18" font-weight="bold" font-style="italic" fill="black" stroke="none">Member4</text></g>
+<g id="element-Employee4" data-uml-type="Class" fill="#86CFE9" stroke="black" stroke-width="1.2">
+<rect x="1020.0" y="772" width="268.0" height="64"/>
+<path d="M 1020.0 806 H 1288.0 M 1020.0 821 H 1288.0" fill="none"/>
+<text x="1154.0" y="797" text-anchor="middle" font-family="Arial" font-size="18" font-weight="bold" font-style="italic" fill="black" stroke="none">Employee4</text></g>
+<g id="element-Manager4" data-uml-type="Class" fill="#86CFE9" stroke="black" stroke-width="1.2">
+<rect x="1020.0" y="844" width="268.0" height="64"/>
+<path d="M 1020.0 878 H 1288.0 M 1020.0 893 H 1288.0" fill="none"/>
+<text x="1154.0" y="869" text-anchor="middle" font-family="Arial" font-size="18" font-weight="bold" fill="black" stroke="none">Manager4</text></g>
+<g id="element-WarehouseStaff4" data-uml-type="Class" fill="#86CFE9" stroke="black" stroke-width="1.2">
+<rect x="1020.0" y="916" width="268.0" height="64"/>
+<path d="M 1020.0 950 H 1288.0 M 1020.0 965 H 1288.0" fill="none"/>
+<text x="1154.0" y="941" text-anchor="middle" font-family="Arial" font-size="18" font-weight="bold" fill="black" stroke="none">WarehouseStaff4</text></g>
+<g id="element-SalesStaff4" data-uml-type="Class" fill="#86CFE9" stroke="black" stroke-width="1.2">
+<rect x="1020.0" y="988" width="268.0" height="64"/>
+<path d="M 1020.0 1022 H 1288.0 M 1020.0 1037 H 1288.0" fill="none"/>
+<text x="1154.0" y="1013" text-anchor="middle" font-family="Arial" font-size="18" font-weight="bold" fill="black" stroke="none">SalesStaff4</text></g>
+<g id="element-Customer4" data-uml-type="Class" fill="#86CFE9" stroke="black" stroke-width="1.2">
+<rect x="1020.0" y="1060" width="268.0" height="64"/>
+<path d="M 1020.0 1094 H 1288.0 M 1020.0 1109 H 1288.0" fill="none"/>
+<text x="1154.0" y="1085" text-anchor="middle" font-family="Arial" font-size="18" font-weight="bold" fill="black" stroke="none">Customer4</text></g>
+<g id="element-Technician4" data-uml-type="Class" fill="#86CFE9" stroke="black" stroke-width="1.2">
+<rect x="1020.0" y="1132" width="268.0" height="64"/>
+<path d="M 1020.0 1166 H 1288.0 M 1020.0 1181 H 1288.0" fill="none"/>
+<text x="1154.0" y="1157" text-anchor="middle" font-family="Arial" font-size="18" font-weight="bold" fill="black" stroke="none">Technician4</text></g>
+<g id="element-Supplier4" data-uml-type="Class" fill="#86CFE9" stroke="black" stroke-width="1.2">
+<rect x="1020.0" y="1204" width="268.0" height="64"/>
+<path d="M 1020.0 1238 H 1288.0 M 1020.0 1253 H 1288.0" fill="none"/>
+<text x="1154.0" y="1229" text-anchor="middle" font-family="Arial" font-size="18" font-weight="bold" fill="black" stroke="none">Supplier4</text></g>
+<g id="element-Car4" data-uml-type="Class" fill="#86CFE9" stroke="black" stroke-width="1.2">
+<rect x="1306.0" y="700" width="268.0" height="64"/>
+<path d="M 1306.0 734 H 1574.0 M 1306.0 749 H 1574.0" fill="none"/>
+<text x="1440.0" y="725" text-anchor="middle" font-family="Arial" font-size="18" font-weight="bold" fill="black" stroke="none">Car4</text></g>
+<g id="element-Appointment4" data-uml-type="Class" fill="#86CFE9" stroke="black" stroke-width="1.2">
+<rect x="1306.0" y="772" width="268.0" height="64"/>
+<path d="M 1306.0 806 H 1574.0 M 1306.0 821 H 1574.0" fill="none"/>
+<text x="1440.0" y="797" text-anchor="middle" font-family="Arial" font-size="18" font-weight="bold" fill="black" stroke="none">Appointment4</text></g>
+<g id="element-RepairIntake4" data-uml-type="Class" fill="#86CFE9" stroke="black" stroke-width="1.2">
+<rect x="1306.0" y="844" width="268.0" height="64"/>
+<path d="M 1306.0 878 H 1574.0 M 1306.0 893 H 1574.0" fill="none"/>
+<text x="1440.0" y="869" text-anchor="middle" font-family="Arial" font-size="18" font-weight="bold" fill="black" stroke="none">RepairIntake4</text></g>
+<g id="element-CustomerInvoice4" data-uml-type="Class" fill="#86CFE9" stroke="black" stroke-width="1.2">
+<rect x="1306.0" y="916" width="268.0" height="64"/>
+<path d="M 1306.0 950 H 1574.0 M 1306.0 965 H 1574.0" fill="none"/>
+<text x="1440.0" y="941" text-anchor="middle" font-family="Arial" font-size="18" font-weight="bold" fill="black" stroke="none">CustomerInvoice4</text></g>
+<g id="element-Service4" data-uml-type="Class" fill="#86CFE9" stroke="black" stroke-width="1.2">
+<rect x="1306.0" y="988" width="268.0" height="64"/>
+<path d="M 1306.0 1022 H 1574.0 M 1306.0 1037 H 1574.0" fill="none"/>
+<text x="1440.0" y="1013" text-anchor="middle" font-family="Arial" font-size="18" font-weight="bold" fill="black" stroke="none">Service4</text></g>
+<g id="element-SparePart4" data-uml-type="Class" fill="#86CFE9" stroke="black" stroke-width="1.2">
+<rect x="1306.0" y="1060" width="268.0" height="64"/>
+<path d="M 1306.0 1094 H 1574.0 M 1306.0 1109 H 1574.0" fill="none"/>
+<text x="1440.0" y="1085" text-anchor="middle" font-family="Arial" font-size="18" font-weight="bold" fill="black" stroke="none">SparePart4</text></g>
+<g id="element-SparePartCategory4" data-uml-type="Class" fill="#86CFE9" stroke="black" stroke-width="1.2">
+<rect x="1306.0" y="1132" width="268.0" height="64"/>
+<path d="M 1306.0 1166 H 1574.0 M 1306.0 1181 H 1574.0" fill="none"/>
+<text x="1440.0" y="1157" text-anchor="middle" font-family="Arial" font-size="18" font-weight="bold" fill="black" stroke="none">SparePartCategory4</text></g>
+<g id="element-RepairService4" data-uml-type="Class" fill="#86CFE9" stroke="black" stroke-width="1.2">
+<rect x="1306.0" y="1204" width="268.0" height="64"/>
+<path d="M 1306.0 1238 H 1574.0 M 1306.0 1253 H 1574.0" fill="none"/>
+<text x="1440.0" y="1229" text-anchor="middle" font-family="Arial" font-size="18" font-weight="bold" fill="black" stroke="none">RepairService4</text></g>
+<g id="element-RepairPart4" data-uml-type="Class" fill="#86CFE9" stroke="black" stroke-width="1.2">
+<rect x="1592.0" y="700" width="268.0" height="64"/>
+<path d="M 1592.0 734 H 1860.0 M 1592.0 749 H 1860.0" fill="none"/>
+<text x="1726.0" y="725" text-anchor="middle" font-family="Arial" font-size="18" font-weight="bold" fill="black" stroke="none">RepairPart4</text></g>
+<g id="element-PurchaseInvoice4" data-uml-type="Class" fill="#86CFE9" stroke="black" stroke-width="1.2">
+<rect x="1592.0" y="772" width="268.0" height="64"/>
+<path d="M 1592.0 806 H 1860.0 M 1592.0 821 H 1860.0" fill="none"/>
+<text x="1726.0" y="797" text-anchor="middle" font-family="Arial" font-size="18" font-weight="bold" fill="black" stroke="none">PurchaseInvoice4</text></g>
+<g id="element-PurchaseInvoiceDetail4" data-uml-type="Class" fill="#86CFE9" stroke="black" stroke-width="1.2">
+<rect x="1592.0" y="844" width="268.0" height="64"/>
+<path d="M 1592.0 878 H 1860.0 M 1592.0 893 H 1860.0" fill="none"/>
+<text x="1726.0" y="869" text-anchor="middle" font-family="Arial" font-size="18" font-weight="bold" fill="black" stroke="none">PurchaseInvoiceDetail4</text></g>
+<g id="element-CustomerStatistics4" data-uml-type="Class" fill="#86CFE9" stroke="black" stroke-width="1.2">
+<rect x="1592.0" y="916" width="268.0" height="64"/>
+<path d="M 1592.0 950 H 1860.0 M 1592.0 965 H 1860.0" fill="none"/>
+<text x="1726.0" y="941" text-anchor="middle" font-family="Arial" font-size="18" font-weight="bold" fill="black" stroke="none">CustomerStatistics4</text></g>
+<g id="element-ServiceStatistics4" data-uml-type="Class" fill="#86CFE9" stroke="black" stroke-width="1.2">
+<rect x="1592.0" y="988" width="268.0" height="64"/>
+<path d="M 1592.0 1022 H 1860.0 M 1592.0 1037 H 1860.0" fill="none"/>
+<text x="1726.0" y="1013" text-anchor="middle" font-family="Arial" font-size="18" font-weight="bold" fill="black" stroke="none">ServiceStatistics4</text></g>
+<g id="element-SparePartStatistics4" data-uml-type="Class" fill="#86CFE9" stroke="black" stroke-width="1.2">
+<rect x="1592.0" y="1060" width="268.0" height="64"/>
+<path d="M 1592.0 1094 H 1860.0 M 1592.0 1109 H 1860.0" fill="none"/>
+<text x="1726.0" y="1085" text-anchor="middle" font-family="Arial" font-size="18" font-weight="bold" fill="black" stroke="none">SparePartStatistics4</text></g>
+<g id="element-SupplierStatistics4" data-uml-type="Class" fill="#86CFE9" stroke="black" stroke-width="1.2">
+<rect x="1592.0" y="1132" width="268.0" height="64"/>
+<path d="M 1592.0 1166 H 1860.0 M 1592.0 1181 H 1860.0" fill="none"/>
+<text x="1726.0" y="1157" text-anchor="middle" font-family="Arial" font-size="18" font-weight="bold" fill="black" stroke="none">SupplierStatistics4</text></g>
+<polyline id="dependency-view-controller" points="150,510 150,640" fill="none" stroke="black" stroke-width="1.5" stroke-dasharray="8,6"/>
+<path d="M 144.0 626.0 L 150 640 L 156.0 626.0" fill="none" stroke="black" stroke-width="1.5"/>
+<polyline id="dependency-controller-view" points="430,640 430,510" fill="none" stroke="black" stroke-width="1.5" stroke-dasharray="8,6"/>
+<path d="M 436.0 524.0 L 430 510 L 424.0 524.0" fill="none" stroke="black" stroke-width="1.5"/>
+<polyline id="dependency-view-model" points="1730,510 1730,640" fill="none" stroke="black" stroke-width="1.5" stroke-dasharray="8,6"/>
+<path d="M 1724.0 626.0 L 1730 640 L 1736.0 626.0" fill="none" stroke="black" stroke-width="1.5"/>
+<polyline id="dependency-controller-dao" points="300,990 300,1080" fill="none" stroke="black" stroke-width="1.5" stroke-dasharray="8,6"/>
+<path d="M 294.0 1066.0 L 300 1080 L 306.0 1066.0" fill="none" stroke="black" stroke-width="1.5"/>
+<polyline id="dependency-controller-model" points="540,790 1000,790" fill="none" stroke="black" stroke-width="1.5" stroke-dasharray="8,6"/>
+<path d="M 986.0 796.0 L 1000 790 L 986.0 784.0" fill="none" stroke="black" stroke-width="1.5"/>
+<polyline id="dependency-dao-model" points="540,1250 770,1250 770,1030 1000,1030" fill="none" stroke="black" stroke-width="1.5" stroke-dasharray="8,6"/>
+<path d="M 986.0 1036.0 L 1000 1030 L 986.0 1024.0" fill="none" stroke="black" stroke-width="1.5"/>
+</svg>

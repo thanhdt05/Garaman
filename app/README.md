@@ -1,6 +1,10 @@
 # HỆ THỐNG QUẢN LÝ GARA Ô TÔ GARAMAN (ĐỀ SỐ 26)
 
 Ứng dụng Java Web JSP / Servlet / DAO / JDBC cho hai module đề 26: khách tra cứu dịch vụ/phụ tùng và nhân viên kho nhập phụ tùng.
+
+**Sửa luồng theo báo cáo 30/10/2026:** nhân viên kho ca hiện tại được ghi nhận thanh toán hóa đơn do người khác lập; lưu riêng người thực sự trả và giữ người lập. Danh sách hóa đơn chưa thanh toán dùng chung cho gara. CSDL tên tiếng Anh đang có cần migration [06_migrate_purchase_payment.sql](database/06_migrate_purchase_payment.sql) trước khi dùng WAR mới; CSDL tạo mới đã có cột trong schema 01. Xem [luồng đã sửa và kiểm chứng](docs/SUA_LUONG_THEO_BAO_CAO.md).
+
+**Cập nhật cấu trúc 30/10/2026:** bỏ các gói Java `exception`, `util`, `filter`, `dto`; chuyển xử lí cần thiết vào các hàm Servlet/DAO đang có, không thêm hàm ứng dụng. JSP nhân viên kho nằm trong `WEB-INF/view/warehouseStaff`. Xem [thay đổi và kiểm chứng](docs/RUT_GON_CODE_THEO_GOI.md), [phần package cho báo cáo](docs/THIET_KE_GOI.md) và [hướng dẫn vẽ đủ lớp/JSP](docs/VE_PACKAGE_VISUAL_PARADIGM.md).
 Phạm vi theo `ke-hoach/00_PHAM_VI.md`, luồng/UI theo `11`. Source và tài liệu hai module đã được sửa theo rà soát `13`; xem kết quả kiểm tra thực tế tại `docs/KIEM_THU.md`. Bản sao Word cũ chưa được cập nhật theo lần sửa này.
 
 **Cập nhật tên tiếng Anh 21/10/2026:** source Java/JSP/JavaScript, tên file JSP và schema SQL đã đồng bộ theo bộ tên trong báo cáo. Xem [hướng dẫn chuyển đổi](docs/CODE_ENGLISH_MIGRATION.md) và [CSV tên cũ → mới](docs/CODE_ENGLISH_RENAME.csv). Nếu dùng CSDL cũ, cần chạy migration `database/04_migrate_english_names.sql` sau khi sao lưu và dừng app; không chạy lại seed lên dữ liệu đang có. CSDL/Tomcat tại cổng 8080 chưa được chuyển đổi vì đang chờ chủ bài đồng ý. Bản kiểm tra riêng chạy tại `http://localhost:18099/garaman/` với CSDL test tách biệt.
@@ -23,14 +27,14 @@ Phạm vi theo `ke-hoach/00_PHAM_VI.md`, luồng/UI theo `11`. Source và tài l
   - Thực thi giao dịch CSDL (ACID Transaction) toàn vẹn: Khóa thứ tự chống Deadlock, lưu hóa đơn, chốt snapshot tên/đơn vị áp dụng lịch sử, tự động cộng dồn tồn kho.
   - Chống xác nhận trùng lặp (Double Submit / Retry) qua ràng buộc duy nhất `UNIQUE (requestCode)`.
   - In hóa đơn nhập theo định dạng chuẩn A4 (việc in không làm thay đổi trạng thái thanh toán hoặc tồn kho).
-  - Ghi nhận thanh toán: Chỉ người lập mới có quyền thanh toán, kiểm tra đúng tổng tiền, chuyển trạng thái ĐÃ THANH TOÁN.
-  - Cho phép mở lại danh sách hóa đơn nhập chưa thanh toán của riêng nhân viên kho để thanh toán sau.
+  - Nhân viên kho đang có quyền được ghi nhận thanh toán đủ tổng tiền; lưu người thực sự trả, thời điểm và trạng thái, giữ nguyên người lập.
+  - Mở lại danh sách hóa đơn nhập chưa thanh toán của gara, gồm cả hóa đơn do nhân viên ca trước lập.
 - **Module phụ trợ: Đăng nhập & Điều hướng theo vai trò**
   - Xác thực người dùng bằng thuật toán băm mật khẩu chuẩn công nghiệp PBKDF2WithHmacSHA256 kèm muối ngẫu nhiên (Salt).
   - Chống Session Fixation (tái tạo session ID mới ngay sau khi đăng nhập thành công).
-  - Bộ lọc bảo vệ (`AuthFilter4`) phân quyền chặt chẽ giữa vai trò Khách hàng (`Customer`) và Nhân viên kho (`WarehouseStaff`).
+  - Các Servlet kiểm tra đăng nhập và phân quyền giữa vai trò Khách hàng (`Customer`) và Nhân viên kho (`WarehouseStaff`) tại `doGet()`/`doPost()`.
   - Bảo vệ chống tấn công CSRF (Cross-Site Request Forgery) bằng token đồng bộ trên toàn bộ các biểu mẫu POST.
-  - Bộ lọc mã hóa tiếng Việt (`EncodingFilter4`) ép kiểu `UTF-8` cho toàn bộ Request và Response.
+  - Servlet thiết lập `UTF-8` cho Request và Response; JSP khai báo UTF-8.
 
 ### 1.2. Giới hạn phạm vi đề 26
 - Hệ thống xây dựng chuẩn hóa đúng **9 bảng CSDL InnoDB** và **10 lớp thực thể Java POJO** phục vụ đúng hai module của đề 26 theo `ke-hoach/00_PHAM_VI.md` (các POJO ngoài phạm vi đã được tách riêng vào `app/archive/extra_models/` để bảo toàn mã nguồn mà không làm phình dự án).
@@ -156,8 +160,8 @@ Hệ thống đã nạp sẵn 2 tài khoản demo chuẩn đề 26 với mật k
 | `/warehouse/purchases/confirm` | POST | Xác nhận hóa đơn nhập, ghi nhận DB và tăng tồn kho | `WarehouseStaff` |
 | `/warehouse/purchases/view` | GET | Xem hóa đơn nhập đã xác nhận (chi tiết snapshot, người lập, trạng thái) | `WarehouseStaff` |
 | `/warehouse/purchases/print` | GET | Xem và in chứng từ hóa đơn nhập khổ A4 | `WarehouseStaff` |
-| `/warehouse/purchases/pay` | POST | Ghi nhận thanh toán cho hóa đơn nhập | `WarehouseStaff` (chính người lập) |
-| `/warehouse/purchases/unpaid` | GET | Xem danh sách các hóa đơn nhập chưa thanh toán của bản thân | `WarehouseStaff` |
+| `/warehouse/purchases/pay` | POST | Ghi nhận thanh toán; lưu nhân viên thực sự trả tiền | `WarehouseStaff` đang có quyền |
+| `/warehouse/purchases/unpaid` | GET | Xem danh sách hóa đơn nhập chưa thanh toán của gara | `WarehouseStaff` đang có quyền |
 
 ---
 

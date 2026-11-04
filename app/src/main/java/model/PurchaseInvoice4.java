@@ -6,7 +6,6 @@ import java.math.RoundingMode;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import util.AppConstants4;
 
 public class PurchaseInvoice4 implements Serializable {
     private static final long serialVersionUID = 2L;
@@ -15,7 +14,7 @@ public class PurchaseInvoice4 implements Serializable {
     private String requestCode;
     private LocalDateTime purchaseDate;
     private LocalDateTime confirmedAt;
-    private String paymentStatus = AppConstants4.INVOICE_STATUS_UNPAID;
+    private String paymentStatus = "Chưa thanh toán";
     private LocalDateTime paidAt;
     private Supplier4 supplier;
     private WarehouseStaff4 warehouseStaff;

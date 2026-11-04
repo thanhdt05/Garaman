@@ -17,6 +17,12 @@ DOCS = HERE.parents[1]
 def main():
     manifest = json.loads((HERE / "sequence-manifest.json").read_text(encoding="utf-8"))
     assert len(manifest) == 2
+    catalog = next(item for item in manifest if item["stem"] == "tuan_tu_tra_cuu")
+    assert catalog["steps"][-1]["src"] == "Detail" and catalog["steps"][-1]["dst"] == "A"
+    assert not any(s["src"] == "A" and s["dst"] == "Detail" for s in catalog["steps"])
+    search_response = catalog["steps"][20]
+    assert search_response["number"] == 21 and search_response["src"] == "C" and search_response["dst"] == "Search"
+    assert search_response["kind"] == "Trả về" and search_response["label"] == "trả về"
     assert len(list(HERE.glob("*.pdf"))) == 2
     assert not list(HERE.glob("*.puml"))
     java = {p.stem: p.read_text(encoding="utf-8") for p in (ROOT / "app/src/main/java").rglob("*.java")}
@@ -25,6 +31,9 @@ def main():
     prose = (DOCS / "SCENARIO_V3_VA_BIEU_DO_TUAN_TU.md").read_text(encoding="utf-8")
     calls = set()
     for item in manifest:
+        expected_returns = {21} if item["stem"] == "tuan_tu_tra_cuu" else {15, 45, 57, 114}
+        actual_returns = {s["number"] for s in item["steps"] if "requester" in s and s["kind"] == "Trả về"}
+        assert actual_returns == expected_returns, (item["stem"], actual_returns)
         path = HERE.parent / (item["stem"]+".puml")
         text = path.read_text(encoding="utf-8")
         assert text.count("@startuml") == 1 and text.count("@enduml") == 1
@@ -44,12 +53,26 @@ def main():
                 active[action[2]] += 1 if action[1] == "activate" else -1
                 assert active[action[2]] >= 0, (path, line)
         assert not any(active.values()), (path, active)
-        for step, msg in zip(item["steps"], messages):
+        servlet_entries = 0
+        for index, (step, msg) in enumerate(zip(item["steps"], messages)):
             src, arrow, dst, number, label = msg
             assert src == step["src"] and dst == step["dst"] and label == step["label"]
             assert f'{number}. {step["text"]}' in prose
             assert f'| {number} | {aliases[src]} | {aliases[dst]} |' in guide
             target = aliases[dst]
+            if "requester" in step:
+                if step["requester"] == dst:
+                    assert arrow == "-->" and label == "trả về"
+                    assert step["kind"] == "Trả về"
+                else:
+                    assert arrow == "->" and label == "gọi" and step["kind"] == "Gọi"
+            if aliases[src].endswith(".jsp") and target.endswith("Servlet4"):
+                assert label == "gọi", (target, label)
+                following = item["steps"][index+1]
+                assert following["src"] == following["dst"] == dst
+                assert re.fullmatch(r"\w+\(request, response\)", following["label"])
+                assert following["kind"] == "Tự gọi" and following["start"] == 1
+                servlet_entries += 1
             match = re.match(r"(\w+)\(", label)
             if target in java and match:
                 method = match[1]
@@ -60,6 +83,7 @@ def main():
             assert name in jsp if kind == "boundary" else kind == "actor" or name in java
         for loop in item["loops"]:
             assert 1 <= loop["first"] <= loop["last"] <= len(item["steps"])
+        assert servlet_entries >= 3
     csv_rows = list(csv.DictReader((DOCS / "TEN_CU_TEN_MOI.csv").open(encoding="utf-8-sig", newline="")))
     confirmed = {(r["Lớp/trang mới"], r["Tên mới"].split("(")[0]) for r in csv_rows if r["Loại"] == "Method"}
     business_calls = {(c, m) for c, m in calls if c.endswith("DAO4") and not m.startswith("insert")}

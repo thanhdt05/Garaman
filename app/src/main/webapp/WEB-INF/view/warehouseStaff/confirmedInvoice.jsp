@@ -60,7 +60,7 @@
     <h2>Chi tiết phụ tùng nhập</h2>
     <span class="summary-label">Các dòng đã xác nhận</span>
   </div>
-  <%@ include file="/WEB-INF/view/warehouse/invoice-lines.jspf" %>
+  <%@ include file="/WEB-INF/view/warehouseStaff/invoice-lines.jspf" %>
 </section>
 
 <!-- Khung thanh toán cho nhà cung cấp -->
@@ -110,7 +110,7 @@
 
           <c:otherwise>
             <p class="page-subtitle">
-              Chỉ nhân viên đã lập hóa đơn (<strong><c:out value="${purchaseInvoice.warehouseStaffNameSnapshot}"/></strong>) mới có quyền ghi nhận thanh toán cho chứng từ này.
+              Tài khoản hiện tại không có quyền ghi nhận thanh toán cho chứng từ này.
             </p>
           </c:otherwise>
         </c:choose>

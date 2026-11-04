@@ -1,7 +1,6 @@
 package dao;
 
 import model.*;
-import util.AppConstants4;
 
 import java.sql.Connection;
 import java.sql.Date;
@@ -16,15 +15,10 @@ public class MemberDAO4 extends DAO {
             return null;
         }
 
-        String sql = "SELECT m.id, m.fullName, m.username, m.password, m.dateOfBirth, m.address, " +
-                     "       m.email, m.phoneNumber, m.role, m.accountStatus, " +
-                     "       e.position, e.employmentStatus " +
-                     "FROM tblMember4 m " +
-                     "LEFT JOIN tblEmployee4 e ON m.id = e.tblMember4id " +
-                     "WHERE m.username = ?";
+        String sql = "SELECT m.id, m.fullName, m.username, m.password, m.dateOfBirth, m.address,        m.email, m.phoneNumber, m.role, m.accountStatus,        e.position, e.employmentStatus FROM tblMember4 m LEFT JOIN tblEmployee4 e ON m.id = e.tblMember4id WHERE m.username = ?";
 
         try (Connection connection = getConnection();
-             PreparedStatement ps = connection.prepareStatement(sql)) {
+        PreparedStatement ps = connection.prepareStatement(sql)) {
             ps.setString(1, username.trim());
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
@@ -40,23 +34,18 @@ public class MemberDAO4 extends DAO {
             return null;
         }
 
-        String sql = "SELECT m.id, m.fullName, m.username, m.password, m.dateOfBirth, m.address, " +
-                     "       m.email, m.phoneNumber, m.role, m.accountStatus, " +
-                     "       e.position, e.employmentStatus " +
-                     "FROM tblMember4 m " +
-                     "LEFT JOIN tblEmployee4 e ON m.id = e.tblMember4id " +
-                     "WHERE m.id = ? AND m.accountStatus = ?";
+        String sql = "SELECT m.id, m.fullName, m.username, m.password, m.dateOfBirth, m.address,        m.email, m.phoneNumber, m.role, m.accountStatus,        e.position, e.employmentStatus FROM tblMember4 m LEFT JOIN tblEmployee4 e ON m.id = e.tblMember4id WHERE m.id = ? AND m.accountStatus = ?";
 
         try (Connection connection = getConnection();
-             PreparedStatement ps = connection.prepareStatement(sql)) {
+        PreparedStatement ps = connection.prepareStatement(sql)) {
             ps.setInt(1, id);
-            ps.setString(2, AppConstants4.ACCOUNT_STATUS_ACTIVE);
+            ps.setString(2, "Hoạt động");
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
                     Member4 member = mapMember(rs);
                     if (member instanceof Employee4) {
                         Employee4 emp = (Employee4) member;
-                        if (!AppConstants4.EMPLOYMENT_STATUS_ACTIVE.equals(emp.getEmploymentStatus())) {
+                        if (!"Đang làm việc".equals(emp.getEmploymentStatus())) {
                             return null;
                         }
                     }
@@ -71,7 +60,7 @@ public class MemberDAO4 extends DAO {
         String role = rs.getString("role");
         Member4 m;
 
-        if (AppConstants4.ROLE_WAREHOUSE_STAFF.equalsIgnoreCase(role)) {
+        if ("WarehouseStaff".equalsIgnoreCase(role)) {
             WarehouseStaff4 ws = new WarehouseStaff4();
             ws.setPosition(rs.getString("position"));
             ws.setEmploymentStatus(rs.getString("employmentStatus"));

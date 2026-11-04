@@ -1,0 +1,102 @@
+{
+  "status": "PASS",
+  "date": "2026-10-30",
+  "unit_tests": 28,
+  "mysql_integration_tests": 7,
+  "skipped": 0,
+  "tests": {
+    "surefire-reports": [
+      {
+        "name": "controller.AuthServlet4Test",
+        "tests": "4",
+        "failures": "0",
+        "errors": "0",
+        "skipped": "0"
+      },
+      {
+        "name": "controller.PurchaseInvoiceServlet4Test",
+        "tests": "16",
+        "failures": "0",
+        "errors": "0",
+        "skipped": "0"
+      },
+      {
+        "name": "dao.InputValidationTest",
+        "tests": "3",
+        "failures": "0",
+        "errors": "0",
+        "skipped": "0"
+      },
+      {
+        "name": "model.PurchaseInvoice4Test",
+        "tests": "5",
+        "failures": "0",
+        "errors": "0",
+        "skipped": "0"
+      }
+    ],
+    "failsafe-reports": [
+      {
+        "name": "dao.PurchaseInvoiceDAO4IT",
+        "tests": "2",
+        "failures": "0",
+        "errors": "0",
+        "skipped": "0"
+      },
+      {
+        "name": "dao.PurchasePaymentFlowIT",
+        "tests": "5",
+        "failures": "0",
+        "errors": "0",
+        "skipped": "0"
+      }
+    ]
+  },
+  "browser_checks": [
+    "Customer: initial search, results, service/part details, back keeps keyword",
+    "Warehouse: table selection, new part form, preserved draft, remove line, confirm/retry stock +10 once, print, under/over/exact payment",
+    "New supplier form inserts using English column names",
+    "New unpublished part cannot be found by customer",
+    "Cancel drops only the draft; stock and committed invoices unchanged",
+    "Zero rows and invalid quantity blocked; confirmation adds stock once; print returns to the same unpaid invoice",
+    "Shift handover: shared unpaid list, payment by another staff from session despite tampered form, creator preserved, first payer/time unchanged on retry",
+    "Customer cannot access warehouse unpaid invoices"
+  ],
+  "browser_errors": [],
+  "migration": {
+    "status": "PASS",
+    "database": "garaman4_migration_d17ad35_test",
+    "tables_preserved": 9,
+    "original_columns_and_rows_unchanged": true,
+    "historical_payer_not_fabricated": true
+  },
+  "application_methods_added": 0,
+  "application_signatures_changed": 0,
+  "java_classes": 24,
+  "sql_tables": 9,
+  "payment_audit_columns": [
+    "paidByEmployee4id",
+    "paidByNameSnapshot"
+  ],
+  "creator_fields_unchanged": [
+    "tblEmployee4id",
+    "warehouseStaffNameSnapshot"
+  ],
+  "runtime": {
+    "tomcat": "9.0.86",
+    "mysql": "8.0.43",
+    "jdk": "25.0.2",
+    "compiler_release": "17"
+  },
+  "source_hashes_unchanged": {
+    "26_B23DCCN764.docx": "8d41d0f56fc7f5b106d1b03b61ecc21996b361d4a33bdadae78fff5de1db41f1",
+    "BG HP TTTN 2 CNPM 2020 final.pdf": "416f0401a70297300419d3abe6a72c4d3d816635e4f58c4b6cc5cd52a865d389"
+  },
+  "war_sha256": "4032760b9cb0ae66e82400c0290fbbfae8d87a27e77e7cd713c165a052b3f988",
+  "limitations": [
+    "Java 17 / MySQL 8.4 target runtimes not directly exercised",
+    "Print dialog flow simulated; physical printing not tested"
+  ],
+  "live_deployment_performed": false,
+  "existing_live_database_migrated": false
+}

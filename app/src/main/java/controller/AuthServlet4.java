@@ -1,12 +1,8 @@
 package controller;
 
 import dao.MemberDAO4;
-import dto.SessionUser4;
 import model.Employee4;
 import model.Member4;
-import util.AppConstants4;
-import util.PasswordUtil4;
-import util.WebUtil4;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -28,7 +24,25 @@ public class AuthServlet4 extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
+        javax.servlet.http.HttpSession entrySession = request.getSession(true);
+        Member4 entryUser = (Member4) entrySession.getAttribute("currentUser4");
+
+        String csrfToken = (String) entrySession.getAttribute("csrfToken4");
+        if (csrfToken == null) {
+            byte[] tokenBytes = new byte[32];
+            new java.security.SecureRandom().nextBytes(tokenBytes);
+            csrfToken = java.util.Base64.getUrlEncoder().withoutPadding().encodeToString(tokenBytes);
+            entrySession.setAttribute("csrfToken4", csrfToken);
+        }
+        request.setAttribute("csrfToken", csrfToken);
+        request.setAttribute("currentUser", entryUser);
+        Object flashMessage = entrySession.getAttribute("flashMessage4");
+        entrySession.removeAttribute("flashMessage4");
+        if (flashMessage != null) request.setAttribute("flashMessage", flashMessage);
+
         String path = request.getServletPath();
         if ("/logout".equals(path)) {
             logout(request, response);
@@ -39,7 +53,33 @@ public class AuthServlet4 extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
+        javax.servlet.http.HttpSession entrySession = request.getSession(true);
+        Member4 entryUser = (Member4) entrySession.getAttribute("currentUser4");
+
+        String csrfToken = (String) entrySession.getAttribute("csrfToken4");
+        if (csrfToken == null) {
+            byte[] tokenBytes = new byte[32];
+            new java.security.SecureRandom().nextBytes(tokenBytes);
+            csrfToken = java.util.Base64.getUrlEncoder().withoutPadding().encodeToString(tokenBytes);
+            entrySession.setAttribute("csrfToken4", csrfToken);
+        }
+        request.setAttribute("csrfToken", csrfToken);
+        request.setAttribute("currentUser", entryUser);
+        Object flashMessage = entrySession.getAttribute("flashMessage4");
+        entrySession.removeAttribute("flashMessage4");
+        if (flashMessage != null) request.setAttribute("flashMessage", flashMessage);
+
+        String submittedToken = request.getParameter("csrfToken");
+        if (submittedToken == null || !java.security.MessageDigest.isEqual(
+        csrfToken.getBytes(java.nio.charset.StandardCharsets.UTF_8),
+        submittedToken.getBytes(java.nio.charset.StandardCharsets.UTF_8))) {
+            response.sendError(403, "CSRF token không hợp lệ hoặc đã hết hạn");
+            return;
+        }
+
         String path = request.getServletPath();
         if ("/logout".equals(path)) {
             logout(request, response);
@@ -49,9 +89,9 @@ public class AuthServlet4 extends HttpServlet {
     }
 
     public void showLogin(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    throws ServletException, IOException {
         HttpSession session = request.getSession(false);
-        if (session != null && session.getAttribute(AppConstants4.SESSION_USER) != null) {
+        if (session != null && session.getAttribute("currentUser4") != null) {
             response.sendRedirect(request.getContextPath() + "/home");
             return;
         }
@@ -65,12 +105,12 @@ public class AuthServlet4 extends HttpServlet {
     }
 
     public void login(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    throws ServletException, IOException {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
 
         if (username == null || username.trim().isEmpty() ||
-            password == null || password.trim().isEmpty()) {
+        password == null || password.trim().isEmpty()) {
             request.setAttribute("errorMessage", "Vui lòng nhập đầy đủ tên đăng nhập và mật khẩu.");
             request.setAttribute("username", username != null ? username.trim() : "");
             request.getRequestDispatcher("/WEB-INF/view/member/login.jsp").forward(request, response);
@@ -86,7 +126,7 @@ public class AuthServlet4 extends HttpServlet {
                 return;
             }
 
-            if (!AppConstants4.ACCOUNT_STATUS_ACTIVE.equals(member.getAccountStatus())) {
+            if (!"Hoạt động".equals(member.getAccountStatus())) {
                 request.setAttribute("errorMessage", "Tài khoản của bạn đã bị khóa hoặc chưa được kích hoạt.");
                 request.setAttribute("username", username.trim());
                 request.getRequestDispatcher("/WEB-INF/view/member/login.jsp").forward(request, response);
@@ -95,7 +135,7 @@ public class AuthServlet4 extends HttpServlet {
 
             if (member instanceof Employee4) {
                 Employee4 emp = (Employee4) member;
-                if (!AppConstants4.EMPLOYMENT_STATUS_ACTIVE.equals(emp.getEmploymentStatus())) {
+                if (!"Đang làm việc".equals(emp.getEmploymentStatus())) {
                     request.setAttribute("errorMessage", "Nhân viên đã ngừng làm việc tại Gara.");
                     request.setAttribute("username", username.trim());
                     request.getRequestDispatcher("/WEB-INF/view/member/login.jsp").forward(request, response);
@@ -103,7 +143,27 @@ public class AuthServlet4 extends HttpServlet {
                 }
             }
 
-            if (!PasswordUtil4.verifyPassword(password, member.getPassword())) {
+            boolean validPassword = false;
+            String storedHash = member.getPassword();
+            try {
+                String[] hashParts = storedHash == null ? new String[0] : storedHash.split("\\$");
+                if (hashParts.length == 4 && "pbkdf2_sha256".equals(hashParts[0])) {
+                    int iterations = Integer.parseInt(hashParts[1]);
+                    byte[] salt = java.util.Base64.getDecoder().decode(hashParts[2]);
+                    byte[] expected = java.util.Base64.getDecoder().decode(hashParts[3]);
+                    if (iterations > 0 && expected.length > 0) {
+                        javax.crypto.spec.PBEKeySpec spec = new javax.crypto.spec.PBEKeySpec(
+                        password.toCharArray(), salt, iterations, expected.length * 8);
+                        byte[] actual = javax.crypto.SecretKeyFactory.getInstance("PBKDF2WithHmacSHA256")
+                        .generateSecret(spec).getEncoded();
+                        validPassword = java.security.MessageDigest.isEqual(expected, actual);
+                        spec.clearPassword();
+                    }
+                }
+            } catch (IllegalArgumentException | java.security.GeneralSecurityException invalidHash) {
+                validPassword = false;
+            }
+            if (!validPassword) {
                 request.setAttribute("errorMessage", "Tên đăng nhập hoặc mật khẩu không chính xác.");
                 request.setAttribute("username", username.trim());
                 request.getRequestDispatcher("/WEB-INF/view/member/login.jsp").forward(request, response);
@@ -117,15 +177,12 @@ public class AuthServlet4 extends HttpServlet {
             }
 
             HttpSession newSession = request.getSession(true);
-            WebUtil4.createCsrfToken(newSession);
+            byte[] tokenBytes = new byte[32];
+            new java.security.SecureRandom().nextBytes(tokenBytes);
+            newSession.setAttribute("csrfToken4", java.util.Base64.getUrlEncoder().withoutPadding().encodeToString(tokenBytes));
 
-            SessionUser4 sessionUser = new SessionUser4(
-                    member.getId(),
-                    member.getFullName(),
-                    member.getRole(),
-                    member.getUsername()
-            );
-            newSession.setAttribute(AppConstants4.SESSION_USER, sessionUser);
+            member.setPassword(null);
+            newSession.setAttribute("currentUser4", member);
 
             response.sendRedirect(request.getContextPath() + "/home");
 
@@ -138,7 +195,12 @@ public class AuthServlet4 extends HttpServlet {
     }
 
     public void logout(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    throws ServletException, IOException {
+        if (!"POST".equalsIgnoreCase(request.getMethod())) {
+            response.setHeader("Allow", "POST");
+            response.sendError(405);
+            return;
+        }
         HttpSession session = request.getSession(false);
         if (session != null) {
             session.invalidate();

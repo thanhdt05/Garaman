@@ -1,0 +1,41 @@
+@startuml deployment-diagram
+left to right direction
+skinparam monochrome true
+skinparam shadowing false
+skinparam roundcorner 0
+skinparam defaultFontName "Arial"
+skinparam defaultFontSize 16
+skinparam stereotypeFontStyle plain
+skinparam linetype ortho
+skinparam nodesep 55
+skinparam ranksep 80
+
+' Target deployment: one shared host for Tomcat and MySQL, following db.url.
+' One client device type serves all user roles through the same web technology.
+node "Web Client" as WebClient <<device>> {
+    node "Web Browser" as Browser <<executionEnvironment>> {
+    }
+}
+node "GaraMan Server" as GaraManServer <<device>> {
+    node "JVM (Java 17)" as JavaRuntime <<executionEnvironment>> {
+        node "Apache Tomcat 9.0.x" as Tomcat <<executionEnvironment>> {
+            artifact "garaman.war" as WebApplication
+        }
+    }
+    node "MySQL 8.4" as MySQL <<executionEnvironment>> {
+        artifact "garaman4" as Database
+    }
+}
+node "Printer" as Printer <<device>> {
+}
+
+Browser -- Tomcat : HTTP
+Tomcat -- MySQL : JDBC / MySQL protocol\nTCP 3306 (localhost)
+WebClient -- Printer : Local printing
+
+note bottom of Browser : HTML / CSS / JavaScript
+note bottom of WebApplication
+Packages in garaman.war:
+view, controller, dao, model
+end note
+@enduml

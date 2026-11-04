@@ -1,7 +1,6 @@
 package dao;
 
 import model.Service4;
-import util.AppConstants4;
 
 import java.math.BigDecimal;
 import java.sql.Connection;
@@ -15,15 +14,11 @@ public class ServiceDAO4 extends DAO {
 
     public List<Service4> findServicesByName(String keyword) throws SQLException {
         List<Service4> list = new ArrayList<>();
-        String sql = "SELECT id, name, category, description, content, imagePath, unitPrice, " +
-                     "       estimatedDuration, warrantyPeriod, warrantyTerms, status " +
-                     "FROM tblService4 " +
-                     "WHERE status = ? AND name LIKE ? " +
-                     "ORDER BY name ASC";
+        String sql = "SELECT id, name, category, description, content, imagePath, unitPrice,        estimatedDuration, warrantyPeriod, warrantyTerms, status FROM tblService4 WHERE status = ? AND name LIKE ? ORDER BY name ASC";
 
         try (Connection connection = getConnection();
-             PreparedStatement ps = connection.prepareStatement(sql)) {
-            ps.setString(1, AppConstants4.SERVICE_STATUS_ACTIVE);
+        PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setString(1, "Đang cung cấp");
             ps.setString(2, createSearchPattern(keyword));
 
             try (ResultSet rs = ps.executeQuery()) {
@@ -40,15 +35,12 @@ public class ServiceDAO4 extends DAO {
             return null;
         }
 
-        String sql = "SELECT id, name, category, description, content, imagePath, unitPrice, " +
-                     "       estimatedDuration, warrantyPeriod, warrantyTerms, status " +
-                     "FROM tblService4 " +
-                     "WHERE id = ? AND status = ?";
+        String sql = "SELECT id, name, category, description, content, imagePath, unitPrice,        estimatedDuration, warrantyPeriod, warrantyTerms, status FROM tblService4 WHERE id = ? AND status = ?";
 
         try (Connection connection = getConnection();
-             PreparedStatement ps = connection.prepareStatement(sql)) {
+        PreparedStatement ps = connection.prepareStatement(sql)) {
             ps.setInt(1, serviceId);
-            ps.setString(2, AppConstants4.SERVICE_STATUS_ACTIVE);
+            ps.setString(2, "Đang cung cấp");
 
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {

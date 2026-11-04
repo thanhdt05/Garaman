@@ -2,7 +2,6 @@ package model;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import util.AppConstants4;
 
 public class Service4 implements Serializable {
     private static final long serialVersionUID = 2L;
@@ -17,7 +16,7 @@ public class Service4 implements Serializable {
     private int estimatedDuration;
     private String warrantyPeriod;
     private String warrantyTerms;
-    private String status = AppConstants4.SERVICE_STATUS_ACTIVE;
+    private String status = "Đang cung cấp";
 
     public Service4() {
     }

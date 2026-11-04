@@ -1,0 +1,1907 @@
+{
+  "status": "DESIGNED_OPERATIONS_PRESENT_WITH_ADDITIONAL_CODE_METHODS",
+  "basis": "DOCX embedded class figures 2.4/image15 and 2.6/image18; scenario P1288 for payment behavior",
+  "named_design_operations": 36,
+  "matching_names_parameters_and_access": 36,
+  "matching_return_contracts": 36,
+  "collection_notation_equivalences": 4,
+  "operations": [
+    {
+      "owner": "CatalogServlet4",
+      "method": "showSearch",
+      "report": {
+        "access": "+",
+        "args": [
+          "HttpServletRequest",
+          "HttpServletResponse"
+        ],
+        "returns": "void"
+      },
+      "code": {
+        "access": "public",
+        "returns": "void",
+        "args": [
+          "HttpServletRequest",
+          "HttpServletResponse"
+        ]
+      },
+      "status": "MATCH"
+    },
+    {
+      "owner": "CatalogServlet4",
+      "method": "searchCatalog",
+      "report": {
+        "access": "+",
+        "args": [
+          "HttpServletRequest",
+          "HttpServletResponse"
+        ],
+        "returns": "void"
+      },
+      "code": {
+        "access": "public",
+        "returns": "void",
+        "args": [
+          "HttpServletRequest",
+          "HttpServletResponse"
+        ]
+      },
+      "status": "MATCH"
+    },
+    {
+      "owner": "CatalogServlet4",
+      "method": "viewDetails",
+      "report": {
+        "access": "+",
+        "args": [
+          "HttpServletRequest",
+          "HttpServletResponse"
+        ],
+        "returns": "void"
+      },
+      "code": {
+        "access": "public",
+        "returns": "void",
+        "args": [
+          "HttpServletRequest",
+          "HttpServletResponse"
+        ]
+      },
+      "status": "MATCH"
+    },
+    {
+      "owner": "ServiceDAO4",
+      "method": "findServicesByName",
+      "report": {
+        "access": "+",
+        "args": [
+          "String"
+        ],
+        "returns": "Service4[]"
+      },
+      "code": {
+        "access": "public",
+        "returns": "List<Service4>",
+        "args": [
+          "String"
+        ]
+      },
+      "status": "MATCH_COLLECTION_NOTATION"
+    },
+    {
+      "owner": "ServiceDAO4",
+      "method": "getServiceDetails",
+      "report": {
+        "access": "+",
+        "args": [
+          "int"
+        ],
+        "returns": "Service4"
+      },
+      "code": {
+        "access": "public",
+        "returns": "Service4",
+        "args": [
+          "int"
+        ]
+      },
+      "status": "MATCH"
+    },
+    {
+      "owner": "SparePartDAO4",
+      "method": "findSparePartsByName",
+      "report": {
+        "access": "+",
+        "args": [
+          "String",
+          "boolean"
+        ],
+        "returns": "SparePart4[]"
+      },
+      "code": {
+        "access": "public",
+        "returns": "List<SparePart4>",
+        "args": [
+          "String",
+          "boolean"
+        ]
+      },
+      "status": "MATCH_COLLECTION_NOTATION"
+    },
+    {
+      "owner": "SparePartDAO4",
+      "method": "getSparePartDetails",
+      "report": {
+        "access": "+",
+        "args": [
+          "int",
+          "boolean"
+        ],
+        "returns": "SparePart4"
+      },
+      "code": {
+        "access": "public",
+        "returns": "SparePart4",
+        "args": [
+          "int",
+          "boolean"
+        ]
+      },
+      "status": "MATCH"
+    },
+    {
+      "owner": "SupplierServlet4",
+      "method": "showSupplierSelection",
+      "report": {
+        "access": "+",
+        "args": [
+          "HttpServletRequest",
+          "HttpServletResponse"
+        ],
+        "returns": "void"
+      },
+      "code": {
+        "access": "public",
+        "returns": "void",
+        "args": [
+          "HttpServletRequest",
+          "HttpServletResponse"
+        ]
+      },
+      "status": "MATCH"
+    },
+    {
+      "owner": "SupplierServlet4",
+      "method": "searchSuppliers",
+      "report": {
+        "access": "+",
+        "args": [
+          "HttpServletRequest",
+          "HttpServletResponse"
+        ],
+        "returns": "void"
+      },
+      "code": {
+        "access": "public",
+        "returns": "void",
+        "args": [
+          "HttpServletRequest",
+          "HttpServletResponse"
+        ]
+      },
+      "status": "MATCH"
+    },
+    {
+      "owner": "SupplierServlet4",
+      "method": "showNewSupplier",
+      "report": {
+        "access": "+",
+        "args": [
+          "HttpServletRequest",
+          "HttpServletResponse"
+        ],
+        "returns": "void"
+      },
+      "code": {
+        "access": "public",
+        "returns": "void",
+        "args": [
+          "HttpServletRequest",
+          "HttpServletResponse"
+        ]
+      },
+      "status": "MATCH"
+    },
+    {
+      "owner": "SupplierServlet4",
+      "method": "addSupplier",
+      "report": {
+        "access": "+",
+        "args": [
+          "HttpServletRequest",
+          "HttpServletResponse"
+        ],
+        "returns": "void"
+      },
+      "code": {
+        "access": "public",
+        "returns": "void",
+        "args": [
+          "HttpServletRequest",
+          "HttpServletResponse"
+        ]
+      },
+      "status": "MATCH"
+    },
+    {
+      "owner": "SparePartServlet4",
+      "method": "showNewSparePart",
+      "report": {
+        "access": "+",
+        "args": [
+          "HttpServletRequest",
+          "HttpServletResponse"
+        ],
+        "returns": "void"
+      },
+      "code": {
+        "access": "public",
+        "returns": "void",
+        "args": [
+          "HttpServletRequest",
+          "HttpServletResponse"
+        ]
+      },
+      "status": "MATCH"
+    },
+    {
+      "owner": "SparePartServlet4",
+      "method": "addSparePart",
+      "report": {
+        "access": "+",
+        "args": [
+          "HttpServletRequest",
+          "HttpServletResponse"
+        ],
+        "returns": "void"
+      },
+      "code": {
+        "access": "public",
+        "returns": "void",
+        "args": [
+          "HttpServletRequest",
+          "HttpServletResponse"
+        ]
+      },
+      "status": "MATCH"
+    },
+    {
+      "owner": "PurchaseInvoiceServlet4",
+      "method": "startPurchase",
+      "report": {
+        "access": "+",
+        "args": [
+          "HttpServletRequest",
+          "HttpServletResponse"
+        ],
+        "returns": "void"
+      },
+      "code": {
+        "access": "public",
+        "returns": "void",
+        "args": [
+          "HttpServletRequest",
+          "HttpServletResponse"
+        ]
+      },
+      "status": "MATCH"
+    },
+    {
+      "owner": "PurchaseInvoiceServlet4",
+      "method": "showDraft",
+      "report": {
+        "access": "+",
+        "args": [
+          "HttpServletRequest",
+          "HttpServletResponse"
+        ],
+        "returns": "void"
+      },
+      "code": {
+        "access": "public",
+        "returns": "void",
+        "args": [
+          "HttpServletRequest",
+          "HttpServletResponse"
+        ]
+      },
+      "status": "MATCH"
+    },
+    {
+      "owner": "PurchaseInvoiceServlet4",
+      "method": "searchSpareParts",
+      "report": {
+        "access": "+",
+        "args": [
+          "HttpServletRequest",
+          "HttpServletResponse"
+        ],
+        "returns": "void"
+      },
+      "code": {
+        "access": "public",
+        "returns": "void",
+        "args": [
+          "HttpServletRequest",
+          "HttpServletResponse"
+        ]
+      },
+      "status": "MATCH"
+    },
+    {
+      "owner": "PurchaseInvoiceServlet4",
+      "method": "addInvoiceLine",
+      "report": {
+        "access": "+",
+        "args": [
+          "HttpServletRequest",
+          "HttpServletResponse"
+        ],
+        "returns": "void"
+      },
+      "code": {
+        "access": "public",
+        "returns": "void",
+        "args": [
+          "HttpServletRequest",
+          "HttpServletResponse"
+        ]
+      },
+      "status": "MATCH"
+    },
+    {
+      "owner": "PurchaseInvoiceServlet4",
+      "method": "updateInvoiceLines",
+      "report": {
+        "access": "+",
+        "args": [
+          "HttpServletRequest",
+          "HttpServletResponse"
+        ],
+        "returns": "void"
+      },
+      "code": {
+        "access": "public",
+        "returns": "void",
+        "args": [
+          "HttpServletRequest",
+          "HttpServletResponse"
+        ]
+      },
+      "status": "MATCH"
+    },
+    {
+      "owner": "PurchaseInvoiceServlet4",
+      "method": "removeInvoiceLine",
+      "report": {
+        "access": "+",
+        "args": [
+          "HttpServletRequest",
+          "HttpServletResponse"
+        ],
+        "returns": "void"
+      },
+      "code": {
+        "access": "public",
+        "returns": "void",
+        "args": [
+          "HttpServletRequest",
+          "HttpServletResponse"
+        ]
+      },
+      "status": "MATCH"
+    },
+    {
+      "owner": "PurchaseInvoiceServlet4",
+      "method": "cancelDraft",
+      "report": {
+        "access": "+",
+        "args": [
+          "HttpServletRequest",
+          "HttpServletResponse"
+        ],
+        "returns": "void"
+      },
+      "code": {
+        "access": "public",
+        "returns": "void",
+        "args": [
+          "HttpServletRequest",
+          "HttpServletResponse"
+        ]
+      },
+      "status": "MATCH"
+    },
+    {
+      "owner": "PurchaseInvoiceServlet4",
+      "method": "confirmInvoice",
+      "report": {
+        "access": "+",
+        "args": [
+          "HttpServletRequest",
+          "HttpServletResponse"
+        ],
+        "returns": "void"
+      },
+      "code": {
+        "access": "public",
+        "returns": "void",
+        "args": [
+          "HttpServletRequest",
+          "HttpServletResponse"
+        ]
+      },
+      "status": "MATCH"
+    },
+    {
+      "owner": "PurchaseInvoiceServlet4",
+      "method": "viewInvoice",
+      "report": {
+        "access": "+",
+        "args": [
+          "HttpServletRequest",
+          "HttpServletResponse"
+        ],
+        "returns": "void"
+      },
+      "code": {
+        "access": "public",
+        "returns": "void",
+        "args": [
+          "HttpServletRequest",
+          "HttpServletResponse"
+        ]
+      },
+      "status": "MATCH"
+    },
+    {
+      "owner": "PurchaseInvoiceServlet4",
+      "method": "printInvoice",
+      "report": {
+        "access": "+",
+        "args": [
+          "HttpServletRequest",
+          "HttpServletResponse"
+        ],
+        "returns": "void"
+      },
+      "code": {
+        "access": "public",
+        "returns": "void",
+        "args": [
+          "HttpServletRequest",
+          "HttpServletResponse"
+        ]
+      },
+      "status": "MATCH"
+    },
+    {
+      "owner": "PurchaseInvoiceServlet4",
+      "method": "recordPayment",
+      "report": {
+        "access": "+",
+        "args": [
+          "HttpServletRequest",
+          "HttpServletResponse"
+        ],
+        "returns": "void"
+      },
+      "code": {
+        "access": "public",
+        "returns": "void",
+        "args": [
+          "HttpServletRequest",
+          "HttpServletResponse"
+        ]
+      },
+      "status": "MATCH"
+    },
+    {
+      "owner": "PurchaseInvoiceServlet4",
+      "method": "showUnpaidInvoices",
+      "report": {
+        "access": "+",
+        "args": [
+          "HttpServletRequest",
+          "HttpServletResponse"
+        ],
+        "returns": "void"
+      },
+      "code": {
+        "access": "public",
+        "returns": "void",
+        "args": [
+          "HttpServletRequest",
+          "HttpServletResponse"
+        ]
+      },
+      "status": "MATCH"
+    },
+    {
+      "owner": "SupplierDAO4",
+      "method": "findSuppliersByName",
+      "report": {
+        "access": "+",
+        "args": [
+          "String"
+        ],
+        "returns": "Supplier4[]"
+      },
+      "code": {
+        "access": "public",
+        "returns": "List<Supplier4>",
+        "args": [
+          "String"
+        ]
+      },
+      "status": "MATCH_COLLECTION_NOTATION"
+    },
+    {
+      "owner": "SupplierDAO4",
+      "method": "getSupplierDetails",
+      "report": {
+        "access": "+",
+        "args": [
+          "int"
+        ],
+        "returns": "Supplier4"
+      },
+      "code": {
+        "access": "public",
+        "returns": "Supplier4",
+        "args": [
+          "int"
+        ]
+      },
+      "status": "MATCH"
+    },
+    {
+      "owner": "SupplierDAO4",
+      "method": "addSupplier",
+      "report": {
+        "access": "+",
+        "args": [
+          "Supplier4"
+        ],
+        "returns": "int"
+      },
+      "code": {
+        "access": "public",
+        "returns": "int",
+        "args": [
+          "Supplier4"
+        ]
+      },
+      "status": "MATCH"
+    },
+    {
+      "owner": "WarehouseStaffDAO4",
+      "method": "getWarehouseStaffDetails",
+      "report": {
+        "access": "+",
+        "args": [
+          "int"
+        ],
+        "returns": "WarehouseStaff4"
+      },
+      "code": {
+        "access": "public",
+        "returns": "WarehouseStaff4",
+        "args": [
+          "int"
+        ]
+      },
+      "status": "MATCH"
+    },
+    {
+      "owner": "SparePartCategoryDAO4",
+      "method": "getActiveCategories",
+      "report": {
+        "access": "+",
+        "args": [],
+        "returns": "SparePartCategory4[]"
+      },
+      "code": {
+        "access": "public",
+        "returns": "List<SparePartCategory4>",
+        "args": []
+      },
+      "status": "MATCH_COLLECTION_NOTATION"
+    },
+    {
+      "owner": "SparePartDAO4",
+      "method": "addSparePart",
+      "report": {
+        "access": "+",
+        "args": [
+          "SparePart4"
+        ],
+        "returns": "int"
+      },
+      "code": {
+        "access": "public",
+        "returns": "int",
+        "args": [
+          "SparePart4"
+        ]
+      },
+      "status": "MATCH"
+    },
+    {
+      "owner": "SparePartDAO4",
+      "method": "increaseStockAfterPurchase",
+      "report": {
+        "access": "~",
+        "args": [
+          "Connection",
+          "int",
+          "BigDecimal"
+        ],
+        "returns": "void"
+      },
+      "code": {
+        "access": "package",
+        "returns": "void",
+        "args": [
+          "Connection",
+          "int",
+          "BigDecimal"
+        ]
+      },
+      "status": "MATCH"
+    },
+    {
+      "owner": "PurchaseInvoiceDAO4",
+      "method": "savePurchaseInvoice",
+      "report": {
+        "access": "+",
+        "args": [
+          "PurchaseInvoice4"
+        ],
+        "returns": "int"
+      },
+      "code": {
+        "access": "public",
+        "returns": "int",
+        "args": [
+          "PurchaseInvoice4"
+        ]
+      },
+      "status": "MATCH"
+    },
+    {
+      "owner": "PurchaseInvoiceDAO4",
+      "method": "getPurchaseInvoiceDetails",
+      "report": {
+        "access": "+",
+        "args": [
+          "int"
+        ],
+        "returns": "PurchaseInvoice4"
+      },
+      "code": {
+        "access": "public",
+        "returns": "PurchaseInvoice4",
+        "args": [
+          "int"
+        ]
+      },
+      "status": "MATCH"
+    },
+    {
+      "owner": "PurchaseInvoiceDAO4",
+      "method": "recordPayment",
+      "report": {
+        "access": "+",
+        "args": [
+          "int",
+          "BigDecimal",
+          "int"
+        ],
+        "returns": "boolean"
+      },
+      "code": {
+        "access": "public",
+        "returns": "boolean",
+        "args": [
+          "int",
+          "BigDecimal",
+          "int"
+        ]
+      },
+      "status": "MATCH"
+    },
+    {
+      "owner": "PurchaseInvoice4",
+      "method": "calculateTotalAmount",
+      "report": {
+        "access": "+",
+        "args": [],
+        "returns": "BigDecimal"
+      },
+      "code": {
+        "access": "public",
+        "returns": "BigDecimal",
+        "args": []
+      },
+      "status": "MATCH"
+    }
+  ],
+  "code_methods_not_drawn": {
+    "AuthServlet4": {
+      "init": {
+        "access": "public",
+        "returns": "void",
+        "args": []
+      },
+      "doGet": {
+        "access": "protected",
+        "returns": "void",
+        "args": [
+          "HttpServletRequest",
+          "HttpServletResponse"
+        ]
+      },
+      "doPost": {
+        "access": "protected",
+        "returns": "void",
+        "args": [
+          "HttpServletRequest",
+          "HttpServletResponse"
+        ]
+      },
+      "showLogin": {
+        "access": "public",
+        "returns": "void",
+        "args": [
+          "HttpServletRequest",
+          "HttpServletResponse"
+        ]
+      },
+      "login": {
+        "access": "public",
+        "returns": "void",
+        "args": [
+          "HttpServletRequest",
+          "HttpServletResponse"
+        ]
+      },
+      "logout": {
+        "access": "public",
+        "returns": "void",
+        "args": [
+          "HttpServletRequest",
+          "HttpServletResponse"
+        ]
+      }
+    },
+    "CatalogServlet4": {
+      "init": {
+        "access": "public",
+        "returns": "void",
+        "args": []
+      },
+      "doGet": {
+        "access": "protected",
+        "returns": "void",
+        "args": [
+          "HttpServletRequest",
+          "HttpServletResponse"
+        ]
+      }
+    },
+    "HomeServlet4": {
+      "doGet": {
+        "access": "protected",
+        "returns": "void",
+        "args": [
+          "HttpServletRequest",
+          "HttpServletResponse"
+        ]
+      },
+      "showHome": {
+        "access": "public",
+        "returns": "void",
+        "args": [
+          "HttpServletRequest",
+          "HttpServletResponse"
+        ]
+      }
+    },
+    "PurchaseInvoiceServlet4": {
+      "init": {
+        "access": "public",
+        "returns": "void",
+        "args": []
+      },
+      "doGet": {
+        "access": "protected",
+        "returns": "void",
+        "args": [
+          "HttpServletRequest",
+          "HttpServletResponse"
+        ]
+      },
+      "doPost": {
+        "access": "protected",
+        "returns": "void",
+        "args": [
+          "HttpServletRequest",
+          "HttpServletResponse"
+        ]
+      },
+      "validateVersionAndConcurrency": {
+        "access": "private",
+        "returns": "boolean",
+        "args": [
+          "HttpServletRequest",
+          "HttpSession",
+          "String",
+          "HttpServletResponse"
+        ]
+      },
+      "saveLineInputsToDraft": {
+        "access": "private",
+        "returns": "void",
+        "args": [
+          "HttpServletRequest",
+          "HttpSession",
+          "String"
+        ]
+      }
+    },
+    "SparePartServlet4": {
+      "init": {
+        "access": "public",
+        "returns": "void",
+        "args": []
+      },
+      "doGet": {
+        "access": "protected",
+        "returns": "void",
+        "args": [
+          "HttpServletRequest",
+          "HttpServletResponse"
+        ]
+      },
+      "doPost": {
+        "access": "protected",
+        "returns": "void",
+        "args": [
+          "HttpServletRequest",
+          "HttpServletResponse"
+        ]
+      }
+    },
+    "SupplierServlet4": {
+      "init": {
+        "access": "public",
+        "returns": "void",
+        "args": []
+      },
+      "doGet": {
+        "access": "protected",
+        "returns": "void",
+        "args": [
+          "HttpServletRequest",
+          "HttpServletResponse"
+        ]
+      },
+      "doPost": {
+        "access": "protected",
+        "returns": "void",
+        "args": [
+          "HttpServletRequest",
+          "HttpServletResponse"
+        ]
+      }
+    },
+    "DAO": {
+      "loadConfiguration": {
+        "access": "private",
+        "returns": "void",
+        "args": []
+      },
+      "getConnection": {
+        "access": "protected",
+        "returns": "Connection",
+        "args": []
+      },
+      "createSearchPattern": {
+        "access": "protected",
+        "returns": "String",
+        "args": [
+          "String"
+        ]
+      }
+    },
+    "MemberDAO4": {
+      "findByUsername": {
+        "access": "public",
+        "returns": "Member4",
+        "args": [
+          "String"
+        ]
+      },
+      "getActiveMember": {
+        "access": "public",
+        "returns": "Member4",
+        "args": [
+          "int"
+        ]
+      },
+      "mapMember": {
+        "access": "private",
+        "returns": "Member4",
+        "args": [
+          "ResultSet"
+        ]
+      }
+    },
+    "PurchaseInvoiceDAO4": {
+      "findInvoiceIdByRequestCode": {
+        "access": "public",
+        "returns": "Integer",
+        "args": [
+          "String",
+          "int"
+        ]
+      },
+      "getUnpaidInvoices": {
+        "access": "public",
+        "returns": "List<PurchaseInvoice4>",
+        "args": [
+          "int"
+        ]
+      },
+      "insertInvoice": {
+        "access": "private",
+        "returns": "int",
+        "args": [
+          "Connection",
+          "PurchaseInvoice4"
+        ]
+      },
+      "insertInvoiceDetails": {
+        "access": "private",
+        "returns": "void",
+        "args": [
+          "Connection",
+          "int",
+          "List<PurchaseInvoiceDetail4>"
+        ]
+      },
+      "getInvoiceDetails": {
+        "access": "private",
+        "returns": "List<PurchaseInvoiceDetail4>",
+        "args": [
+          "Connection",
+          "int"
+        ]
+      },
+      "mapInvoice": {
+        "access": "private",
+        "returns": "PurchaseInvoice4",
+        "args": [
+          "ResultSet"
+        ]
+      }
+    },
+    "ServiceDAO4": {
+      "mapService": {
+        "access": "private",
+        "returns": "Service4",
+        "args": [
+          "ResultSet"
+        ]
+      }
+    },
+    "SparePartCategoryDAO4": {
+      "getActiveCategory": {
+        "access": "public",
+        "returns": "SparePartCategory4",
+        "args": [
+          "int"
+        ]
+      },
+      "mapCategory": {
+        "access": "private",
+        "returns": "SparePartCategory4",
+        "args": [
+          "ResultSet"
+        ]
+      }
+    },
+    "SparePartDAO4": {
+      "getStockQuantity": {
+        "access": "public",
+        "returns": "BigDecimal",
+        "args": [
+          "int"
+        ]
+      },
+      "mapSparePart": {
+        "access": "private",
+        "returns": "SparePart4",
+        "args": [
+          "ResultSet"
+        ]
+      }
+    },
+    "SupplierDAO4": {
+      "mapSupplier": {
+        "access": "private",
+        "returns": "Supplier4",
+        "args": [
+          "ResultSet"
+        ]
+      }
+    },
+    "WarehouseStaffDAO4": {},
+    "Customer4": {
+      "Customer4": {
+        "access": "package",
+        "returns": "public",
+        "args": []
+      }
+    },
+    "Employee4": {
+      "Employee4": {
+        "access": "package",
+        "returns": "public",
+        "args": []
+      },
+      "getPosition": {
+        "access": "public",
+        "returns": "String",
+        "args": []
+      },
+      "setPosition": {
+        "access": "public",
+        "returns": "void",
+        "args": [
+          "String"
+        ]
+      },
+      "getEmploymentStatus": {
+        "access": "public",
+        "returns": "String",
+        "args": []
+      },
+      "setEmploymentStatus": {
+        "access": "public",
+        "returns": "void",
+        "args": [
+          "String"
+        ]
+      }
+    },
+    "Member4": {
+      "Member4": {
+        "access": "package",
+        "returns": "public",
+        "args": []
+      },
+      "getId": {
+        "access": "public",
+        "returns": "int",
+        "args": []
+      },
+      "setId": {
+        "access": "public",
+        "returns": "void",
+        "args": [
+          "int"
+        ]
+      },
+      "getFullName": {
+        "access": "public",
+        "returns": "String",
+        "args": []
+      },
+      "setFullName": {
+        "access": "public",
+        "returns": "void",
+        "args": [
+          "String"
+        ]
+      },
+      "getUsername": {
+        "access": "public",
+        "returns": "String",
+        "args": []
+      },
+      "setUsername": {
+        "access": "public",
+        "returns": "void",
+        "args": [
+          "String"
+        ]
+      },
+      "getPassword": {
+        "access": "public",
+        "returns": "String",
+        "args": []
+      },
+      "setPassword": {
+        "access": "public",
+        "returns": "void",
+        "args": [
+          "String"
+        ]
+      },
+      "getDateOfBirth": {
+        "access": "public",
+        "returns": "LocalDate",
+        "args": []
+      },
+      "setDateOfBirth": {
+        "access": "public",
+        "returns": "void",
+        "args": [
+          "LocalDate"
+        ]
+      },
+      "getAddress": {
+        "access": "public",
+        "returns": "String",
+        "args": []
+      },
+      "setAddress": {
+        "access": "public",
+        "returns": "void",
+        "args": [
+          "String"
+        ]
+      },
+      "getEmail": {
+        "access": "public",
+        "returns": "String",
+        "args": []
+      },
+      "setEmail": {
+        "access": "public",
+        "returns": "void",
+        "args": [
+          "String"
+        ]
+      },
+      "getPhoneNumber": {
+        "access": "public",
+        "returns": "String",
+        "args": []
+      },
+      "setPhoneNumber": {
+        "access": "public",
+        "returns": "void",
+        "args": [
+          "String"
+        ]
+      },
+      "getRole": {
+        "access": "public",
+        "returns": "String",
+        "args": []
+      },
+      "setRole": {
+        "access": "public",
+        "returns": "void",
+        "args": [
+          "String"
+        ]
+      },
+      "getAccountStatus": {
+        "access": "public",
+        "returns": "String",
+        "args": []
+      },
+      "setAccountStatus": {
+        "access": "public",
+        "returns": "void",
+        "args": [
+          "String"
+        ]
+      }
+    },
+    "PurchaseInvoice4": {
+      "PurchaseInvoice4": {
+        "access": "package",
+        "returns": "public",
+        "args": []
+      },
+      "getTotalAmount": {
+        "access": "public",
+        "returns": "BigDecimal",
+        "args": []
+      },
+      "getId": {
+        "access": "public",
+        "returns": "int",
+        "args": []
+      },
+      "setId": {
+        "access": "public",
+        "returns": "void",
+        "args": [
+          "int"
+        ]
+      },
+      "getRequestCode": {
+        "access": "public",
+        "returns": "String",
+        "args": []
+      },
+      "setRequestCode": {
+        "access": "public",
+        "returns": "void",
+        "args": [
+          "String"
+        ]
+      },
+      "getPurchaseDate": {
+        "access": "public",
+        "returns": "LocalDateTime",
+        "args": []
+      },
+      "setPurchaseDate": {
+        "access": "public",
+        "returns": "void",
+        "args": [
+          "LocalDateTime"
+        ]
+      },
+      "getConfirmedAt": {
+        "access": "public",
+        "returns": "LocalDateTime",
+        "args": []
+      },
+      "setConfirmedAt": {
+        "access": "public",
+        "returns": "void",
+        "args": [
+          "LocalDateTime"
+        ]
+      },
+      "getPaymentStatus": {
+        "access": "public",
+        "returns": "String",
+        "args": []
+      },
+      "setPaymentStatus": {
+        "access": "public",
+        "returns": "void",
+        "args": [
+          "String"
+        ]
+      },
+      "getPaidAt": {
+        "access": "public",
+        "returns": "LocalDateTime",
+        "args": []
+      },
+      "setPaidAt": {
+        "access": "public",
+        "returns": "void",
+        "args": [
+          "LocalDateTime"
+        ]
+      },
+      "getSupplier": {
+        "access": "public",
+        "returns": "Supplier4",
+        "args": []
+      },
+      "setSupplier": {
+        "access": "public",
+        "returns": "void",
+        "args": [
+          "Supplier4"
+        ]
+      },
+      "getWarehouseStaff": {
+        "access": "public",
+        "returns": "WarehouseStaff4",
+        "args": []
+      },
+      "setWarehouseStaff": {
+        "access": "public",
+        "returns": "void",
+        "args": [
+          "WarehouseStaff4"
+        ]
+      },
+      "getInvoiceDetails": {
+        "access": "public",
+        "returns": "List<PurchaseInvoiceDetail4>",
+        "args": []
+      },
+      "setInvoiceDetails": {
+        "access": "public",
+        "returns": "void",
+        "args": [
+          "List<PurchaseInvoiceDetail4>"
+        ]
+      },
+      "getSupplierNameSnapshot": {
+        "access": "public",
+        "returns": "String",
+        "args": []
+      },
+      "setSupplierNameSnapshot": {
+        "access": "public",
+        "returns": "void",
+        "args": [
+          "String"
+        ]
+      },
+      "getWarehouseStaffNameSnapshot": {
+        "access": "public",
+        "returns": "String",
+        "args": []
+      },
+      "setWarehouseStaffNameSnapshot": {
+        "access": "public",
+        "returns": "void",
+        "args": [
+          "String"
+        ]
+      }
+    },
+    "PurchaseInvoiceDetail4": {
+      "PurchaseInvoiceDetail4": {
+        "access": "package",
+        "returns": "public",
+        "args": []
+      },
+      "calculateLineAmount": {
+        "access": "public",
+        "returns": "BigDecimal",
+        "args": []
+      },
+      "getLineAmount": {
+        "access": "public",
+        "returns": "BigDecimal",
+        "args": []
+      },
+      "getId": {
+        "access": "public",
+        "returns": "int",
+        "args": []
+      },
+      "setId": {
+        "access": "public",
+        "returns": "void",
+        "args": [
+          "int"
+        ]
+      },
+      "getQuantity": {
+        "access": "public",
+        "returns": "BigDecimal",
+        "args": []
+      },
+      "setQuantity": {
+        "access": "public",
+        "returns": "void",
+        "args": [
+          "BigDecimal"
+        ]
+      },
+      "getPurchaseUnitPrice": {
+        "access": "public",
+        "returns": "BigDecimal",
+        "args": []
+      },
+      "setPurchaseUnitPrice": {
+        "access": "public",
+        "returns": "void",
+        "args": [
+          "BigDecimal"
+        ]
+      },
+      "getSparePartNameSnapshot": {
+        "access": "public",
+        "returns": "String",
+        "args": []
+      },
+      "setSparePartNameSnapshot": {
+        "access": "public",
+        "returns": "void",
+        "args": [
+          "String"
+        ]
+      },
+      "getUnitSnapshot": {
+        "access": "public",
+        "returns": "String",
+        "args": []
+      },
+      "setUnitSnapshot": {
+        "access": "public",
+        "returns": "void",
+        "args": [
+          "String"
+        ]
+      },
+      "getSparePart": {
+        "access": "public",
+        "returns": "SparePart4",
+        "args": []
+      },
+      "setSparePart": {
+        "access": "public",
+        "returns": "void",
+        "args": [
+          "SparePart4"
+        ]
+      }
+    },
+    "Service4": {
+      "Service4": {
+        "access": "package",
+        "returns": "public",
+        "args": []
+      },
+      "getId": {
+        "access": "public",
+        "returns": "int",
+        "args": []
+      },
+      "setId": {
+        "access": "public",
+        "returns": "void",
+        "args": [
+          "int"
+        ]
+      },
+      "getName": {
+        "access": "public",
+        "returns": "String",
+        "args": []
+      },
+      "setName": {
+        "access": "public",
+        "returns": "void",
+        "args": [
+          "String"
+        ]
+      },
+      "getCategory": {
+        "access": "public",
+        "returns": "String",
+        "args": []
+      },
+      "setCategory": {
+        "access": "public",
+        "returns": "void",
+        "args": [
+          "String"
+        ]
+      },
+      "getDescription": {
+        "access": "public",
+        "returns": "String",
+        "args": []
+      },
+      "setDescription": {
+        "access": "public",
+        "returns": "void",
+        "args": [
+          "String"
+        ]
+      },
+      "getContent": {
+        "access": "public",
+        "returns": "String",
+        "args": []
+      },
+      "setContent": {
+        "access": "public",
+        "returns": "void",
+        "args": [
+          "String"
+        ]
+      },
+      "getImagePath": {
+        "access": "public",
+        "returns": "String",
+        "args": []
+      },
+      "setImagePath": {
+        "access": "public",
+        "returns": "void",
+        "args": [
+          "String"
+        ]
+      },
+      "getUnitPrice": {
+        "access": "public",
+        "returns": "BigDecimal",
+        "args": []
+      },
+      "setUnitPrice": {
+        "access": "public",
+        "returns": "void",
+        "args": [
+          "BigDecimal"
+        ]
+      },
+      "getEstimatedDuration": {
+        "access": "public",
+        "returns": "int",
+        "args": []
+      },
+      "setEstimatedDuration": {
+        "access": "public",
+        "returns": "void",
+        "args": [
+          "int"
+        ]
+      },
+      "getWarrantyPeriod": {
+        "access": "public",
+        "returns": "String",
+        "args": []
+      },
+      "setWarrantyPeriod": {
+        "access": "public",
+        "returns": "void",
+        "args": [
+          "String"
+        ]
+      },
+      "getWarrantyTerms": {
+        "access": "public",
+        "returns": "String",
+        "args": []
+      },
+      "setWarrantyTerms": {
+        "access": "public",
+        "returns": "void",
+        "args": [
+          "String"
+        ]
+      },
+      "getStatus": {
+        "access": "public",
+        "returns": "String",
+        "args": []
+      },
+      "setStatus": {
+        "access": "public",
+        "returns": "void",
+        "args": [
+          "String"
+        ]
+      }
+    },
+    "SparePart4": {
+      "SparePart4": {
+        "access": "package",
+        "returns": "public",
+        "args": []
+      },
+      "getId": {
+        "access": "public",
+        "returns": "int",
+        "args": []
+      },
+      "setId": {
+        "access": "public",
+        "returns": "void",
+        "args": [
+          "int"
+        ]
+      },
+      "getName": {
+        "access": "public",
+        "returns": "String",
+        "args": []
+      },
+      "setName": {
+        "access": "public",
+        "returns": "void",
+        "args": [
+          "String"
+        ]
+      },
+      "getDescription": {
+        "access": "public",
+        "returns": "String",
+        "args": []
+      },
+      "setDescription": {
+        "access": "public",
+        "returns": "void",
+        "args": [
+          "String"
+        ]
+      },
+      "getImagePath": {
+        "access": "public",
+        "returns": "String",
+        "args": []
+      },
+      "setImagePath": {
+        "access": "public",
+        "returns": "void",
+        "args": [
+          "String"
+        ]
+      },
+      "getUnit": {
+        "access": "public",
+        "returns": "String",
+        "args": []
+      },
+      "setUnit": {
+        "access": "public",
+        "returns": "void",
+        "args": [
+          "String"
+        ]
+      },
+      "getManufacturer": {
+        "access": "public",
+        "returns": "String",
+        "args": []
+      },
+      "setManufacturer": {
+        "access": "public",
+        "returns": "void",
+        "args": [
+          "String"
+        ]
+      },
+      "getSpecifications": {
+        "access": "public",
+        "returns": "String",
+        "args": []
+      },
+      "setSpecifications": {
+        "access": "public",
+        "returns": "void",
+        "args": [
+          "String"
+        ]
+      },
+      "getCompatibleVehicleModels": {
+        "access": "public",
+        "returns": "String",
+        "args": []
+      },
+      "setCompatibleVehicleModels": {
+        "access": "public",
+        "returns": "void",
+        "args": [
+          "String"
+        ]
+      },
+      "getSellingPrice": {
+        "access": "public",
+        "returns": "BigDecimal",
+        "args": []
+      },
+      "setSellingPrice": {
+        "access": "public",
+        "returns": "void",
+        "args": [
+          "BigDecimal"
+        ]
+      },
+      "getWarrantyPeriod": {
+        "access": "public",
+        "returns": "String",
+        "args": []
+      },
+      "setWarrantyPeriod": {
+        "access": "public",
+        "returns": "void",
+        "args": [
+          "String"
+        ]
+      },
+      "getWarrantyTerms": {
+        "access": "public",
+        "returns": "String",
+        "args": []
+      },
+      "setWarrantyTerms": {
+        "access": "public",
+        "returns": "void",
+        "args": [
+          "String"
+        ]
+      },
+      "getStatus": {
+        "access": "public",
+        "returns": "String",
+        "args": []
+      },
+      "setStatus": {
+        "access": "public",
+        "returns": "void",
+        "args": [
+          "String"
+        ]
+      },
+      "getStockQuantity": {
+        "access": "public",
+        "returns": "BigDecimal",
+        "args": []
+      },
+      "setStockQuantity": {
+        "access": "public",
+        "returns": "void",
+        "args": [
+          "BigDecimal"
+        ]
+      },
+      "getCategory": {
+        "access": "public",
+        "returns": "SparePartCategory4",
+        "args": []
+      },
+      "setCategory": {
+        "access": "public",
+        "returns": "void",
+        "args": [
+          "SparePartCategory4"
+        ]
+      }
+    },
+    "SparePartCategory4": {
+      "SparePartCategory4": {
+        "access": "package",
+        "returns": "public",
+        "args": []
+      },
+      "getId": {
+        "access": "public",
+        "returns": "int",
+        "args": []
+      },
+      "setId": {
+        "access": "public",
+        "returns": "void",
+        "args": [
+          "int"
+        ]
+      },
+      "getName": {
+        "access": "public",
+        "returns": "String",
+        "args": []
+      },
+      "setName": {
+        "access": "public",
+        "returns": "void",
+        "args": [
+          "String"
+        ]
+      },
+      "getDescription": {
+        "access": "public",
+        "returns": "String",
+        "args": []
+      },
+      "setDescription": {
+        "access": "public",
+        "returns": "void",
+        "args": [
+          "String"
+        ]
+      },
+      "getStatus": {
+        "access": "public",
+        "returns": "String",
+        "args": []
+      },
+      "setStatus": {
+        "access": "public",
+        "returns": "void",
+        "args": [
+          "String"
+        ]
+      }
+    },
+    "Supplier4": {
+      "Supplier4": {
+        "access": "package",
+        "returns": "public",
+        "args": []
+      },
+      "getId": {
+        "access": "public",
+        "returns": "int",
+        "args": []
+      },
+      "setId": {
+        "access": "public",
+        "returns": "void",
+        "args": [
+          "int"
+        ]
+      },
+      "getName": {
+        "access": "public",
+        "returns": "String",
+        "args": []
+      },
+      "setName": {
+        "access": "public",
+        "returns": "void",
+        "args": [
+          "String"
+        ]
+      },
+      "getAddress": {
+        "access": "public",
+        "returns": "String",
+        "args": []
+      },
+      "setAddress": {
+        "access": "public",
+        "returns": "void",
+        "args": [
+          "String"
+        ]
+      },
+      "getPhoneNumber": {
+        "access": "public",
+        "returns": "String",
+        "args": []
+      },
+      "setPhoneNumber": {
+        "access": "public",
+        "returns": "void",
+        "args": [
+          "String"
+        ]
+      },
+      "getEmail": {
+        "access": "public",
+        "returns": "String",
+        "args": []
+      },
+      "setEmail": {
+        "access": "public",
+        "returns": "void",
+        "args": [
+          "String"
+        ]
+      },
+      "getStatus": {
+        "access": "public",
+        "returns": "String",
+        "args": []
+      },
+      "setStatus": {
+        "access": "public",
+        "returns": "void",
+        "args": [
+          "String"
+        ]
+      }
+    },
+    "WarehouseStaff4": {
+      "WarehouseStaff4": {
+        "access": "package",
+        "returns": "public",
+        "args": []
+      }
+    }
+  },
+  "user_clarification": "[] in this report means a list; List<T> in Java is accepted as the same collection contract.",
+  "note": "This compares named operations of the two module class diagrams; it does not certify identical internal business behavior."
+}

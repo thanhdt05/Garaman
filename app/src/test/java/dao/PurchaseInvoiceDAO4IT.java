@@ -1,6 +1,5 @@
 package dao;
 
-import exception.ValidationException4;
 import model.*;
 import org.junit.jupiter.api.Assumptions;
 import org.junit.jupiter.api.BeforeAll;
@@ -56,7 +55,7 @@ class PurchaseInvoiceDAO4IT {
 
     @Test
     @DisplayName("Giao dịch nhập và cập nhật tồn kho (chỉ chạy khi MySQL garaman4_test sẵn sàng)")
-    void testSavePurchaseInvoiceAndIncreaseStock() throws SQLException, ValidationException4 {
+    void testSavePurchaseInvoiceAndIncreaseStock() throws SQLException, IllegalArgumentException {
         Assumptions.assumeTrue(dbAvailable, "Bỏ qua kiểm thử tích hợp do CSDL test MySQL chưa sẵn sàng");
 
         PurchaseInvoiceDAO4 dao = testDAO();

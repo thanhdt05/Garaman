@@ -1,0 +1,163 @@
+{
+  "status": "PASS",
+  "root_packages": [
+    "view",
+    "controller",
+    "dao",
+    "model"
+  ],
+  "diagram_packages": [
+    "view",
+    "member",
+    "manager",
+    "salesStaff",
+    "customer",
+    "warehouseStaff",
+    "controller",
+    "dao",
+    "model"
+  ],
+  "contents": {
+    "member": [],
+    "manager": [],
+    "salesStaff": [],
+    "customer": [
+      "customerHome.jsp",
+      "catalogSearch.jsp",
+      "itemDetails.jsp"
+    ],
+    "warehouseStaff": [
+      "warehouseHome.jsp",
+      "selectSupplier.jsp",
+      "newSupplier.jsp",
+      "purchaseInvoice.jsp",
+      "newSparePart.jsp",
+      "confirmedInvoice.jsp",
+      "printInvoice.jsp"
+    ],
+    "controller": [
+      "CatalogServlet4",
+      "SupplierServlet4",
+      "SparePartServlet4",
+      "PurchaseInvoiceServlet4"
+    ],
+    "dao": [
+      "DAO",
+      "ServiceDAO4",
+      "SparePartDAO4",
+      "SupplierDAO4",
+      "WarehouseStaffDAO4",
+      "SparePartCategoryDAO4",
+      "PurchaseInvoiceDAO4"
+    ],
+    "model": [
+      "Member4",
+      "Employee4",
+      "Manager4",
+      "WarehouseStaff4",
+      "SalesStaff4",
+      "Customer4",
+      "Technician4",
+      "Supplier4",
+      "Car4",
+      "Appointment4",
+      "RepairIntake4",
+      "CustomerInvoice4",
+      "Service4",
+      "SparePart4",
+      "SparePartCategory4",
+      "RepairService4",
+      "RepairPart4",
+      "PurchaseInvoice4",
+      "PurchaseInvoiceDetail4",
+      "CustomerStatistics4",
+      "ServiceStatistics4",
+      "SparePartStatistics4",
+      "SupplierStatistics4"
+    ]
+  },
+  "dependencies": [
+    {
+      "source": "view",
+      "target": "controller"
+    },
+    {
+      "source": "controller",
+      "target": "view"
+    },
+    {
+      "source": "view",
+      "target": "model"
+    },
+    {
+      "source": "controller",
+      "target": "dao"
+    },
+    {
+      "source": "controller",
+      "target": "model"
+    },
+    {
+      "source": "dao",
+      "target": "model"
+    }
+  ],
+  "java_packages_on_diagram": {
+    "controller": [
+      "AuthServlet4",
+      "CatalogServlet4",
+      "HomeServlet4",
+      "PurchaseInvoiceServlet4",
+      "SparePartServlet4",
+      "SupplierServlet4"
+    ],
+    "dao": [
+      "DAO",
+      "MemberDAO4",
+      "PurchaseInvoiceDAO4",
+      "ServiceDAO4",
+      "SparePartCategoryDAO4",
+      "SparePartDAO4",
+      "SupplierDAO4",
+      "WarehouseStaffDAO4"
+    ],
+    "model": [
+      "Customer4",
+      "Employee4",
+      "Member4",
+      "PurchaseInvoice4",
+      "PurchaseInvoiceDetail4",
+      "Service4",
+      "SparePart4",
+      "SparePartCategory4",
+      "Supplier4",
+      "WarehouseStaff4"
+    ]
+  },
+  "scope": "23 full-report entities; DAO/Servlet/JSP only explicitly named in the two module designs",
+  "existing_login_support_outside_report_figure": [
+    "AuthServlet4",
+    "HomeServlet4",
+    "MemberDAO4",
+    "member/login.jsp"
+  ],
+  "unimplemented_view_groups": [
+    "manager",
+    "salesStaff"
+  ],
+  "pdf_pages": 1,
+  "root_source_hashes_unchanged": {
+    "26_B23DCCN764.docx": "8d41d0f56fc7f5b106d1b03b61ecc21996b361d4a33bdadae78fff5de1db41f1",
+    "BG HP TTTN 2 CNPM 2020 final.pdf": "416f0401a70297300419d3abe6a72c4d3d816635e4f58c4b6cc5cd52a865d389"
+  },
+  "notation": {
+    "package": "UML Package folder",
+    "jsp": "UML Class, same element type as the report design",
+    "java": "UML Class",
+    "class_compartments": 3,
+    "attributes_and_operations": "not listed in package view; original members retained",
+    "connectors": "UML Dependency",
+    "class_elements": 44,
+    "artifact_elements": 0
+  }
+}

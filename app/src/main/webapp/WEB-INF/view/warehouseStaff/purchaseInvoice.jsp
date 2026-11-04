@@ -62,7 +62,7 @@
   </c:if>
 
   <!-- Khung tìm kiếm và chọn phụ tùng -->
-  <%@ include file="/WEB-INF/view/warehouse/parts-picker.jspf" %>
+  <%@ include file="/WEB-INF/view/warehouseStaff/parts-picker.jspf" %>
 
   <!-- Danh sách chi tiết các dòng nhập -->
   <section class="panel">

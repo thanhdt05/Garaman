@@ -1,7 +1,6 @@
 package model;
 
 import java.io.Serializable;
-import util.AppConstants4;
 
 public class SparePartCategory4 implements Serializable {
     private static final long serialVersionUID = 2L;
@@ -9,7 +8,7 @@ public class SparePartCategory4 implements Serializable {
     private int id;
     private String name;
     private String description;
-    private String status = AppConstants4.CATEGORY_STATUS_ACTIVE;
+    private String status = "Đang sử dụng";
 
     public SparePartCategory4() {
     }

@@ -1,5 +1,9 @@
 # Kế hoạch — chỉ hai module đề 26
 
+**Luồng code cập nhật 30/10/2026:** đã sửa quyền thanh toán theo nhân viên kho hiện tại, lưu người thực sự trả và mở danh sách hóa đơn chưa thanh toán của gara; không thêm hàm ứng dụng. [Chi tiết và migration CSDL](../app/docs/SUA_LUONG_THEO_BAO_CAO.md) thay các mô tả cũ còn giới hạn theo người lập.
+
+**Yêu cầu cấu trúc mới của chủ bài 30/10/2026:** bỏ các gói Java `exception`, `util`, `filter`, `dto`, chuyển xử lí cần thiết vào các hàm Servlet/DAO đã có, không thêm hàm ứng dụng. Chỉ dẫn cũ trong 02/03/10 về các gói hỗ trợ được thay bằng [bản rút gọn và kiểm chứng](../app/docs/RUT_GON_CODE_THEO_GOI.md). JSP nhân viên kho chuyển sang `view/warehouseStaff`; URL `/warehouse/...` giữ nguyên. Package diagram dùng toàn bộ 23 thực thể trong báo cáo, DAO/Servlet/JSP chỉ lấy các tên đã thiết kế cho hai modul; không mở rộng phạm vi code ngoài 00.
+
 **Đọc [00_PHAM_VI.md](00_PHAM_VI.md) trước.** Kế hoạch chỉ triển khai hai module bạn đã làm: khách tra cứu dịch vụ/phụ tùng và nhân viên kho nhập phụ tùng. Đăng nhập/đăng xuất chỉ hỗ trợ tiền điều kiện hai module.
 
 **Quy ước tên mới được chủ bài chốt 21/10/2026:** [bộ tên tiếng Anh](../app/docs/DANH_SACH_DOI_TEN_TIENG_ANH.md) và [CSV cũ → mới](../app/docs/TEN_CU_TEN_MOI.csv). Hai biểu đồ lớp thiết kế/SVG và các định danh trong DOCX đã đồng bộ tên tiếng Anh theo yêu cầu của chủ bài, gồm 124 lượt đổi trong văn bản và 7 hình nhúng. Xem [nhật ký đổi tên DOCX](../app/docs/DOI_TEN_TOAN_BO_DOCX.md) và [CSV toàn báo cáo](../app/docs/TEN_CU_TEN_MOI_TOAN_BO_DOCX.csv). Mã nguồn `app/`, schema SQL và hợp đồng triển khai đã đồng bộ tên mới; xem [kết quả/backup/migration](../app/docs/CODE_ENGLISH_MIGRATION.md). CSDL và Tomcat đang chạy tại 8080 chưa được nâng cấp, chờ chủ bài đồng ý; VPP gốc giữ nguyên. Khi đồng bộ các phần sau phải dùng lại đúng bộ tên này, không tự đặt thêm tên dịch khác.

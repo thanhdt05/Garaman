@@ -1,0 +1,69 @@
+{
+  "status": "PASS",
+  "date": "2026-10-30",
+  "unit_tests": 27,
+  "mysql_tests": 2,
+  "suites": [
+    {
+      "name": "controller.AuthServlet4Test",
+      "tests": "4",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    },
+    {
+      "name": "controller.PurchaseInvoiceServlet4Test",
+      "tests": "15",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    },
+    {
+      "name": "dao.InputValidationTest",
+      "tests": "3",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    },
+    {
+      "name": "dao.PurchaseInvoiceDAO4IT",
+      "tests": "2",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    },
+    {
+      "name": "model.PurchaseInvoice4Test",
+      "tests": "5",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    }
+  ],
+  "browser_checks": [
+    "Customer: initial search, results, service/part details, back keeps keyword",
+    "Warehouse: table selection, new part form, preserved draft, remove line, confirm/retry stock +10 once, print, under/over/exact payment",
+    "New supplier form inserts using English column names"
+  ],
+  "browser_errors": [],
+  "war_check": {
+    "status": "PASS",
+    "checked_local_links": 29,
+    "war_classes": 24,
+    "support_packages_in_war": [],
+    "jsp_includes_valid": true,
+    "war_sha256": "8ed4c9405dfc635a6e1d6a26af6d58cc9e7d1e9ebf29e3092735915c605a2c65"
+  },
+  "runtime": {
+    "tomcat": "9.0.86",
+    "mysql": "8.0.43",
+    "jdk": "25.0.2",
+    "compiler_release": "17",
+    "database": "garaman4_basic_test"
+  },
+  "limits": [
+    "Java 17 and MySQL 8.4 target runtimes not exercised",
+    "Existing payer/creator business mismatch unchanged"
+  ],
+  "live_deployment_performed": false
+}

@@ -2,7 +2,6 @@ package model;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import util.AppConstants4;
 
 public class SparePart4 implements Serializable {
     private static final long serialVersionUID = 2L;
@@ -18,7 +17,7 @@ public class SparePart4 implements Serializable {
     private BigDecimal sellingPrice;
     private String warrantyPeriod;
     private String warrantyTerms;
-    private String status = AppConstants4.PART_STATUS_UNPUBLISHED;
+    private String status = "Chưa công bố";
     private BigDecimal stockQuantity = BigDecimal.ZERO;
     private SparePartCategory4 category;
 

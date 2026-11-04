@@ -1,0 +1,117 @@
+{
+  "status": "PASS",
+  "scope": "shared system target deployment; source verification covers implemented modules",
+  "devices": 3,
+  "execution_environments": 4,
+  "artifacts": 2,
+  "communication_paths": 3,
+  "model": {
+    "WebClient": {
+      "name": "Web Client",
+      "kind": "device",
+      "parent": null
+    },
+    "Browser": {
+      "name": "Web Browser",
+      "kind": "executionEnvironment",
+      "parent": "WebClient"
+    },
+    "GaraManServer": {
+      "name": "GaraMan Server",
+      "kind": "device",
+      "parent": null
+    },
+    "JavaRuntime": {
+      "name": "JVM (Java 17)",
+      "kind": "executionEnvironment",
+      "parent": "GaraManServer"
+    },
+    "Tomcat": {
+      "name": "Apache Tomcat 9.0.x",
+      "kind": "executionEnvironment",
+      "parent": "JavaRuntime"
+    },
+    "WebApplication": {
+      "name": "garaman.war",
+      "kind": "artifact",
+      "parent": "Tomcat"
+    },
+    "MySQL": {
+      "name": "MySQL 8.4",
+      "kind": "executionEnvironment",
+      "parent": "GaraManServer"
+    },
+    "Database": {
+      "name": "garaman4",
+      "kind": "artifact",
+      "parent": "MySQL"
+    },
+    "Printer": {
+      "name": "Printer",
+      "kind": "device",
+      "parent": null
+    }
+  },
+  "paths": [
+    {
+      "source": "Browser",
+      "target": "Tomcat",
+      "label": "HTTP"
+    },
+    {
+      "source": "Tomcat",
+      "target": "MySQL",
+      "label": "JDBC / MySQL protocol\\nTCP 3306 (localhost)"
+    },
+    {
+      "source": "WebClient",
+      "target": "Printer",
+      "label": "Local printing"
+    }
+  ],
+  "source_evidence": {
+    "war": "garaman.war",
+    "java_target": "17",
+    "servlet_api": "4.0.1",
+    "connector_j": "8.4.0",
+    "database_host": "localhost",
+    "database_port": 3306,
+    "database_name": "garaman4",
+    "schema_tables": [
+      "tblMember4",
+      "tblEmployee4",
+      "tblCustomer4",
+      "tblSupplier4",
+      "tblSparePartCategory4",
+      "tblService4",
+      "tblSparePart4",
+      "tblPurchaseInvoice4",
+      "tblPurchaseInvoiceDetail4"
+    ],
+    "mysql_server_target": "8.4",
+    "tomcat_target": "9.0.x",
+    "topology": "target design; shared app/database host from default URL",
+    "printing": "browser/OS printing; physical printer availability is a design assumption"
+  },
+  "svg": {
+    "width": 1500,
+    "height": 1075
+  },
+  "package_placement": {
+    "client": "HTML/CSS/JavaScript in browser; no server JSP package",
+    "server_war": [
+      "view",
+      "controller",
+      "dao",
+      "model"
+    ],
+    "database": "garaman4 in MySQL",
+    "printer": "no GaraMan packages"
+  },
+  "pdf_pages": 1,
+  "png_scale": 3,
+  "root_source_hashes_unchanged": {
+    "26_B23DCCN764.docx": "8d41d0f56fc7f5b106d1b03b61ecc21996b361d4a33bdadae78fff5de1db41f1",
+    "BG HP TTTN 2 CNPM 2020 final.pdf": "416f0401a70297300419d3abe6a72c4d3d816635e4f58c4b6cc5cd52a865d389"
+  }
+}

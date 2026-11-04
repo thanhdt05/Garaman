@@ -1,0 +1,80 @@
+@startuml package-diagram
+skinparam shadowing false
+skinparam roundcorner 0
+skinparam defaultFontName Arial
+skinparam classBackgroundColor #86CFE9
+skinparam classBorderColor black
+skinparam packageBackgroundColor white
+skinparam packageBorderColor black
+skinparam classAttributeIconSize 0
+hide circle
+show empty members
+package "view" as view {
+  package "member" as member {
+  }
+  package "manager" as manager {
+  }
+  package "salesStaff" as salesStaff {
+  }
+  package "customer" as customer {
+    class "customerHome.jsp" as customerHome
+    class "catalogSearch.jsp" as catalogSearch
+    class "itemDetails.jsp" as itemDetails
+  }
+  package "warehouseStaff" as warehouseStaff {
+    class "warehouseHome.jsp" as warehouseHome
+    class "selectSupplier.jsp" as selectSupplier
+    class "newSupplier.jsp" as newSupplier
+    class "purchaseInvoice.jsp" as purchaseInvoice
+    class "newSparePart.jsp" as newSparePart
+    class "confirmedInvoice.jsp" as confirmedInvoice
+    class "printInvoice.jsp" as printInvoice
+  }
+}
+package "controller" as controller {
+  class "CatalogServlet4" as CatalogServlet4
+  class "SupplierServlet4" as SupplierServlet4
+  class "SparePartServlet4" as SparePartServlet4
+  class "PurchaseInvoiceServlet4" as PurchaseInvoiceServlet4
+}
+package "dao" as dao {
+  abstract class "DAO" as DAO
+  class "ServiceDAO4" as ServiceDAO4
+  class "SparePartDAO4" as SparePartDAO4
+  class "SupplierDAO4" as SupplierDAO4
+  class "WarehouseStaffDAO4" as WarehouseStaffDAO4
+  class "SparePartCategoryDAO4" as SparePartCategoryDAO4
+  class "PurchaseInvoiceDAO4" as PurchaseInvoiceDAO4
+}
+package "model" as model {
+  abstract class "Member4" as Member4
+  abstract class "Employee4" as Employee4
+  class "Manager4" as Manager4
+  class "WarehouseStaff4" as WarehouseStaff4
+  class "SalesStaff4" as SalesStaff4
+  class "Customer4" as Customer4
+  class "Technician4" as Technician4
+  class "Supplier4" as Supplier4
+  class "Car4" as Car4
+  class "Appointment4" as Appointment4
+  class "RepairIntake4" as RepairIntake4
+  class "CustomerInvoice4" as CustomerInvoice4
+  class "Service4" as Service4
+  class "SparePart4" as SparePart4
+  class "SparePartCategory4" as SparePartCategory4
+  class "RepairService4" as RepairService4
+  class "RepairPart4" as RepairPart4
+  class "PurchaseInvoice4" as PurchaseInvoice4
+  class "PurchaseInvoiceDetail4" as PurchaseInvoiceDetail4
+  class "CustomerStatistics4" as CustomerStatistics4
+  class "ServiceStatistics4" as ServiceStatistics4
+  class "SparePartStatistics4" as SparePartStatistics4
+  class "SupplierStatistics4" as SupplierStatistics4
+}
+view ..> controller
+controller ..> view
+view ..> model
+controller ..> dao
+controller ..> model
+dao ..> model
+@enduml

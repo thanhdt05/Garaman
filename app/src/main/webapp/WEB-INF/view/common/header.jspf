@@ -30,7 +30,7 @@
       <nav aria-label="Nhân viên kho">
         <a class="${activeNav == 'warehouse-home' ? 'active' : ''}" href="<c:url value='/home'/>"><span class="nav-icon">▦</span>Trang chính</a>
         <a class="${activeNav == 'purchase' ? 'active' : ''}" href="<c:url value='/warehouse/suppliers'/>"><span class="nav-icon">↙</span>Nhập phụ tùng</a>
-        <a class="${activeNav == 'unpaid' ? 'active' : ''}" href="<c:url value='/warehouse/purchases/unpaid'/>"><span class="nav-icon">📄</span>Hóa đơn chưa trả của tôi</a>
+        <a class="${activeNav == 'unpaid' ? 'active' : ''}" href="<c:url value='/warehouse/purchases/unpaid'/>"><span class="nav-icon">📄</span>Hóa đơn chưa thanh toán</a>
       </nav>
     </c:when>
     <c:otherwise>

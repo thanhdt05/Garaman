@@ -1,7 +1,6 @@
 package controller;
 
-import dto.SessionUser4;
-import util.AppConstants4;
+import model.Member4;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -15,14 +14,37 @@ public class HomeServlet4 extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
+        javax.servlet.http.HttpSession entrySession = request.getSession(true);
+        Member4 entryUser = (Member4) entrySession.getAttribute("currentUser4");
+
+        if (entryUser == null) {
+            response.sendRedirect(request.getContextPath() + "/login");
+            return;
+        }
+
+        String csrfToken = (String) entrySession.getAttribute("csrfToken4");
+        if (csrfToken == null) {
+            byte[] tokenBytes = new byte[32];
+            new java.security.SecureRandom().nextBytes(tokenBytes);
+            csrfToken = java.util.Base64.getUrlEncoder().withoutPadding().encodeToString(tokenBytes);
+            entrySession.setAttribute("csrfToken4", csrfToken);
+        }
+        request.setAttribute("csrfToken", csrfToken);
+        request.setAttribute("currentUser", entryUser);
+        Object flashMessage = entrySession.getAttribute("flashMessage4");
+        entrySession.removeAttribute("flashMessage4");
+        if (flashMessage != null) request.setAttribute("flashMessage", flashMessage);
+
         showHome(request, response);
     }
 
     public void showHome(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    throws ServletException, IOException {
         HttpSession session = request.getSession(false);
-        SessionUser4 currentUser = session != null ? (SessionUser4) session.getAttribute(AppConstants4.SESSION_USER) : null;
+        Member4 currentUser = session != null ? (Member4) session.getAttribute("currentUser4") : null;
 
         if (currentUser == null) {
             response.sendRedirect(request.getContextPath() + "/login");
@@ -30,14 +52,14 @@ public class HomeServlet4 extends HttpServlet {
         }
 
         String role = currentUser.getRole();
-        if (AppConstants4.ROLE_CUSTOMER.equals(role)) {
+        if ("Customer".equals(role)) {
             request.getRequestDispatcher("/WEB-INF/view/customer/customerHome.jsp").forward(request, response);
-        } else if (AppConstants4.ROLE_WAREHOUSE_STAFF.equals(role)) {
-            request.getRequestDispatcher("/WEB-INF/view/warehouse/warehouseHome.jsp").forward(request, response);
+        } else if ("WarehouseStaff".equals(role)) {
+            request.getRequestDispatcher("/WEB-INF/view/warehouseStaff/warehouseHome.jsp").forward(request, response);
         } else {
             // Đối với Manager hoặc SalesStaff chưa có module chạy trong phạm vi đề 26
             request.setAttribute("thongBaoPhamVi", "Tài khoản hiện tại có vai trò '" + role +
-                    "'. Theo phạm vi đồ án Đề 26 (PTIT), hệ thống hiện chỉ hỗ trợ các nghiệp vụ cho Khách hàng (Tra cứu dịch vụ/phụ tùng) và Nhân viên kho (Nhập phụ tùng).");
+            "'. Theo phạm vi đồ án Đề 26 (PTIT), hệ thống hiện chỉ hỗ trợ các nghiệp vụ cho Khách hàng (Tra cứu dịch vụ/phụ tùng) và Nhân viên kho (Nhập phụ tùng).");
             request.getRequestDispatcher("/WEB-INF/view/common/error.jsp").forward(request, response);
         }
     }

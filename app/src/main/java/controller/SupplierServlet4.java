@@ -1,9 +1,9 @@
 package controller;
 
+import model.Member4;
+
 import dao.SupplierDAO4;
-import exception.ValidationException4;
 import model.Supplier4;
-import util.WebUtil4;
 
 import java.io.IOException;
 import java.net.URLEncoder;
@@ -29,7 +29,35 @@ public class SupplierServlet4 extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
+        javax.servlet.http.HttpSession entrySession = request.getSession(true);
+        Member4 entryUser = (Member4) entrySession.getAttribute("currentUser4");
+
+        if (entryUser == null) {
+            response.sendRedirect(request.getContextPath() + "/login");
+            return;
+        }
+
+        if (!"WarehouseStaff".equals(entryUser.getRole())) {
+            response.sendError(403, "Bạn không có quyền truy cập chức năng này");
+            return;
+        }
+
+        String csrfToken = (String) entrySession.getAttribute("csrfToken4");
+        if (csrfToken == null) {
+            byte[] tokenBytes = new byte[32];
+            new java.security.SecureRandom().nextBytes(tokenBytes);
+            csrfToken = java.util.Base64.getUrlEncoder().withoutPadding().encodeToString(tokenBytes);
+            entrySession.setAttribute("csrfToken4", csrfToken);
+        }
+        request.setAttribute("csrfToken", csrfToken);
+        request.setAttribute("currentUser", entryUser);
+        Object flashMessage = entrySession.getAttribute("flashMessage4");
+        entrySession.removeAttribute("flashMessage4");
+        if (flashMessage != null) request.setAttribute("flashMessage", flashMessage);
+
         String path = request.getServletPath();
         if ("/warehouse/suppliers/new".equals(path)) {
             showNewSupplier(request, response);
@@ -46,7 +74,43 @@ public class SupplierServlet4 extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
+        javax.servlet.http.HttpSession entrySession = request.getSession(true);
+        Member4 entryUser = (Member4) entrySession.getAttribute("currentUser4");
+
+        if (entryUser == null) {
+            response.sendRedirect(request.getContextPath() + "/login");
+            return;
+        }
+
+        if (!"WarehouseStaff".equals(entryUser.getRole())) {
+            response.sendError(403, "Bạn không có quyền truy cập chức năng này");
+            return;
+        }
+
+        String csrfToken = (String) entrySession.getAttribute("csrfToken4");
+        if (csrfToken == null) {
+            byte[] tokenBytes = new byte[32];
+            new java.security.SecureRandom().nextBytes(tokenBytes);
+            csrfToken = java.util.Base64.getUrlEncoder().withoutPadding().encodeToString(tokenBytes);
+            entrySession.setAttribute("csrfToken4", csrfToken);
+        }
+        request.setAttribute("csrfToken", csrfToken);
+        request.setAttribute("currentUser", entryUser);
+        Object flashMessage = entrySession.getAttribute("flashMessage4");
+        entrySession.removeAttribute("flashMessage4");
+        if (flashMessage != null) request.setAttribute("flashMessage", flashMessage);
+
+        String submittedToken = request.getParameter("csrfToken");
+        if (submittedToken == null || !java.security.MessageDigest.isEqual(
+        csrfToken.getBytes(java.nio.charset.StandardCharsets.UTF_8),
+        submittedToken.getBytes(java.nio.charset.StandardCharsets.UTF_8))) {
+            response.sendError(403, "CSRF token không hợp lệ hoặc đã hết hạn");
+            return;
+        }
+
         String path = request.getServletPath();
         if ("/warehouse/suppliers/create".equals(path)) {
             addSupplier(request, response);
@@ -56,16 +120,16 @@ public class SupplierServlet4 extends HttpServlet {
     }
 
     public void showSupplierSelection(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    throws ServletException, IOException {
         String selectedId = request.getParameter("selectedId");
         request.setAttribute("selectedId", selectedId);
         request.setAttribute("daTim", false);
         request.setAttribute("purchaseStep", 1);
-        request.getRequestDispatcher("/WEB-INF/view/warehouse/selectSupplier.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/view/warehouseStaff/selectSupplier.jsp").forward(request, response);
     }
 
     public void searchSuppliers(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    throws ServletException, IOException {
         String keyword = request.getParameter("keyword");
         String trimmed = keyword != null ? keyword.trim() : "";
         String selectedId = request.getParameter("selectedId");
@@ -77,26 +141,26 @@ public class SupplierServlet4 extends HttpServlet {
             request.setAttribute("suppliers", suppliers);
             request.setAttribute("daTim", true);
             request.setAttribute("purchaseStep", 1);
-            request.getRequestDispatcher("/WEB-INF/view/warehouse/selectSupplier.jsp").forward(request, response);
+            request.getRequestDispatcher("/WEB-INF/view/warehouseStaff/selectSupplier.jsp").forward(request, response);
         } catch (SQLException e) {
             request.setAttribute("errorMessage", "Lỗi truy vấn cơ sở dữ liệu khi tìm kiếm nhà cung cấp.");
             request.setAttribute("keyword", trimmed);
             request.setAttribute("daTim", true);
             request.setAttribute("purchaseStep", 1);
-            request.getRequestDispatcher("/WEB-INF/view/warehouse/selectSupplier.jsp").forward(request, response);
+            request.getRequestDispatcher("/WEB-INF/view/warehouseStaff/selectSupplier.jsp").forward(request, response);
         }
     }
 
     public void showNewSupplier(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    throws ServletException, IOException {
         String keyword = request.getParameter("keyword");
         request.setAttribute("keyword", keyword != null ? keyword.trim() : "");
         request.setAttribute("purchaseStep", 1);
-        request.getRequestDispatcher("/WEB-INF/view/warehouse/newSupplier.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/view/warehouseStaff/newSupplier.jsp").forward(request, response);
     }
 
     public void addSupplier(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    throws ServletException, IOException {
         String name = request.getParameter("name");
         String address = request.getParameter("address");
         String phoneNumber = request.getParameter("phoneNumber");
@@ -117,24 +181,31 @@ public class SupplierServlet4 extends HttpServlet {
 
         try {
             int newId = supplierDAO.addSupplier(supplier);
-            WebUtil4.setFlash(request, "Đã thêm nhà cung cấp mới thành công: " + supplier.getName());
+            request.getSession().setAttribute("flashMessage4", "Đã thêm nhà cung cấp mới thành công: " + supplier.getName());
 
             String encodedName = URLEncoder.encode(supplier.getName(), StandardCharsets.UTF_8);
             response.sendRedirect(request.getContextPath() + "/warehouse/suppliers?keyword=" + encodedName + "&selectedId=" + newId);
 
-        } catch (ValidationException4 ve) {
-            request.setAttribute("errorMessage", ve.getMessage());
-            if (ve.getField() != null) {
+        } catch (IllegalArgumentException ve) {
+            String validationMessage = ve.getMessage();
+            String validationField = null;
+            int separator = validationMessage == null ? -1 : validationMessage.indexOf(": ");
+            if (separator > 0) {
+                validationField = validationMessage.substring(0, separator);
+                validationMessage = validationMessage.substring(separator + 2);
+            }
+            request.setAttribute("errorMessage", validationMessage);
+            if (validationField != null) {
                 Map<String, String> fieldErrors = new HashMap<>();
-                fieldErrors.put(ve.getField(), ve.getMessage());
+                fieldErrors.put(validationField, validationMessage);
                 request.setAttribute("fieldErrors", fieldErrors);
             }
             request.setAttribute("purchaseStep", 1);
-            request.getRequestDispatcher("/WEB-INF/view/warehouse/newSupplier.jsp").forward(request, response);
+            request.getRequestDispatcher("/WEB-INF/view/warehouseStaff/newSupplier.jsp").forward(request, response);
         } catch (SQLException e) {
             request.setAttribute("errorMessage", "Lỗi CSDL khi lưu nhà cung cấp. Vui lòng kiểm tra lại thông tin.");
             request.setAttribute("purchaseStep", 1);
-            request.getRequestDispatcher("/WEB-INF/view/warehouse/newSupplier.jsp").forward(request, response);
+            request.getRequestDispatcher("/WEB-INF/view/warehouseStaff/newSupplier.jsp").forward(request, response);
         }
     }
 }

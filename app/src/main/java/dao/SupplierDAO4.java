@@ -1,9 +1,6 @@
 package dao;
 
-import exception.ValidationException4;
 import model.Supplier4;
-import util.AppConstants4;
-import util.Validation4;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -17,14 +14,11 @@ public class SupplierDAO4 extends DAO {
 
     public List<Supplier4> findSuppliersByName(String keyword) throws SQLException {
         List<Supplier4> list = new ArrayList<>();
-        String sql = "SELECT id, name, address, phoneNumber, email, status " +
-                     "FROM tblSupplier4 " +
-                     "WHERE status = ? AND name LIKE ? " +
-                     "ORDER BY name ASC";
+        String sql = "SELECT id, name, address, phoneNumber, email, status FROM tblSupplier4 WHERE status = ? AND name LIKE ? ORDER BY name ASC";
 
         try (Connection connection = getConnection();
-             PreparedStatement ps = connection.prepareStatement(sql)) {
-            ps.setString(1, AppConstants4.SUPPLIER_STATUS_ACTIVE);
+        PreparedStatement ps = connection.prepareStatement(sql)) {
+            ps.setString(1, "Đang hoạt động");
             ps.setString(2, createSearchPattern(keyword));
 
             try (ResultSet rs = ps.executeQuery()) {
@@ -41,14 +35,12 @@ public class SupplierDAO4 extends DAO {
             return null;
         }
 
-        String sql = "SELECT id, name, address, phoneNumber, email, status " +
-                     "FROM tblSupplier4 " +
-                     "WHERE id = ? AND status = ?";
+        String sql = "SELECT id, name, address, phoneNumber, email, status FROM tblSupplier4 WHERE id = ? AND status = ?";
 
         try (Connection connection = getConnection();
-             PreparedStatement ps = connection.prepareStatement(sql)) {
+        PreparedStatement ps = connection.prepareStatement(sql)) {
             ps.setInt(1, supplierId);
-            ps.setString(2, AppConstants4.SUPPLIER_STATUS_ACTIVE);
+            ps.setString(2, "Đang hoạt động");
 
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
@@ -59,14 +51,61 @@ public class SupplierDAO4 extends DAO {
         return null;
     }
 
-    public int addSupplier(Supplier4 supplier) throws SQLException, ValidationException4 {
-        Validation4.validateSupplier(supplier);
+    public int addSupplier(Supplier4 supplier) throws SQLException, IllegalArgumentException {
+        {
+            if (supplier == null) {
+                throw new IllegalArgumentException("supplier: Thông tin nhà cung cấp không được null");
+            }
+            {
+                if (supplier.getName() == null) {
+                    throw new IllegalArgumentException("name: Trường này là bắt buộc");
+                }
+                String trimmed = supplier.getName().trim();
+                if (trimmed.isEmpty()) {
+                    throw new IllegalArgumentException("name: Trường này không được để trống");
+                }
+                if (trimmed.length() > 255) {
+                    throw new IllegalArgumentException("name: Độ dài không được vượt quá " + 255 + " ký tự");
+                }
+            }
+            {
+                if (supplier.getAddress() == null) {
+                    throw new IllegalArgumentException("address: Trường này là bắt buộc");
+                }
+                String trimmed = supplier.getAddress().trim();
+                if (trimmed.isEmpty()) {
+                    throw new IllegalArgumentException("address: Trường này không được để trống");
+                }
+                if (trimmed.length() > 5000) {
+                    throw new IllegalArgumentException("address: Độ dài không được vượt quá " + 5000 + " ký tự");
+                }
+            }
+            {
+                if (supplier.getPhoneNumber() == null || supplier.getPhoneNumber().trim().isEmpty()) {
+                    throw new IllegalArgumentException("phoneNumber: Số điện thoại không được để trống");
+                }
+                String cleaned = supplier.getPhoneNumber().trim().replaceAll("[\\s-]", "");
+                if (!java.util.regex.Pattern.compile("^\\+?[0-9]{8,15}$").matcher(cleaned).matches()) {
+                    throw new IllegalArgumentException("phoneNumber: Số điện thoại phải từ 8 đến 15 chữ số, có thể bắt đầu bằng dấu +");
+                }
+            }
+            if (supplier.getEmail() != null) {
+                {
+                    if (supplier.getEmail() != null && !supplier.getEmail().trim().isEmpty()) {
 
-        String sql = "INSERT INTO tblSupplier4 (name, address, phoneNumber, email, status) " +
-                     "VALUES (?, ?, ?, ?, ?)";
+                        String trimmed = supplier.getEmail().trim();
+                        if (trimmed.length() > 255 || !java.util.regex.Pattern.compile("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$").matcher(trimmed).matches()) {
+                            throw new IllegalArgumentException("email: Địa chỉ email không đúng định dạng");
+                        }
+                    }
+                }
+            }
+        }
+
+        String sql = "INSERT INTO tblSupplier4 (name, address, phoneNumber, email, status) VALUES (?, ?, ?, ?, ?)";
 
         try (Connection connection = getConnection();
-             PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+        PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 
             ps.setString(1, supplier.getName().trim());
             ps.setString(2, supplier.getAddress().trim());
@@ -78,7 +117,7 @@ public class SupplierDAO4 extends DAO {
                 ps.setNull(4, java.sql.Types.VARCHAR);
             }
 
-            ps.setString(5, AppConstants4.SUPPLIER_STATUS_ACTIVE);
+            ps.setString(5, "Đang hoạt động");
 
             int affected = ps.executeUpdate();
             if (affected != 1) {

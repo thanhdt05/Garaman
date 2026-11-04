@@ -59,7 +59,7 @@
     </div>
   </div>
 
-  <%@ include file="/WEB-INF/view/warehouse/invoice-lines.jspf" %>
+  <%@ include file="/WEB-INF/view/warehouseStaff/invoice-lines.jspf" %>
 
   <div class="signatures">
     <div>

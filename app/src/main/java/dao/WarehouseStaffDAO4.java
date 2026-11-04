@@ -1,7 +1,6 @@
 package dao;
 
 import model.WarehouseStaff4;
-import util.AppConstants4;
 
 import java.sql.Connection;
 import java.sql.Date;
@@ -16,22 +15,14 @@ public class WarehouseStaffDAO4 extends DAO {
             return null;
         }
 
-        String sql = "SELECT m.id, m.fullName, m.username, m.password, m.dateOfBirth, m.address, " +
-                     "       m.email, m.phoneNumber, m.role, m.accountStatus, " +
-                     "       e.position, e.employmentStatus " +
-                     "FROM tblMember4 m " +
-                     "JOIN tblEmployee4 e ON m.id = e.tblMember4id " +
-                     "WHERE m.id = ? " +
-                     "  AND m.role = ? " +
-                     "  AND m.accountStatus = ? " +
-                     "  AND e.employmentStatus = ?";
+        String sql = "SELECT m.id, m.fullName, m.username, m.password, m.dateOfBirth, m.address,        m.email, m.phoneNumber, m.role, m.accountStatus,        e.position, e.employmentStatus FROM tblMember4 m JOIN tblEmployee4 e ON m.id = e.tblMember4id WHERE m.id = ?   AND m.role = ?   AND m.accountStatus = ?   AND e.employmentStatus = ?";
 
         try (Connection connection = getConnection();
-             PreparedStatement ps = connection.prepareStatement(sql)) {
+        PreparedStatement ps = connection.prepareStatement(sql)) {
             ps.setInt(1, warehouseStaffId);
-            ps.setString(2, AppConstants4.ROLE_WAREHOUSE_STAFF);
-            ps.setString(3, AppConstants4.ACCOUNT_STATUS_ACTIVE);
-            ps.setString(4, AppConstants4.EMPLOYMENT_STATUS_ACTIVE);
+            ps.setString(2, "WarehouseStaff");
+            ps.setString(3, "Hoạt động");
+            ps.setString(4, "Đang làm việc");
 
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
